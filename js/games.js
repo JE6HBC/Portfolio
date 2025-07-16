@@ -131,6 +131,7 @@ window.clearCircuit = function() {
 // Visual Effects Playground
 let effectsCanvas, effectsCtx;
 let currentEffect = 'none';
+let currentPattern = 'none';
 let effectIntensity = 50;
 let effectsAnimationId;
 
@@ -149,13 +150,18 @@ function drawEffects() {
     
     effectsCtx.clearRect(0, 0, effectsCanvas.width, effectsCanvas.height);
     
-    // Base pattern
-    const gradient = effectsCtx.createLinearGradient(0, 0, effectsCanvas.width, effectsCanvas.height);
-    gradient.addColorStop(0, '#1e40af');
-    gradient.addColorStop(0.5, '#7c3aed');
-    gradient.addColorStop(1, '#1e40af');
-    effectsCtx.fillStyle = gradient;
-    effectsCtx.fillRect(0, 0, effectsCanvas.width, effectsCanvas.height);
+    // Draw base pattern or test pattern
+    if (currentPattern === 'none') {
+        // Default gradient background
+        const gradient = effectsCtx.createLinearGradient(0, 0, effectsCanvas.width, effectsCanvas.height);
+        gradient.addColorStop(0, '#1e40af');
+        gradient.addColorStop(0.5, '#7c3aed');
+        gradient.addColorStop(1, '#1e40af');
+        effectsCtx.fillStyle = gradient;
+        effectsCtx.fillRect(0, 0, effectsCanvas.width, effectsCanvas.height);
+    } else {
+        drawTestPattern();
+    }
 
     // Apply effects
     const intensity = effectIntensity / 100;
@@ -177,6 +183,168 @@ function drawEffects() {
     
     effectsAnimationId = requestAnimationFrame(drawEffects);
 }
+
+function drawTestPattern() {
+    const time = Date.now() * 0.001;
+    
+    switch (currentPattern) {
+        case 'smpte':
+            drawSMPTEBars(time);
+            break;
+        case 'colorChart':
+            drawColorChart(time);
+            break;
+        case 'grid':
+            drawGridPattern(time);
+            break;
+    }
+}
+
+function drawSMPTEBars(time) {
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
+    
+    // Top section - Color bars
+    const barWidth = w / 7;
+    const colors = [
+        '#C0C0C0', // White
+        '#C0C000', // Yellow
+        '#00C0C0', // Cyan
+        '#00C000', // Green
+        '#C000C0', // Magenta
+        '#C00000', // Red
+        '#0000C0'  // Blue
+    ];
+    
+    for (let i = 0; i < 7; i++) {
+        effectsCtx.fillStyle = colors[i];
+        effectsCtx.fillRect(i * barWidth, 0, barWidth, h * 0.7);
+    }
+    
+    // Bottom section - Pluge and tone bars
+    const bottomY = h * 0.7;
+    const bottomHeight = h * 0.3;
+    
+    // Black level variations
+    const blackLevels = ['#000000', '#0A0A0A', '#141414', '#1E1E1E'];
+    const blackBarWidth = w / 4;
+    
+    for (let i = 0; i < 4; i++) {
+        effectsCtx.fillStyle = blackLevels[i];
+        effectsCtx.fillRect(i * blackBarWidth, bottomY, blackBarWidth, bottomHeight);
+    }
+    
+    // Moving indicator
+    const indicatorX = (Math.sin(time) + 1) / 2 * (w - 20) + 10;
+    effectsCtx.fillStyle = '#FF0000';
+    effectsCtx.fillRect(indicatorX, bottomY + bottomHeight - 10, 20, 10);
+}
+
+function drawColorChart(time) {
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
+    
+    // Macbeth ColorChecker inspired pattern
+    const colors = [
+        // Row 1
+        '#735244', '#C29682', '#627A9D', '#576C43', '#8580B1', '#67BDAA',
+        // Row 2
+        '#D67E2C', '#505BA6', '#C15A63', '#5E3C6C', '#9DD35F', '#EDB120',
+        // Row 3
+        '#8252A0', '#2D5016', '#A13E52', '#EDD51F', '#C44AA0', '#819FF7',
+        // Row 4 (Grayscale)
+        '#F3F3F2', '#C8C8C8', '#A0A0A0', '#7A7A79', '#555555', '#343434'
+    ];
+    
+    const cols = 6;
+    const rows = 4;
+    const patchW = w / cols;
+    const patchH = h / rows;
+    
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            const colorIndex = row * cols + col;
+            effectsCtx.fillStyle = colors[colorIndex];
+            
+            // Add subtle pulsing effect
+            const pulse = Math.sin(time + colorIndex * 0.5) * 0.1 + 1;
+            const x = col * patchW;
+            const y = row * patchH;
+            
+            effectsCtx.save();
+            effectsCtx.translate(x + patchW/2, y + patchH/2);
+            effectsCtx.scale(pulse, pulse);
+            effectsCtx.fillRect(-patchW/2, -patchH/2, patchW, patchH);
+            effectsCtx.restore();
+            
+            // Add border
+            effectsCtx.strokeStyle = '#FFFFFF';
+            effectsCtx.lineWidth = 1;
+            effectsCtx.strokeRect(x, y, patchW, patchH);
+        }
+    }
+}
+
+function drawGridPattern(time) {
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
+    
+    // Background
+    effectsCtx.fillStyle = '#000000';
+    effectsCtx.fillRect(0, 0, w, h);
+    
+    // Grid lines
+    effectsCtx.strokeStyle = '#FFFFFF';
+    effectsCtx.lineWidth = 1;
+    
+    const gridSize = 20;
+    const offset = (time * 10) % gridSize;
+    
+    // Vertical lines
+    for (let x = -offset; x < w + gridSize; x += gridSize) {
+        effectsCtx.beginPath();
+        effectsCtx.moveTo(x, 0);
+        effectsCtx.lineTo(x, h);
+        effectsCtx.stroke();
+    }
+    
+    // Horizontal lines
+    for (let y = -offset; y < h + gridSize; y += gridSize) {
+        effectsCtx.beginPath();
+        effectsCtx.moveTo(0, y);
+        effectsCtx.lineTo(w, y);
+        effectsCtx.stroke();
+    }
+    
+    // Center crosshair
+    effectsCtx.strokeStyle = '#FF0000';
+    effectsCtx.lineWidth = 2;
+    effectsCtx.beginPath();
+    effectsCtx.moveTo(w/2 - 20, h/2);
+    effectsCtx.lineTo(w/2 + 20, h/2);
+    effectsCtx.moveTo(w/2, h/2 - 20);
+    effectsCtx.lineTo(w/2, h/2 + 20);
+    effectsCtx.stroke();
+    
+    // Corner markers
+    const markerSize = 10;
+    effectsCtx.strokeStyle = '#00FF00';
+    effectsCtx.lineWidth = 2;
+    
+    // Top-left
+    effectsCtx.strokeRect(markerSize, markerSize, markerSize, markerSize);
+    // Top-right
+    effectsCtx.strokeRect(w - markerSize * 2, markerSize, markerSize, markerSize);
+    // Bottom-left
+    effectsCtx.strokeRect(markerSize, h - markerSize * 2, markerSize, markerSize);
+    // Bottom-right
+    effectsCtx.strokeRect(w - markerSize * 2, h - markerSize * 2, markerSize, markerSize);
+}
+
+window.showTestPattern = function(pattern) {
+    currentPattern = pattern;
+    currentEffect = 'none'; // Reset effects when showing test patterns
+};
 
 function applyGlitchEffect(intensity) {
     const imageData = effectsCtx.getImageData(0, 0, effectsCanvas.width, effectsCanvas.height);

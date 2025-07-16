@@ -215,61 +215,69 @@ document.addEventListener('DOMContentLoaded', function() {
 let isFullscreen = false;
 
 window.toggleFullscreen = function() {
-    const container = document.getElementById('effectsContainer');
-    const button = document.getElementById('fullscreenBtn');
     const canvas = document.getElementById('effectsCanvas');
+    const button = document.getElementById('fullscreenBtn');
     
-    if (!container || !button || !canvas) return;
+    if (!canvas || !button) return;
     
-    isFullscreen = !isFullscreen;
-    
-    if (isFullscreen) {
-        container.classList.add('fullscreen');
-        button.innerHTML = '<i class="fas fa-compress mr-1"></i>終了';
-        
-        // Resize canvas for fullscreen
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        // Add escape key listener
-        document.addEventListener('keydown', handleEscapeKey);
-        
-        // Prevent body scroll
-        document.body.style.overflow = 'hidden';
+    if (!document.fullscreenElement) {
+        // Enter fullscreen
+        if (canvas.requestFullscreen) {
+            canvas.requestFullscreen();
+        } else if (canvas.webkitRequestFullscreen) {
+            canvas.webkitRequestFullscreen();
+        } else if (canvas.msRequestFullscreen) {
+            canvas.msRequestFullscreen();
+        }
     } else {
-        container.classList.remove('fullscreen');
-        button.innerHTML = '<i class="fas fa-expand mr-1"></i>フルスクリーン';
-        
-        // Resize canvas back to normal
-        setTimeout(() => {
-            canvas.width = container.offsetWidth;
-            canvas.height = container.offsetHeight;
-        }, 300);
-        
-        // Remove escape key listener
-        document.removeEventListener('keydown', handleEscapeKey);
-        
-        // Restore body scroll
-        document.body.style.overflow = '';
+        // Exit fullscreen
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
     }
 };
 
-function handleEscapeKey(event) {
-    if (event.key === 'Escape' && isFullscreen) {
-        toggleFullscreen();
+// Handle fullscreen change events
+document.addEventListener('fullscreenchange', handleFullscreenChange);
+document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+document.addEventListener('msfullscreenchange', handleFullscreenChange);
+
+function handleFullscreenChange() {
+    const button = document.getElementById('fullscreenBtn');
+    const canvas = document.getElementById('effectsCanvas');
+    
+    if (!button || !canvas) return;
+    
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+        // Entered fullscreen
+        button.innerHTML = '<i class="fas fa-compress mr-1"></i>終了';
+        isFullscreen = true;
+        
+        // Resize canvas for fullscreen
+        setTimeout(() => {
+            canvas.width = screen.width;
+            canvas.height = screen.height;
+        }, 100);
+    } else {
+        // Exited fullscreen
+        button.innerHTML = '<i class="fas fa-expand mr-1"></i>フルスクリーン';
+        isFullscreen = false;
+        
+        // Resize canvas back to normal
+        setTimeout(() => {
+            const container = document.getElementById('effectsContainer');
+            if (container) {
+                canvas.width = container.offsetWidth;
+                canvas.height = container.offsetHeight;
+            }
+        }, 100);
     }
 }
 
-// Handle window resize for fullscreen mode
-window.addEventListener('resize', function() {
-    if (isFullscreen) {
-        const canvas = document.getElementById('effectsCanvas');
-        if (canvas) {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-    }
-});
 
 // Export for use in other modules
 window.ParticleSystem = ParticleSystem;
