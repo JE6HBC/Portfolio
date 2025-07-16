@@ -12,8 +12,8 @@
     <style>
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: #111827; /* ダークグレー */
-            color: #E5E7EB; /* 明るいグレー */
+            background-color: #111827;
+            color: #E5E7EB;
         }
         h1, h2, h3, h4, .font-roboto {
             font-family: 'Roboto', sans-serif;
@@ -27,6 +27,11 @@
             padding: 6rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
+            min-height: 56.25vw; /* 16:9 aspect ratio */
+            max-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
@@ -40,7 +45,6 @@
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        /* スクロールアニメーション */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -50,7 +54,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* タイムライン */
         .timeline-item {
             position: relative;
             padding-left: 2.5rem;
@@ -80,6 +83,158 @@
             margin-right: 0.5rem;
             margin-top: 0.5rem;
         }
+
+        /* ゲーム関連スタイル */
+        .game-container {
+            position: relative;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 2px solid #334155;
+        }
+        
+        .circuit-board {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 20% 50%, #38bdf8 2px, transparent 2px),
+                radial-gradient(circle at 40% 20%, #a78bfa 1px, transparent 1px),
+                radial-gradient(circle at 80% 80%, #38bdf8 1px, transparent 1px),
+                linear-gradient(90deg, transparent 49%, #334155 50%, transparent 51%),
+                linear-gradient(0deg, transparent 49%, #334155 50%, transparent 51%);
+            background-size: 50px 50px, 30px 30px, 40px 40px, 20px 20px, 20px 20px;
+        }
+
+        .signal-wave {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+            animation: wave 2s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            color: #38bdf8;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            animation: matrix-fall linear infinite;
+        }
+
+        @keyframes matrix-fall {
+            to { transform: translateY(100vh); }
+        }
+
+        .interactive-button {
+            background: linear-gradient(45deg, #1e40af, #7c3aed);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+        }
+
+        .interactive-button:active {
+            transform: scale(0.95);
+        }
+
+        .pulse-ring {
+            position: absolute;
+            border: 2px solid #38bdf8;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2.4);
+                opacity: 0;
+            }
+        }
+
+        .floating-particles {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #38bdf8;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .video-frame {
+            border: 3px solid #374151;
+            border-radius: 8px;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981, #3b82f6);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -94,6 +249,7 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">ABOUT</a>
+                        <a href="#interactive" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">INTERACTIVE</a>
                         <a href="#works" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">WORKS</a>
                         <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">SKILLS</a>
                         <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">CONTACT</a>
@@ -105,19 +261,26 @@
 
     <main>
         <!-- ヒーローセクション -->
-        <section class="h-screen flex items-center justify-center text-center bg-grid-gray-700/[0.2]">
-            <div class="px-4">
+        <section class="h-screen flex items-center justify-center text-center bg-grid-gray-700/[0.2] relative">
+            <div class="matrix-rain" id="matrixRain"></div>
+            <div class="px-4 relative z-10">
                 <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter">
-                    <span class="gradient-text">Bridging</span> <span class="text-white">Worlds</span>
+                    <span class="gradient-text glitch">Bridging</span> <span class="text-white">Worlds</span>
                 </h1>
                 <p class="mt-4 text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto">
                     技術とクリエイティブの境界を溶かし、アイデアを現実に。
                     <br>エンジニアリングとアートを越境し、前例のないプロジェクトを実現する。
                 </p>
-                <a href="#about" class="mt-8 inline-block bg-sky-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-sky-600 transition-transform transform hover:scale-105">
-                    Explore My Work
-                </a>
+                <div class="mt-8 relative inline-block">
+                    <div class="pulse-ring"></div>
+                    <a href="#interactive" class="interactive-button">
+                        <i class="fas fa-play mr-2"></i>Experience Interactive Demo
+                    </a>
+                </div>
             </div>
+            <div class="floating-particles" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+            <div class="floating-particles" style="top: 60%; right: 15%; animation-delay: 2s;"></div>
+            <div class="floating-particles" style="top: 80%; left: 70%; animation-delay: 4s;"></div>
         </section>
 
         <!-- Aboutセクション -->
@@ -141,8 +304,77 @@
             </div>
         </section>
 
+        <!-- インタラクティブセクション -->
+        <section id="interactive" class="section bg-gray-900">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl font-bold text-white">INTERACTIVE EXPERIENCE</h2>
+                <p class="text-sky-400 font-roboto">映像技術 × エンジニアリング体験</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <!-- シグナル処理ゲーム -->
+                <div class="game-container p-6 fade-in">
+                    <div class="circuit-board"></div>
+                    <h3 class="text-xl font-bold text-white mb-4 relative z-10">
+                        <i class="fas fa-wave-square mr-2 text-sky-400"></i>Signal Processing Lab
+                    </h3>
+                    <div class="video-frame h-32 mb-4 relative">
+                        <canvas id="signalCanvas" class="w-full h-full"></canvas>
+                        <div class="signal-wave" style="top: 50%;"></div>
+                    </div>
+                    <div class="flex gap-2 mb-2">
+                        <button class="interactive-button text-sm" onclick="changeWaveform('sine')">Sine</button>
+                        <button class="interactive-button text-sm" onclick="changeWaveform('square')">Square</button>
+                        <button class="interactive-button text-sm" onclick="changeWaveform('sawtooth')">Sawtooth</button>
+                    </div>
+                    <p class="text-gray-400 text-sm">放送技術で使用する信号波形をリアルタイム生成</p>
+                </div>
+
+                <!-- 回路設計シミュレーター -->
+                <div class="game-container p-6 fade-in" style="transition-delay: 200ms;">
+                    <div class="circuit-board"></div>
+                    <h3 class="text-xl font-bold text-white mb-4 relative z-10">
+                        <i class="fas fa-microchip mr-2 text-sky-400"></i>Circuit Designer
+                    </h3>
+                    <div class="video-frame h-32 mb-4 relative">
+                        <canvas id="circuitCanvas" class="w-full h-full"></canvas>
+                    </div>
+                    <div class="flex gap-2 mb-2">
+                        <button class="interactive-button text-sm" onclick="addComponent('resistor')">抵抗</button>
+                        <button class="interactive-button text-sm" onclick="addComponent('capacitor')">コンデンサ</button>
+                        <button class="interactive-button text-sm" onclick="clearCircuit()">クリア</button>
+                    </div>
+                    <p class="text-gray-400 text-sm">ハードウェア設計の基礎回路をインタラクティブに構築</p>
+                </div>
+            </div>
+
+            <!-- 映像エフェクトプレイグラウンド -->
+            <div class="game-container p-6 fade-in" style="transition-delay: 400ms;">
+                <div class="circuit-board"></div>
+                <h3 class="text-xl font-bold text-white mb-4 relative z-10">
+                    <i class="fas fa-video mr-2 text-sky-400"></i>Visual Effects Playground
+                </h3>
+                <div class="video-frame h-48 mb-4 relative">
+                    <canvas id="effectsCanvas" class="w-full h-full"></canvas>
+                </div>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <button class="interactive-button text-sm" onclick="applyEffect('glitch')">Glitch</button>
+                    <button class="interactive-button text-sm" onclick="applyEffect('chromatic')">Chromatic</button>
+                    <button class="interactive-button text-sm" onclick="applyEffect('noise')">Noise</button>
+                    <button class="interactive-button text-sm" onclick="applyEffect('scan')">Scan Lines</button>
+                    <button class="interactive-button text-sm" onclick="resetEffects()">Reset</button>
+                </div>
+                <div class="flex items-center gap-4">
+                    <label class="text-gray-400 text-sm">Intensity:</label>
+                    <input type="range" id="effectIntensity" min="0" max="100" value="50" class="flex-1" onchange="updateEffectIntensity(this.value)">
+                    <span id="intensityValue" class="text-sky-400 text-sm">50%</span>
+                </div>
+                <p class="text-gray-400 text-sm mt-2">映像制作で使用するリアルタイムエフェクトを体験</p>
+            </div>
+        </section>
+
         <!-- Value Propositionセクション -->
-        <section class="section bg-gray-900">
+        <section class="section">
              <div class="text-center mb-12 fade-in">
                 <h2 class="text-4xl font-bold text-white">OUR VALUE</h2>
                 <p class="text-sky-400 font-roboto">ワンストップで実現する実装力</p>
@@ -167,7 +399,7 @@
         </section>
 
         <!-- Works/実績セクション -->
-        <section id="works" class="section">
+        <section id="works" class="section bg-gray-900">
             <div class="text-center mb-16 fade-in">
                 <h2 class="text-4xl font-bold text-white">SELECTED WORKS</h2>
                 <p class="text-sky-400 font-roboto">主要プロジェクトタイムライン</p>
@@ -212,7 +444,7 @@
         </section>
 
         <!-- スキルセクション -->
-        <section id="skills" class="section bg-gray-900">
+        <section id="skills" class="section">
             <div class="text-center mb-12 fade-in">
                 <h2 class="text-4xl font-bold text-white">CORE SKILLS</h2>
                 <p class="text-sky-400 font-roboto">専門領域と技術スタック</p>
@@ -258,7 +490,7 @@
         </section>
         
         <!-- Contactセクション -->
-        <section id="contact" class="section">
+        <section id="contact" class="section bg-gray-900">
             <div class="text-center max-w-2xl mx-auto fade-in">
                 <h2 class="text-4xl font-bold text-white">GET IN TOUCH</h2>
                 <p class="text-sky-400 font-roboto mb-8">新しい挑戦を、共に。</p>
@@ -281,9 +513,277 @@
     </footer>
 
     <script>
-        // スクロールに応じたフェードインアニメーション
-        const faders = document.querySelectorAll('.fade-in');
+        // Matrix Rain Effect
+        function createMatrixRain() {
+            const container = document.getElementById('matrixRain');
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            for (let i = 0; i < 50; i++) {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = Math.random() * 100 + '%';
+                column.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                column.style.animationDelay = Math.random() * 2 + 's';
+                
+                let text = '';
+                for (let j = 0; j < 20; j++) {
+                    text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+                }
+                column.innerHTML = text;
+                container.appendChild(column);
+            }
+        }
 
+        // Signal Processing Game
+        let currentWaveform = 'sine';
+        let signalCanvas, signalCtx;
+        let animationId;
+
+        function initSignalCanvas() {
+            signalCanvas = document.getElementById('signalCanvas');
+            signalCtx = signalCanvas.getContext('2d');
+            signalCanvas.width = signalCanvas.offsetWidth;
+            signalCanvas.height = signalCanvas.offsetHeight;
+            drawSignal();
+        }
+
+        function drawSignal() {
+            signalCtx.clearRect(0, 0, signalCanvas.width, signalCanvas.height);
+            signalCtx.strokeStyle = '#38bdf8';
+            signalCtx.lineWidth = 2;
+            signalCtx.beginPath();
+
+            const amplitude = signalCanvas.height / 4;
+            const frequency = 0.02;
+            const offset = signalCanvas.height / 2;
+            const time = Date.now() * 0.001;
+
+            for (let x = 0; x < signalCanvas.width; x++) {
+                let y;
+                switch (currentWaveform) {
+                    case 'sine':
+                        y = Math.sin((x + time * 50) * frequency) * amplitude + offset;
+                        break;
+                    case 'square':
+                        y = (Math.sin((x + time * 50) * frequency) > 0 ? 1 : -1) * amplitude + offset;
+                        break;
+                    case 'sawtooth':
+                        y = (((x + time * 50) * frequency) % (2 * Math.PI) - Math.PI) / Math.PI * amplitude + offset;
+                        break;
+                }
+                
+                if (x === 0) signalCtx.moveTo(x, y);
+                else signalCtx.lineTo(x, y);
+            }
+            
+            signalCtx.stroke();
+            animationId = requestAnimationFrame(drawSignal);
+        }
+
+        function changeWaveform(type) {
+            currentWaveform = type;
+        }
+
+        // Circuit Designer Game
+        let circuitCanvas, circuitCtx;
+        let components = [];
+
+        function initCircuitCanvas() {
+            circuitCanvas = document.getElementById('circuitCanvas');
+            circuitCtx = circuitCanvas.getContext('2d');
+            circuitCanvas.width = circuitCanvas.offsetWidth;
+            circuitCanvas.height = circuitCanvas.offsetHeight;
+            drawCircuit();
+        }
+
+        function drawCircuit() {
+            circuitCtx.clearRect(0, 0, circuitCanvas.width, circuitCanvas.height);
+            
+            // Draw grid
+            circuitCtx.strokeStyle = '#334155';
+            circuitCtx.lineWidth = 1;
+            for (let x = 0; x < circuitCanvas.width; x += 20) {
+                circuitCtx.beginPath();
+                circuitCtx.moveTo(x, 0);
+                circuitCtx.lineTo(x, circuitCanvas.height);
+                circuitCtx.stroke();
+            }
+            for (let y = 0; y < circuitCanvas.height; y += 20) {
+                circuitCtx.beginPath();
+                circuitCtx.moveTo(0, y);
+                circuitCtx.lineTo(circuitCanvas.width, y);
+                circuitCtx.stroke();
+            }
+
+            // Draw components
+            components.forEach(component => {
+                circuitCtx.strokeStyle = '#38bdf8';
+                circuitCtx.lineWidth = 3;
+                circuitCtx.beginPath();
+                
+                if (component.type === 'resistor') {
+                    // Draw resistor zigzag
+                    circuitCtx.moveTo(component.x, component.y);
+                    for (let i = 0; i < 6; i++) {
+                        circuitCtx.lineTo(component.x + i * 8, component.y + (i % 2 ? -10 : 10));
+                    }
+                } else if (component.type === 'capacitor') {
+                    // Draw capacitor plates
+                    circuitCtx.moveTo(component.x, component.y - 15);
+                    circuitCtx.lineTo(component.x, component.y + 15);
+                    circuitCtx.moveTo(component.x + 10, component.y - 15);
+                    circuitCtx.lineTo(component.x + 10, component.y + 15);
+                }
+                
+                circuitCtx.stroke();
+            });
+        }
+
+        function addComponent(type) {
+            const x = Math.random() * (circuitCanvas.width - 50) + 25;
+            const y = Math.random() * (circuitCanvas.height - 30) + 15;
+            components.push({ type, x, y });
+            drawCircuit();
+        }
+
+        function clearCircuit() {
+            components = [];
+            drawCircuit();
+        }
+
+        // Visual Effects Playground
+        let effectsCanvas, effectsCtx;
+        let currentEffect = 'none';
+        let effectIntensity = 50;
+
+        function initEffectsCanvas() {
+            effectsCanvas = document.getElementById('effectsCanvas');
+            effectsCtx = effectsCanvas.getContext('2d');
+            effectsCanvas.width = effectsCanvas.offsetWidth;
+            effectsCanvas.height = effectsCanvas.offsetHeight;
+            drawEffects();
+        }
+
+        function drawEffects() {
+            effectsCtx.clearRect(0, 0, effectsCanvas.width, effectsCanvas.height);
+            
+            // Base pattern
+            const gradient = effectsCtx.createLinearGradient(0, 0, effectsCanvas.width, effectsCanvas.height);
+            gradient.addColorStop(0, '#1e40af');
+            gradient.addColorStop(0.5, '#7c3aed');
+            gradient.addColorStop(1, '#1e40af');
+            effectsCtx.fillStyle = gradient;
+            effectsCtx.fillRect(0, 0, effectsCanvas.width, effectsCanvas.height);
+
+            // Apply effects
+            const intensity = effectIntensity / 100;
+            
+            switch (currentEffect) {
+                case 'glitch':
+                    applyGlitchEffect(intensity);
+                    break;
+                case 'chromatic':
+                    applyChromaticEffect(intensity);
+                    break;
+                case 'noise':
+                    applyNoiseEffect(intensity);
+                    break;
+                case 'scan':
+                    applyScanLinesEffect(intensity);
+                    break;
+            }
+            
+            requestAnimationFrame(drawEffects);
+        }
+
+        function applyGlitchEffect(intensity) {
+            const imageData = effectsCtx.getImageData(0, 0, effectsCanvas.width, effectsCanvas.height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                if (Math.random() < intensity * 0.1) {
+                    data[i] = Math.random() * 255;     // Red
+                    data[i + 1] = Math.random() * 255; // Green
+                    data[i + 2] = Math.random() * 255; // Blue
+                }
+            }
+            
+            effectsCtx.putImageData(imageData, 0, 0);
+        }
+
+        function applyChromaticEffect(intensity) {
+            effectsCtx.globalCompositeOperation = 'screen';
+            effectsCtx.fillStyle = `rgba(255, 0, 0, ${intensity * 0.3})`;
+            effectsCtx.fillRect(2, 0, effectsCanvas.width, effectsCanvas.height);
+            effectsCtx.fillStyle = `rgba(0, 255, 0, ${intensity * 0.3})`;
+            effectsCtx.fillRect(-2, 0, effectsCanvas.width, effectsCanvas.height);
+            effectsCtx.globalCompositeOperation = 'source-over';
+        }
+
+        function applyNoiseEffect(intensity) {
+            const imageData = effectsCtx.getImageData(0, 0, effectsCanvas.width, effectsCanvas.height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                const noise = (Math.random() - 0.5) * intensity * 100;
+                data[i] += noise;     // Red
+                data[i + 1] += noise; // Green
+                data[i + 2] += noise; // Blue
+            }
+            
+            effectsCtx.putImageData(imageData, 0, 0);
+        }
+
+        function applyScanLinesEffect(intensity) {
+            effectsCtx.strokeStyle = `rgba(0, 0, 0, ${intensity * 0.5})`;
+            effectsCtx.lineWidth = 1;
+            for (let y = 0; y < effectsCanvas.height; y += 4) {
+                effectsCtx.beginPath();
+                effectsCtx.moveTo(0, y);
+                effectsCtx.lineTo(effectsCanvas.width, y);
+                effectsCtx.stroke();
+            }
+        }
+
+        function applyEffect(effect) {
+            currentEffect = effect;
+        }
+
+        function resetEffects() {
+            currentEffect = 'none';
+        }
+
+        function updateEffectIntensity(value) {
+            effectIntensity = value;
+            document.getElementById('intensityValue').textContent = value + '%';
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            createMatrixRain();
+            
+            // Initialize canvases when they become visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.id === 'signalCanvas') {
+                            initSignalCanvas();
+                        } else if (entry.target.id === 'circuitCanvas') {
+                            initCircuitCanvas();
+                        } else if (entry.target.id === 'effectsCanvas') {
+                            initEffectsCanvas();
+                        }
+                    }
+                });
+            });
+
+            observer.observe(document.getElementById('signalCanvas'));
+            observer.observe(document.getElementById('circuitCanvas'));
+            observer.observe(document.getElementById('effectsCanvas'));
+        });
+
+        // Existing scroll animations
+        const faders = document.querySelectorAll('.fade-in');
         const appearOptions = {
             threshold: 0.2,
             rootMargin: "0px 0px -50px 0px"
@@ -304,7 +804,7 @@
             appearOnScroll.observe(fader);
         });
 
-        // スムーススクロール
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
