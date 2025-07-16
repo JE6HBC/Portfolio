@@ -136,6 +136,9 @@ let analysisScale = 100;
 let showGrid = true;
 let effectsAnimationId;
 let testImageData = null;
+let currentPattern = 'smpte';
+let currentEffect = 'none';
+let effectIntensity = 50;
 
 window.initEffectsCanvas = function() {
     effectsCanvas = document.getElementById('effectsCanvas');
@@ -587,6 +590,23 @@ window.updateAnalysisScale = function(value) {
 window.toggleGrid = function() {
     showGrid = !showGrid;
 };
+
+function drawTestPatternGrid() {
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
+    const gridSize = 20;
+    const offset = (Date.now() * 0.01) % gridSize;
+    
+    effectsCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    effectsCtx.lineWidth = 1;
+    
+    // Vertical lines
+    for (let x = -offset; x < w + gridSize; x += gridSize) {
+        effectsCtx.beginPath();
+        effectsCtx.moveTo(x, 0);
+        effectsCtx.lineTo(x, h);
+        effectsCtx.stroke();
+    }
     
     // Horizontal lines
     for (let y = -offset; y < h + gridSize; y += gridSize) {
@@ -689,4 +709,4 @@ window.updateEffectIntensity = function(value) {
     if (intensityDisplay) {
         intensityDisplay.textContent = value + '%';
     }
-}
+};
