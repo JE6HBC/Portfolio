@@ -130,10 +130,12 @@ window.clearCircuit = function() {
 
 // Visual Effects Playground
 let effectsCanvas, effectsCtx;
-let currentEffect = 'none';
-let currentPattern = 'none';
-let effectIntensity = 50;
+let currentAnalysisMode = 'waveform';
+let currentTestImage = 'smpte';
+let analysisScale = 100;
+let showGrid = true;
 let effectsAnimationId;
+let testImageData = null;
 
 window.initEffectsCanvas = function() {
     effectsCanvas = document.getElementById('effectsCanvas');
@@ -142,65 +144,328 @@ window.initEffectsCanvas = function() {
     effectsCtx = effectsCanvas.getContext('2d');
     effectsCanvas.width = effectsCanvas.offsetWidth;
     effectsCanvas.height = effectsCanvas.offsetHeight;
-    drawEffects();
+    generateTestImage();
+    drawVideoAnalysis();
 };
 
-function drawEffects() {
+function generateTestImage() {
     if (!effectsCtx) return;
     
-    effectsCtx.clearRect(0, 0, effectsCanvas.width, effectsCanvas.height);
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
     
-    // Draw base pattern or test pattern
-    if (currentPattern === 'none') {
-        // Default gradient background
-        const gradient = effectsCtx.createLinearGradient(0, 0, effectsCanvas.width, effectsCanvas.height);
-        gradient.addColorStop(0, '#1e40af');
-        gradient.addColorStop(0.5, '#7c3aed');
-        gradient.addColorStop(1, '#1e40af');
-        effectsCtx.fillStyle = gradient;
-        effectsCtx.fillRect(0, 0, effectsCanvas.width, effectsCanvas.height);
-    } else {
-        drawTestPattern();
-    }
-
-    // Apply effects
-    const intensity = effectIntensity / 100;
+    // Create test image based on current selection
+    effectsCtx.clearRect(0, 0, w, h);
     
-    switch (currentEffect) {
-        case 'glitch':
-            applyGlitchEffect(intensity);
-            break;
-        case 'chromatic':
-            applyChromaticEffect(intensity);
-            break;
-        case 'noise':
-            applyNoiseEffect(intensity);
-            break;
-        case 'scan':
-            applyScanLinesEffect(intensity);
-            break;
-    }
-    
-    effectsAnimationId = requestAnimationFrame(drawEffects);
-}
-
-function drawTestPattern() {
-    const time = Date.now() * 0.001;
-    
-    switch (currentPattern) {
+    switch (currentTestImage) {
         case 'smpte':
-            drawSMPTEBars(time);
+            drawSMPTEBars();
             break;
         case 'colorChart':
-            drawColorChart(time);
+            drawColorChart();
             break;
-        case 'grid':
-            drawGridPattern(time);
+        case 'gradient':
+            drawGradientTest();
             break;
+    }
+    
+    // Store image data for analysis
+    testImageData = effectsCtx.getImageData(0, 0, w, h);
+}
+
+function drawVideoAnalysis() {
+    if (!effectsCtx) return;
+    
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
+    
+    effectsCtx.clearRect(0, 0, w, h);
+    
+    // Draw test image first
+    generateTestImage();
+    
+    // Draw analysis overlay
+    switch (currentAnalysisMode) {
+        case 'waveform':
+            drawWaveform();
+            break;
+        case 'vectorscope':
+            drawVectorscope();
+            break;
+        case 'histogram':
+            drawHistogram();
+            break;
+        case 'parade':
+            drawRGBParade();
+            break;
+    }
+
+    if (showGrid) {
+        drawAnalysisGrid();
+    }
+    
+    effectsAnimationId = requestAnimationFrame(drawVideoAnalysis);
+}
+
+function drawWaveform() {
+    if (!testImageData) return;
+    
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
+    const data = testImageData.data;
+    
+    // Create waveform display
+    effectsCtx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+    effectsCtx.fillRect(0, h * 0.7, w, h * 0.3);
+    
+    effectsCtx.strokeStyle = '#00ff00';
+    effectsCtx.lineWidth = 1;
+    effectsCtx.beginPath();
+    
+    const waveformHeight = h * 0.3;
+    const waveformY = h * 0.7;
+    
+    for (let x = 0; x < w; x++) {
+        let totalLuma = 0;
+        let pixelCount = 0;
+        
+        // Sample vertical line of pixels
+        for (let y = 0; y < h * 0.7; y++) {
+            const pixelIndex = (y * w + x) * 4;
+            const r = data[pixelIndex];
+            const g = data[pixelIndex + 1];
+            const b = data[pixelIndex + 2];
+            
+            // Calculate luminance (ITU-R BT.709)
+            const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+            totalLuma += luma;
+            pixelCount++;
+        }
+        
+        const avgLuma = totalLuma / pixelCount;
+        const waveformValue = waveformY + waveformHeight - (avgLuma / 255) * waveformHeight;
+        
+        if (x === 0) {
+            effectsCtx.moveTo(x, waveformValue);
+        } else {
+            effectsCtx.lineTo(x, waveformValue);
+        }
+    }
+    
+    effectsCtx.stroke();
+    
+    // Draw reference lines
+    effectsCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    effectsCtx.lineWidth = 1;
+    
+    // 100% white line
+    effectsCtx.beginPath();
+    effectsCtx.moveTo(0, waveformY);
+    effectsCtx.lineTo(w, waveformY);
+    effectsCtx.stroke();
+    
+    // 0% black line
+    effectsCtx.beginPath();
+    effectsCtx.moveTo(0, waveformY + waveformHeight);
+    effectsCtx.lineTo(w, waveformY + waveformHeight);
+    effectsCtx.stroke();
+}
+
+function drawVectorscope() {
+    if (!testImageData) return;
+    
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
+    const data = testImageData.data;
+    
+    // Draw vectorscope background
+    const centerX = w * 0.8;
+    const centerY = h * 0.8;
+    const radius = Math.min(w, h) * 0.15;
+    
+    effectsCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    effectsCtx.beginPath();
+    effectsCtx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    effectsCtx.fill();
+    
+    // Draw vectorscope grid
+    effectsCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    effectsCtx.lineWidth = 1;
+    
+    // Concentric circles
+    for (let r = radius * 0.25; r <= radius; r += radius * 0.25) {
+        effectsCtx.beginPath();
+        effectsCtx.arc(centerX, centerY, r, 0, Math.PI * 2);
+        effectsCtx.stroke();
+    }
+    
+    // Cross lines
+    effectsCtx.beginPath();
+    effectsCtx.moveTo(centerX - radius, centerY);
+    effectsCtx.lineTo(centerX + radius, centerY);
+    effectsCtx.moveTo(centerX, centerY - radius);
+    effectsCtx.lineTo(centerX, centerY + radius);
+    effectsCtx.stroke();
+    
+    // Sample pixels and plot on vectorscope
+    effectsCtx.fillStyle = 'rgba(0, 255, 0, 0.1)';
+    
+    for (let i = 0; i < data.length; i += 16) { // Sample every 4th pixel
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        
+        // Convert RGB to U/V (chroma components)
+        const u = -0.147 * r - 0.289 * g + 0.436 * b;
+        const v = 0.615 * r - 0.515 * g - 0.100 * b;
+        
+        const x = centerX + (u / 128) * radius * 0.8;
+        const y = centerY - (v / 128) * radius * 0.8;
+        
+        effectsCtx.beginPath();
+        effectsCtx.arc(x, y, 1, 0, Math.PI * 2);
+        effectsCtx.fill();
     }
 }
 
-function drawSMPTEBars(time) {
+function drawHistogram() {
+    if (!testImageData) return;
+    
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
+    const data = testImageData.data;
+    
+    // Calculate histograms
+    const rHist = new Array(256).fill(0);
+    const gHist = new Array(256).fill(0);
+    const bHist = new Array(256).fill(0);
+    
+    for (let i = 0; i < data.length; i += 4) {
+        rHist[data[i]]++;
+        gHist[data[i + 1]]++;
+        bHist[data[i + 2]]++;
+    }
+    
+    // Find max value for scaling
+    const maxVal = Math.max(...rHist, ...gHist, ...bHist);
+    
+    // Draw histogram background
+    const histY = h * 0.7;
+    const histHeight = h * 0.3;
+    
+    effectsCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    effectsCtx.fillRect(0, histY, w, histHeight);
+    
+    // Draw histograms
+    const barWidth = w / 256;
+    
+    for (let i = 0; i < 256; i++) {
+        const x = i * barWidth;
+        
+        // Red histogram
+        const rHeight = (rHist[i] / maxVal) * histHeight;
+        effectsCtx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+        effectsCtx.fillRect(x, histY + histHeight - rHeight, barWidth, rHeight);
+        
+        // Green histogram
+        const gHeight = (gHist[i] / maxVal) * histHeight;
+        effectsCtx.fillStyle = 'rgba(0, 255, 0, 0.5)';
+        effectsCtx.fillRect(x, histY + histHeight - gHeight, barWidth, gHeight);
+        
+        // Blue histogram
+        const bHeight = (bHist[i] / maxVal) * histHeight;
+        effectsCtx.fillStyle = 'rgba(0, 0, 255, 0.5)';
+        effectsCtx.fillRect(x, histY + histHeight - bHeight, barWidth, bHeight);
+    }
+}
+
+function drawRGBParade() {
+    if (!testImageData) return;
+    
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
+    const data = testImageData.data;
+    
+    // Draw parade background
+    const paradeY = h * 0.7;
+    const paradeHeight = h * 0.3;
+    const channelWidth = w / 3;
+    
+    effectsCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    effectsCtx.fillRect(0, paradeY, w, paradeHeight);
+    
+    // Draw RGB channels separately
+    const channels = ['red', 'green', 'blue'];
+    
+    channels.forEach((channel, channelIndex) => {
+        const startX = channelIndex * channelWidth;
+        
+        effectsCtx.strokeStyle = channel === 'red' ? '#ff0000' : 
+                                channel === 'green' ? '#00ff00' : '#0000ff';
+        effectsCtx.lineWidth = 1;
+        effectsCtx.beginPath();
+        
+        for (let x = 0; x < channelWidth; x++) {
+            const sourceX = Math.floor((x / channelWidth) * w);
+            let totalValue = 0;
+            let pixelCount = 0;
+            
+            // Sample vertical line
+            for (let y = 0; y < h * 0.7; y++) {
+                const pixelIndex = (y * w + sourceX) * 4;
+                const value = data[pixelIndex + channelIndex]; // R, G, or B
+                totalValue += value;
+                pixelCount++;
+            }
+            
+            const avgValue = totalValue / pixelCount;
+            const paradeValue = paradeY + paradeHeight - (avgValue / 255) * paradeHeight;
+            
+            if (x === 0) {
+                effectsCtx.moveTo(startX + x, paradeValue);
+            } else {
+                effectsCtx.lineTo(startX + x, paradeValue);
+            }
+        }
+        
+        effectsCtx.stroke();
+        
+        // Draw channel separator
+        if (channelIndex < 2) {
+            effectsCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            effectsCtx.beginPath();
+            effectsCtx.moveTo(startX + channelWidth, paradeY);
+            effectsCtx.lineTo(startX + channelWidth, paradeY + paradeHeight);
+            effectsCtx.stroke();
+        }
+    });
+}
+
+function drawAnalysisGrid() {
+    const w = effectsCanvas.width;
+    const h = effectsCanvas.height;
+    
+    effectsCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    effectsCtx.lineWidth = 1;
+    
+    // Vertical lines
+    for (let x = 0; x < w; x += w / 10) {
+        effectsCtx.beginPath();
+        effectsCtx.moveTo(x, 0);
+        effectsCtx.lineTo(x, h);
+        effectsCtx.stroke();
+    }
+    
+    // Horizontal lines
+    for (let y = 0; y < h; y += h / 10) {
+        effectsCtx.beginPath();
+        effectsCtx.moveTo(0, y);
+        effectsCtx.lineTo(w, y);
+        effectsCtx.stroke();
+    }
+}
+
+function drawSMPTEBars() {
     const w = effectsCanvas.width;
     const h = effectsCanvas.height;
     
@@ -218,12 +483,12 @@ function drawSMPTEBars(time) {
     
     for (let i = 0; i < 7; i++) {
         effectsCtx.fillStyle = colors[i];
-        effectsCtx.fillRect(i * barWidth, 0, barWidth, h * 0.7);
+        effectsCtx.fillRect(i * barWidth, 0, barWidth, h * 0.6);
     }
     
     // Bottom section - Pluge and tone bars
-    const bottomY = h * 0.7;
-    const bottomHeight = h * 0.3;
+    const bottomY = h * 0.6;
+    const bottomHeight = h * 0.1;
     
     // Black level variations
     const blackLevels = ['#000000', '#0A0A0A', '#141414', '#1E1E1E'];
@@ -233,16 +498,11 @@ function drawSMPTEBars(time) {
         effectsCtx.fillStyle = blackLevels[i];
         effectsCtx.fillRect(i * blackBarWidth, bottomY, blackBarWidth, bottomHeight);
     }
-    
-    // Moving indicator
-    const indicatorX = (Math.sin(time) + 1) / 2 * (w - 20) + 10;
-    effectsCtx.fillStyle = '#FF0000';
-    effectsCtx.fillRect(indicatorX, bottomY + bottomHeight - 10, 20, 10);
 }
 
-function drawColorChart(time) {
+function drawColorChart() {
     const w = effectsCanvas.width;
-    const h = effectsCanvas.height;
+    const h = effectsCanvas.height * 0.6;
     
     // Macbeth ColorChecker inspired pattern
     const colors = [
@@ -265,17 +525,10 @@ function drawColorChart(time) {
         for (let col = 0; col < cols; col++) {
             const colorIndex = row * cols + col;
             effectsCtx.fillStyle = colors[colorIndex];
-            
-            // Add subtle pulsing effect
-            const pulse = Math.sin(time + colorIndex * 0.5) * 0.1 + 1;
             const x = col * patchW;
             const y = row * patchH;
             
-            effectsCtx.save();
-            effectsCtx.translate(x + patchW/2, y + patchH/2);
-            effectsCtx.scale(pulse, pulse);
-            effectsCtx.fillRect(-patchW/2, -patchH/2, patchW, patchH);
-            effectsCtx.restore();
+            effectsCtx.fillRect(x, y, patchW, patchH);
             
             // Add border
             effectsCtx.strokeStyle = '#FFFFFF';
@@ -285,28 +538,55 @@ function drawColorChart(time) {
     }
 }
 
-function drawGridPattern(time) {
+function drawGradientTest() {
     const w = effectsCanvas.width;
-    const h = effectsCanvas.height;
+    const h = effectsCanvas.height * 0.6;
     
-    // Background
-    effectsCtx.fillStyle = '#000000';
-    effectsCtx.fillRect(0, 0, w, h);
+    // Horizontal gradient
+    const gradient = effectsCtx.createLinearGradient(0, 0, w, 0);
+    gradient.addColorStop(0, '#000000');
+    gradient.addColorStop(0.5, '#808080');
+    gradient.addColorStop(1, '#ffffff');
     
-    // Grid lines
-    effectsCtx.strokeStyle = '#FFFFFF';
-    effectsCtx.lineWidth = 1;
+    effectsCtx.fillStyle = gradient;
+    effectsCtx.fillRect(0, 0, w, h / 3);
     
-    const gridSize = 20;
-    const offset = (time * 10) % gridSize;
+    // Color gradients
+    const colorGradients = [
+        ['#ff0000', '#000000'], // Red to black
+        ['#00ff00', '#000000'], // Green to black
+        ['#0000ff', '#000000']  // Blue to black
+    ];
     
-    // Vertical lines
-    for (let x = -offset; x < w + gridSize; x += gridSize) {
-        effectsCtx.beginPath();
-        effectsCtx.moveTo(x, 0);
-        effectsCtx.lineTo(x, h);
-        effectsCtx.stroke();
+    colorGradients.forEach((colors, index) => {
+        const colorGrad = effectsCtx.createLinearGradient(0, 0, w, 0);
+        colorGrad.addColorStop(0, colors[0]);
+        colorGrad.addColorStop(1, colors[1]);
+        
+        effectsCtx.fillStyle = colorGrad;
+        effectsCtx.fillRect(0, (h / 3) * (index + 1), w, h / 3);
+    });
+}
+
+window.showAnalysisMode = function(mode) {
+    currentAnalysisMode = mode;
+};
+
+window.loadTestImage = function(image) {
+    currentTestImage = image;
+};
+
+window.updateAnalysisScale = function(value) {
+    analysisScale = value;
+    const scaleDisplay = document.getElementById('scaleValue');
+    if (scaleDisplay) {
+        scaleDisplay.textContent = value + '%';
     }
+};
+
+window.toggleGrid = function() {
+    showGrid = !showGrid;
+};
     
     // Horizontal lines
     for (let y = -offset; y < h + gridSize; y += gridSize) {

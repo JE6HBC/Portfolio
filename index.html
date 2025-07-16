@@ -136,7 +136,7 @@
                 <div class="circuit-board"></div>
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-xl font-bold text-white relative z-10">
-                        <i class="fas fa-video mr-2 text-sky-400"></i>Visual Effects Playground
+                        <i class="fas fa-chart-line mr-2 text-sky-400"></i>Video Analysis Tools
                     </h3>
                     <button id="fullscreenBtn" class="interactive-button text-sm relative z-10" onclick="toggleFullscreen()">
                         <i class="fas fa-expand mr-1"></i>フルスクリーン
@@ -146,21 +146,21 @@
                     <canvas id="effectsCanvas" class="w-full h-full"></canvas>
                 </div>
                 <div class="flex flex-wrap gap-2 mb-4">
-                    <button class="interactive-button text-sm" onclick="showTestPattern('smpte')">SMPTEバー</button>
-                    <button class="interactive-button text-sm" onclick="showTestPattern('colorChart')">カラーチャート</button>
-                    <button class="interactive-button text-sm" onclick="showTestPattern('grid')">グリッドパターン</button>
-                    <button class="interactive-button text-sm" onclick="applyEffect('glitch')">Glitch</button>
-                    <button class="interactive-button text-sm" onclick="applyEffect('chromatic')">Chromatic</button>
-                    <button class="interactive-button text-sm" onclick="applyEffect('noise')">Noise</button>
-                    <button class="interactive-button text-sm" onclick="applyEffect('scan')">Scan Lines</button>
-                    <button class="interactive-button text-sm" onclick="resetEffects()">Reset</button>
+                    <button class="interactive-button text-sm" onclick="showAnalysisMode('waveform')">Waveform</button>
+                    <button class="interactive-button text-sm" onclick="showAnalysisMode('vectorscope')">Vectorscope</button>
+                    <button class="interactive-button text-sm" onclick="showAnalysisMode('histogram')">Histogram</button>
+                    <button class="interactive-button text-sm" onclick="showAnalysisMode('parade')">RGB Parade</button>
+                    <button class="interactive-button text-sm" onclick="loadTestImage('smpte')">SMPTEバー</button>
+                    <button class="interactive-button text-sm" onclick="loadTestImage('colorChart')">カラーチャート</button>
+                    <button class="interactive-button text-sm" onclick="loadTestImage('gradient')">グラデーション</button>
                 </div>
                 <div class="flex items-center gap-4">
-                    <label class="text-gray-400 text-sm">Intensity:</label>
-                    <input type="range" id="effectIntensity" min="0" max="100" value="50" class="flex-1" onchange="updateEffectIntensity(this.value)">
-                    <span id="intensityValue" class="text-sky-400 text-sm">50%</span>
+                    <label class="text-gray-400 text-sm">Scale:</label>
+                    <input type="range" id="analysisScale" min="50" max="200" value="100" class="flex-1" onchange="updateAnalysisScale(this.value)">
+                    <span id="scaleValue" class="text-sky-400 text-sm">100%</span>
+                    <button class="interactive-button text-sm" onclick="toggleGrid()">Grid</button>
                 </div>
-                <p class="text-gray-400 text-sm mt-2">映像制作で使用するリアルタイムエフェクトを体験</p>
+                <p class="text-gray-400 text-sm mt-2">映像の色域・明度を評価するプロフェッショナルツール</p>
             </div>
         </section>
 
