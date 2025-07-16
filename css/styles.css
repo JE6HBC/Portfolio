@@ -1,0 +1,252 @@
+/* Yuki Koyama Portfolio - Custom Styles */
+/* GitHub Pages Compatible */
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #111827;
+    color: #E5E7EB;
+}
+
+h1, h2, h3, h4, .font-roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #38bdf8, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section {
+    padding: 6rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 56.25vw; /* 16:9 aspect ratio */
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 2.5rem;
+    padding-bottom: 2rem;
+    border-left: 2px solid #4B5563;
+}
+
+.timeline-item:last-child {
+    border-left: 2px solid transparent;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -0.5rem;
+    top: 0;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: #38bdf8;
+    border: 2px solid #111827;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #374151;
+    color: #d1d5db;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* ゲーム関連スタイル */
+.game-container {
+    position: relative;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 2px solid #334155;
+}
+
+.circuit-board {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background-image: 
+        radial-gradient(circle at 20% 50%, #38bdf8 2px, transparent 2px),
+        radial-gradient(circle at 40% 20%, #a78bfa 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, #38bdf8 1px, transparent 1px),
+        linear-gradient(90deg, transparent 49%, #334155 50%, transparent 51%),
+        linear-gradient(0deg, transparent 49%, #334155 50%, transparent 51%);
+    background-size: 50px 50px, 30px 30px, 40px 40px, 20px 20px, 20px 20px;
+}
+
+.signal-wave {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+    animation: wave 2s linear infinite;
+}
+
+@keyframes wave {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.matrix-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    opacity: 0.3;
+}
+
+.matrix-column {
+    position: absolute;
+    top: -100%;
+    color: #38bdf8;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    animation: matrix-fall linear infinite;
+}
+
+@keyframes matrix-fall {
+    to { transform: translateY(100vh); }
+}
+
+.interactive-button {
+    background: linear-gradient(45deg, #1e40af, #7c3aed);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.interactive-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+}
+
+.interactive-button:active {
+    transform: scale(0.95);
+}
+
+.pulse-ring {
+    position: absolute;
+    border: 2px solid #38bdf8;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.4);
+        opacity: 0;
+    }
+}
+
+.floating-particles {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #38bdf8;
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.video-frame {
+    border: 3px solid #374151;
+    border-radius: 8px;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981, #3b82f6);
+    animation: scan 3s linear infinite;
+}
+
+@keyframes scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.glitch {
+    position: relative;
+    animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .section {
+        min-height: auto;
+        padding: 4rem 1rem;
+    }
+    
+    .interactive-button {
+        padding: 8px 16px;
+        font-size: 0.875rem;
+    }
+}
