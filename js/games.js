@@ -241,3 +241,4 @@ window.updateEffectIntensity = function(value) {
     if (intensityDisplay) {
         intensityDisplay.textContent = value + '%';
     }
+}
