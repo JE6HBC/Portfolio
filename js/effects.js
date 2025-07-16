@@ -211,6 +211,66 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Fullscreen functionality for Visual Effects Playground
+let isFullscreen = false;
+
+window.toggleFullscreen = function() {
+    const container = document.getElementById('effectsContainer');
+    const button = document.getElementById('fullscreenBtn');
+    const canvas = document.getElementById('effectsCanvas');
+    
+    if (!container || !button || !canvas) return;
+    
+    isFullscreen = !isFullscreen;
+    
+    if (isFullscreen) {
+        container.classList.add('fullscreen');
+        button.innerHTML = '<i class="fas fa-compress mr-1"></i>終了';
+        
+        // Resize canvas for fullscreen
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // Add escape key listener
+        document.addEventListener('keydown', handleEscapeKey);
+        
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+    } else {
+        container.classList.remove('fullscreen');
+        button.innerHTML = '<i class="fas fa-expand mr-1"></i>フルスクリーン';
+        
+        // Resize canvas back to normal
+        setTimeout(() => {
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+        }, 300);
+        
+        // Remove escape key listener
+        document.removeEventListener('keydown', handleEscapeKey);
+        
+        // Restore body scroll
+        document.body.style.overflow = '';
+    }
+};
+
+function handleEscapeKey(event) {
+    if (event.key === 'Escape' && isFullscreen) {
+        toggleFullscreen();
+    }
+}
+
+// Handle window resize for fullscreen mode
+window.addEventListener('resize', function() {
+    if (isFullscreen) {
+        const canvas = document.getElementById('effectsCanvas');
+        if (canvas) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+    }
+});
+
 // Export for use in other modules
 window.ParticleSystem = ParticleSystem;
 window.GlitchText = GlitchText;

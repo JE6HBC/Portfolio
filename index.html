@@ -134,10 +134,15 @@
             <!-- 映像エフェクトプレイグラウンド -->
             <div class="game-container p-6 fade-in" style="transition-delay: 400ms;">
                 <div class="circuit-board"></div>
-                <h3 class="text-xl font-bold text-white mb-4 relative z-10">
-                    <i class="fas fa-video mr-2 text-sky-400"></i>Visual Effects Playground
-                </h3>
-                <div class="video-frame h-48 mb-4 relative">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-white relative z-10">
+                        <i class="fas fa-video mr-2 text-sky-400"></i>Visual Effects Playground
+                    </h3>
+                    <button id="fullscreenBtn" class="interactive-button text-sm relative z-10" onclick="toggleFullscreen()">
+                        <i class="fas fa-expand mr-1"></i>フルスクリーン
+                    </button>
+                </div>
+                <div id="effectsContainer" class="video-frame effects-container mb-4 relative">
                     <canvas id="effectsCanvas" class="w-full h-full"></canvas>
                 </div>
                 <div class="flex flex-wrap gap-2 mb-4">

@@ -207,6 +207,23 @@ h1, h2, h3, h4, .font-roboto {
     background: #000;
     position: relative;
     overflow: hidden;
+    min-height: 200px;
+}
+
+.effects-container {
+    height: 300px;
+    transition: all 0.3s ease;
+}
+
+.effects-container.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    border-radius: 0;
+    border: none;
 }
 
 .video-frame::before {
