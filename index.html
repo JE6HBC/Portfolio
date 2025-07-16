@@ -29,13 +29,19 @@
                 <div class="flex items-center">
                     <span class="font-bold text-xl gradient-text">Yuki Koyama</span>
                 </div>
+                <div class="flex items-center space-x-4">
+                    <div class="language-switcher">
+                        <button id="langJa" class="lang-btn active" onclick="switchLanguage('ja')">日本語</button>
+                        <button id="langEn" class="lang-btn" onclick="switchLanguage('en')">English</button>
+                    </div>
+                </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">ABOUT</a>
-                        <a href="#interactive" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">INTERACTIVE</a>
-                        <a href="#works" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">WORKS</a>
-                        <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">SKILLS</a>
-                        <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">CONTACT</a>
+                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="ABOUT" data-lang-en="ABOUT">ABOUT</a>
+                        <a href="#interactive" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="INTERACTIVE" data-lang-en="INTERACTIVE">INTERACTIVE</a>
+                        <a href="#works" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="WORKS" data-lang-en="WORKS">WORKS</a>
+                        <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="SKILLS" data-lang-en="SKILLS">SKILLS</a>
+                        <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="CONTACT" data-lang-en="CONTACT">CONTACT</a>
                     </div>
                 </div>
             </div>
@@ -48,16 +54,20 @@
             <div class="matrix-rain" id="matrixRain"></div>
             <div class="px-4 relative z-10">
                 <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter">
-                    <span class="gradient-text glitch">Bridging</span> <span class="text-white">Worlds</span>
+                    <span class="gradient-text glitch" data-lang-ja="Bridging" data-lang-en="Bridging">Bridging</span> 
+                    <span class="text-white" data-lang-ja="Worlds" data-lang-en="Worlds">Worlds</span>
                 </h1>
-                <p class="mt-4 text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto">
+                <p class="mt-4 text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto" 
+                   data-lang-ja="技術とクリエイティブの境界を溶かし、アイデアを現実に。<br>エンジニアリングとアートを越境し、前例のないプロジェクトを実現する。"
+                   data-lang-en="Dissolving the boundaries between technology and creativity, turning ideas into reality.<br>Crossing the borders of engineering and art to realize unprecedented projects.">
                     技術とクリエイティブの境界を溶かし、アイデアを現実に。
                     <br>エンジニアリングとアートを越境し、前例のないプロジェクトを実現する。
                 </p>
                 <div class="mt-8 relative inline-block">
                     <div class="pulse-ring"></div>
                     <a href="#interactive" class="interactive-button">
-                        <i class="fas fa-play mr-2"></i>Experience Interactive Demo
+                        <i class="fas fa-play mr-2"></i>
+                        <span data-lang-ja="Experience Interactive Demo" data-lang-en="Experience Interactive Demo">Experience Interactive Demo</span>
                     </a>
                 </div>
             </div>
@@ -69,18 +79,24 @@
         <!-- Aboutセクション -->
         <section id="about" class="section">
             <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-white">ABOUT ME</h2>
-                <p class="text-sky-400 font-roboto">小山 裕貴 / Forethumb LLC 代表</p>
+                <h2 class="text-4xl font-bold text-white" data-lang-ja="ABOUT ME" data-lang-en="ABOUT ME">ABOUT ME</h2>
+                <p class="text-sky-400 font-roboto" data-lang-ja="小山 裕貴 / Forethumb LLC 代表" data-lang-en="Yuki Koyama / CEO of Forethumb LLC">小山 裕貴 / Forethumb LLC 代表</p>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-12 fade-in">
                 <div class="md:w-1/3 text-center">
-                     <img src="https://placehold.co/300x300/1f2937/e5e7eb?text=Y.K" alt="小山裕貴のプロフィール写真" class="rounded-full mx-auto shadow-lg w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-gray-700">
+                     <img src="https://placehold.co/300x300/1f2937/e5e7eb?text=Y.K" 
+                          alt="小山裕貴のプロフィール写真" 
+                          class="rounded-full mx-auto shadow-lg w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-gray-700">
                 </div>
                 <div class="md:w-2/3">
-                    <p class="text-lg text-gray-300 mb-4">
+                    <p class="text-lg text-gray-300 mb-4" 
+                       data-lang-ja="鹿児島に生まれ、NY留学や離島生活を経て多様な価値観を育む。筑波大学在学中にメディアアート研究、人工衛星開発、福祉用キーボード開発で技術の礎を築き、Forethumb LLCを起業。"
+                       data-lang-en="Born in Kagoshima, developed diverse perspectives through NY study abroad and island life. Built technical foundation through media art research, satellite development, and welfare keyboard development at University of Tsukuba, then founded Forethumb LLC.">
                         鹿児島に生まれ、NY留学や離島生活を経て多様な価値観を育む。筑波大学在学中にメディアアート研究、人工衛星開発、福祉用キーボード開発で技術の礎を築き、Forethumb LLCを起業。
                     </p>
-                    <p class="text-lg text-gray-300">
+                    <p class="text-lg text-gray-300"
+                       data-lang-ja="ハードウェアエンジニアからキャリアを始め、テクニカルディレクター、カメラマン、経営者と、常に領域を越境。技術とクリエイティブ、理論と実践を繋ぐハブとして、複雑なプロジェクトを成功に導きます。"
+                       data-lang-en="Started career as hardware engineer, constantly crossing domains as technical director, cameraman, and business executive. Serves as a hub connecting technology and creativity, theory and practice, leading complex projects to success.">
                         ハードウェアエンジニアからキャリアを始め、テクニカルディレクター、カメラマン、経営者と、常に領域を越境。技術とクリエイティブ、理論と実践を繋ぐハブとして、複雑なプロジェクトを成功に導きます。
                     </p>
                 </div>
@@ -90,15 +106,15 @@
         <!-- インタラクティブセクション -->
         <section id="interactive" class="section bg-gray-900">
             <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-white">INTERACTIVE EXPERIENCE</h2>
-                <p class="text-sky-400 font-roboto">映像技術 × エンジニアリング体験</p>
+                <h2 class="text-4xl font-bold text-white" data-lang-ja="INTERACTIVE EXPERIENCE" data-lang-en="INTERACTIVE EXPERIENCE">INTERACTIVE EXPERIENCE</h2>
+                <p class="text-sky-400 font-roboto" data-lang-ja="映像技術 × エンジニアリング体験" data-lang-en="Video Technology × Engineering Experience">映像技術 × エンジニアリング体験</p>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8 mb-8">
                 <!-- シグナル処理ゲーム -->
                 <div class="game-container p-6 fade-in">
                     <div class="circuit-board"></div>
-                    <h3 class="text-xl font-bold text-white mb-4 relative z-10">
+                    <h3 class="text-xl font-bold text-white mb-4 relative z-10" data-lang-ja="Signal Processing Lab" data-lang-en="Signal Processing Lab">
                         <i class="fas fa-wave-square mr-2 text-sky-400"></i>Signal Processing Lab
                     </h3>
                     <div class="video-frame h-32 mb-4 relative">
@@ -110,13 +126,16 @@
                         <button class="interactive-button text-sm" onclick="changeWaveform('square')">Square</button>
                         <button class="interactive-button text-sm" onclick="changeWaveform('sawtooth')">Sawtooth</button>
                     </div>
-                    <p class="text-gray-400 text-sm">放送技術で使用する信号波形をリアルタイム生成</p>
+                    <p class="text-gray-400 text-sm" 
+                       data-lang-ja="放送技術で使用する信号波形をリアルタイム生成"
+                       data-lang-en="Real-time generation of signal waveforms used in broadcast technology">
+                       放送技術で使用する信号波形をリアルタイム生成</p>
                 </div>
 
                 <!-- 回路設計シミュレーター -->
                 <div class="game-container p-6 fade-in" style="transition-delay: 200ms;">
                     <div class="circuit-board"></div>
-                    <h3 class="text-xl font-bold text-white mb-4 relative z-10">
+                    <h3 class="text-xl font-bold text-white mb-4 relative z-10" data-lang-ja="Circuit Designer" data-lang-en="Circuit Designer">
                         <i class="fas fa-microchip mr-2 text-sky-400"></i>Circuit Designer
                     </h3>
                     <div class="video-frame h-32 mb-4 relative">
@@ -127,7 +146,10 @@
                         <button class="interactive-button text-sm" onclick="addComponent('capacitor')">コンデンサ</button>
                         <button class="interactive-button text-sm" onclick="clearCircuit()">クリア</button>
                     </div>
-                    <p class="text-gray-400 text-sm">ハードウェア設計の基礎回路をインタラクティブに構築</p>
+                    <p class="text-gray-400 text-sm"
+                       data-lang-ja="ハードウェア設計の基礎回路をインタラクティブに構築"
+                       data-lang-en="Interactive construction of basic circuits for hardware design">
+                       ハードウェア設計の基礎回路をインタラクティブに構築</p>
                 </div>
             </div>
 
@@ -135,10 +157,11 @@
             <div class="game-container p-6 fade-in" style="transition-delay: 400ms;">
                 <div class="circuit-board"></div>
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-white relative z-10">
+                    <h3 class="text-xl font-bold text-white relative z-10" data-lang-ja="Visual Effects Playground" data-lang-en="Visual Effects Playground">
                         <i class="fas fa-video mr-2 text-sky-400"></i>Visual Effects Playground
                     </h3>
-                    <button id="fullscreenBtn" class="interactive-button text-sm relative z-10" onclick="toggleFullscreen()">
+                    <button id="fullscreenBtn" class="interactive-button text-sm relative z-10" onclick="toggleFullscreen()" 
+                            data-lang-ja="フルスクリーン" data-lang-en="Fullscreen">
                         <i class="fas fa-expand mr-1"></i>フルスクリーン
                     </button>
                 </div>
@@ -160,31 +183,49 @@
                     <input type="range" id="effectIntensity" min="0" max="100" value="50" class="flex-1" onchange="updateEffectIntensity(this.value)">
                     <span id="intensityValue" class="text-sky-400 text-sm">50%</span>
                 </div>
-                <p class="text-gray-400 text-sm mt-2">映像制作で使用するリアルタイムエフェクトを体験</p>
+                <p class="text-gray-400 text-sm mt-2"
+                   data-lang-ja="映像制作で使用するリアルタイムエフェクトを体験"
+                   data-lang-en="Experience real-time effects used in video production">
+                   映像制作で使用するリアルタイムエフェクトを体験</p>
             </div>
         </section>
 
         <!-- Value Propositionセクション -->
         <section class="section">
              <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-white">OUR VALUE</h2>
-                <p class="text-sky-400 font-roboto">ワンストップで実現する実装力</p>
+                <h2 class="text-4xl font-bold text-white" data-lang-ja="OUR VALUE" data-lang-en="OUR VALUE">OUR VALUE</h2>
+                <p class="text-sky-400 font-roboto" data-lang-ja="ワンストップで実現する実装力" data-lang-en="One-stop Implementation Power">ワンストップで実現する実装力</p>
             </div>
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="glass-card p-8 text-center fade-in">
                     <i class="fas fa-laptop-code text-5xl gradient-text mb-4"></i>
-                    <h3 class="text-2xl font-bold text-white mb-2">技術と表現の融合</h3>
-                    <p class="text-gray-400">エンジニアリングとクリエイティブ、両言語を深く理解し、ポテンシャルを最大化する企画を立案します。</p>
+                    <h3 class="text-2xl font-bold text-white mb-2" 
+                        data-lang-ja="技術と表現の融合" 
+                        data-lang-en="Fusion of Technology and Expression">技術と表現の融合</h3>
+                    <p class="text-gray-400"
+                       data-lang-ja="エンジニアリングとクリエイティブ、両言語を深く理解し、ポテンシャルを最大化する企画を立案します。"
+                       data-lang-en="Deeply understanding both engineering and creative languages, we develop plans that maximize potential.">
+                       エンジニアリングとクリエイティブ、両言語を深く理解し、ポテンシャルを最大化する企画を立案します。</p>
                 </div>
                 <div class="glass-card p-8 text-center fade-in" style="transition-delay: 150ms;">
                     <i class="fas fa-hard-hat text-5xl gradient-text mb-4"></i>
-                    <h3 class="text-2xl font-bold text-white mb-2">圧倒的な現場実装力</h3>
-                    <p class="text-gray-400">国際展示から国家規模の放送、インフラ現場まで。多様な現場経験がプロジェクトを成功に導きます。</p>
+                    <h3 class="text-2xl font-bold text-white mb-2"
+                        data-lang-ja="圧倒的な現場実装力"
+                        data-lang-en="Overwhelming Field Implementation">圧倒的な現場実装力</h3>
+                    <p class="text-gray-400"
+                       data-lang-ja="国際展示から国家規模の放送、インフラ現場まで。多様な現場経験がプロジェクトを成功に導きます。"
+                       data-lang-en="From international exhibitions to national-scale broadcasting and infrastructure sites. Diverse field experience leads projects to success.">
+                       国際展示から国家規模の放送、インフラ現場まで。多様な現場経験がプロジェクトを成功に導きます。</p>
                 </div>
                 <div class="glass-card p-8 text-center fade-in" style="transition-delay: 300ms;">
                     <i class="fas fa-network-wired text-5xl gradient-text mb-4"></i>
-                    <h3 class="text-2xl font-bold text-white mb-2">強力なネットワーク</h3>
-                    <p class="text-gray-400">各分野のプロと連携し、企画から開発、制作、運用まで最適なチームを編成して実現します。</p>
+                    <h3 class="text-2xl font-bold text-white mb-2"
+                        data-lang-ja="強力なネットワーク"
+                        data-lang-en="Powerful Network">強力なネットワーク</h3>
+                    <p class="text-gray-400"
+                       data-lang-ja="各分野のプロと連携し、企画から開発、制作、運用まで最適なチームを編成して実現します。"
+                       data-lang-en="Collaborating with professionals in each field, we form optimal teams from planning to development, production, and operation.">
+                       各分野のプロと連携し、企画から開発、制作、運用まで最適なチームを編成して実現します。</p>
                 </div>
             </div>
         </section>
@@ -192,43 +233,68 @@
         <!-- Works/実績セクション -->
         <section id="works" class="section bg-gray-900">
             <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-white">SELECTED WORKS</h2>
-                <p class="text-sky-400 font-roboto">主要プロジェクトタイムライン</p>
+                <h2 class="text-4xl font-bold text-white" data-lang-ja="SELECTED WORKS" data-lang-en="SELECTED WORKS">SELECTED WORKS</h2>
+                <p class="text-sky-400 font-roboto" data-lang-ja="主要プロジェクトタイムライン" data-lang-en="Major Project Timeline">主要プロジェクトタイムライン</p>
             </div>
             <div class="max-w-3xl mx-auto fade-in">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <p class="text-sm text-gray-400">2024</p>
-                    <h3 class="text-xl font-bold text-sky-400">サウジアラビア国際放送中継</h3>
-                    <p class="text-gray-300 mt-1">日本側放送技術チーフコーディネーターとして、NHKテクノロジースタッフ100名以上を率い、国家プロジェクトを成功に導く。</p>
+                    <h3 class="text-xl font-bold text-sky-400" 
+                        data-lang-ja="サウジアラビア国際放送中継" 
+                        data-lang-en="Saudi Arabia International Broadcasting Relay">サウジアラビア国際放送中継</h3>
+                    <p class="text-gray-300 mt-1"
+                       data-lang-ja="日本側放送技術チーフコーディネーターとして、NHKテクノロジースタッフ100名以上を率い、国家プロジェクトを成功に導く。"
+                       data-lang-en="As chief coordinator of broadcast technology on the Japanese side, led over 100 NHK technology staff to successfully complete a national project.">
+                       日本側放送技術チーフコーディネーターとして、NHKテクノロジースタッフ100名以上を率い、国家プロジェクトを成功に導く。</p>
                     <div class="mt-2"><span class="tag">放送技術</span><span class="tag">国際プロジェクト</span><span class="tag">マネジメント</span></div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <p class="text-sm text-gray-400">2024</p>
-                    <h3 class="text-xl font-bold text-sky-400">FENDI SPY スペシャルムービー</h3>
-                    <p class="text-gray-300 mt-1">目黒蓮氏出演のスペシャルムービーにて1st ACを担当。シネマトグラファー領域へ本格進出。</p>
+                    <h3 class="text-xl font-bold text-sky-400"
+                        data-lang-ja="FENDI SPY スペシャルムービー"
+                        data-lang-en="FENDI SPY Special Movie">FENDI SPY スペシャルムービー</h3>
+                    <p class="text-gray-300 mt-1"
+                       data-lang-ja="目黒蓮氏出演のスペシャルムービーにて1st ACを担当。シネマトグラファー領域へ本格進出。"
+                       data-lang-en="Served as 1st AC for special movie featuring Ren Meguro. Full-scale entry into cinematographer domain.">
+                       目黒蓮氏出演のスペシャルムービーにて1st ACを担当。シネマトグラファー領域へ本格進出。</p>
                     <div class="mt-2"><span class="tag">シネマトグラフィー</span><span class="tag">映像制作</span><span class="tag">1st AC</span></div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <p class="text-sm text-gray-400">2020 - 2023</p>
-                    <h3 class="text-xl font-bold text-sky-400">産総研技術移転ベンチャーCTO</h3>
-                    <p class="text-gray-300 mt-1">画像/音響センシングに関する特許の社会実装をリード。鉄道インフラ向け計測システムを開発・導入。</p>
+                    <h3 class="text-xl font-bold text-sky-400"
+                        data-lang-ja="産総研技術移転ベンチャーCTO"
+                        data-lang-en="AIST Technology Transfer Venture CTO">産総研技術移転ベンチャーCTO</h3>
+                    <p class="text-gray-300 mt-1"
+                       data-lang-ja="画像/音響センシングに関する特許の社会実装をリード。鉄道インフラ向け計測システムを開発・導入。"
+                       data-lang-en="Led social implementation of patents related to image/acoustic sensing. Developed and deployed measurement systems for railway infrastructure.">
+                       画像/音響センシングに関する特許の社会実装をリード。鉄道インフラ向け計測システムを開発・導入。</p>
                     <div class="mt-2"><span class="tag">CTO</span><span class="tag">R&D</span><span class="tag">事業開発</span><span class="tag">センシング技術</span></div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <p class="text-sm text-gray-400">2019 - 現在</p>
-                    <h3 class="text-xl font-bold text-sky-400">メディアアート テクニカルディレクション</h3>
-                    <p class="text-gray-300 mt-1">落合陽一氏、藤堂高行氏など、日本を代表するアーティストの国内外の展示でテクニカルディレクションを多数担当。</p>
+                    <h3 class="text-xl font-bold text-sky-400"
+                        data-lang-ja="メディアアート テクニカルディレクション"
+                        data-lang-en="Media Art Technical Direction">メディアアート テクニカルディレクション</h3>
+                    <p class="text-gray-300 mt-1"
+                       data-lang-ja="落合陽一氏、藤堂高行氏など、日本を代表するアーティストの国内外の展示でテクニカルディレクションを多数担当。"
+                       data-lang-en="Handled technical direction for numerous domestic and international exhibitions by leading Japanese artists including Yoichi Ochiai and Takayuki Todo.">
+                       落合陽一氏、藤堂高行氏など、日本を代表するアーティストの国内外の展示でテクニカルディレクションを多数担当。</p>
                     <div class="mt-2"><span class="tag">テクニカルディレクション</span><span class="tag">メディアアート</span><span class="tag">インスタレーション</span></div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <p class="text-sm text-gray-400">2017 -</p>
-                    <h3 class="text-xl font-bold text-sky-400">Forethumb LLC 設立</h3>
-                    <p class="text-gray-300 mt-1">筑波大学在学中に起業。モールス式キーボード開発から始まり、人工衛星開発、VRコンテンツ開発など、常に新しい領域に挑戦。</p>
+                    <h3 class="text-xl font-bold text-sky-400"
+                        data-lang-ja="Forethumb LLC 設立"
+                        data-lang-en="Founded Forethumb LLC">Forethumb LLC 設立</h3>
+                    <p class="text-gray-300 mt-1"
+                       data-lang-ja="筑波大学在学中に起業。モールス式キーボード開発から始まり、人工衛星開発、VRコンテンツ開発など、常に新しい領域に挑戦。"
+                       data-lang-en="Founded company while studying at University of Tsukuba. Started with Morse keyboard development, constantly challenging new domains including satellite development and VR content development.">
+                       筑波大学在学中に起業。モールス式キーボード開発から始まり、人工衛星開発、VRコンテンツ開発など、常に新しい領域に挑戦。</p>
                     <div class="mt-2"><span class="tag">起業</span><span class="tag">ハードウェア開発</span><span class="tag">プロダクト開発</span></div>
                 </div>
             </div>
@@ -237,44 +303,48 @@
         <!-- スキルセクション -->
         <section id="skills" class="section">
             <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-white">CORE SKILLS</h2>
-                <p class="text-sky-400 font-roboto">専門領域と技術スタック</p>
+                <h2 class="text-4xl font-bold text-white" data-lang-ja="CORE SKILLS" data-lang-en="CORE SKILLS">CORE SKILLS</h2>
+                <p class="text-sky-400 font-roboto" data-lang-ja="専門領域と技術スタック" data-lang-en="Specialized Domains and Technology Stack">専門領域と技術スタック</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="glass-card p-6 fade-in">
-                    <h3 class="font-bold text-xl text-white mb-3"><i class="fas fa-magic mr-2 text-sky-400"></i>Creative & Direction</h3>
+                    <h3 class="font-bold text-xl text-white mb-3" data-lang-ja="Creative & Direction" data-lang-en="Creative & Direction">
+                        <i class="fas fa-magic mr-2 text-sky-400"></i>Creative & Direction</h3>
                     <ul class="space-y-2 text-gray-300">
-                        <li>テクニカルディレクション</li>
-                        <li>映像監督・撮影 (シネマ/ビデオ)</li>
-                        <li>ライブスイッチング</li>
-                        <li>プロジェクトマネジメント</li>
+                        <li data-lang-ja="テクニカルディレクション" data-lang-en="Technical Direction">テクニカルディレクション</li>
+                        <li data-lang-ja="映像監督・撮影 (シネマ/ビデオ)" data-lang-en="Video Direction & Shooting (Cinema/Video)">映像監督・撮影 (シネマ/ビデオ)</li>
+                        <li data-lang-ja="ライブスイッチング" data-lang-en="Live Switching">ライブスイッチング</li>
+                        <li data-lang-ja="プロジェクトマネジメント" data-lang-en="Project Management">プロジェクトマネジメント</li>
                     </ul>
                 </div>
                 <div class="glass-card p-6 fade-in" style="transition-delay: 150ms;">
-                    <h3 class="font-bold text-xl text-white mb-3"><i class="fas fa-microchip mr-2 text-sky-400"></i>Hardware Engineering</h3>
+                    <h3 class="font-bold text-xl text-white mb-3" data-lang-ja="Hardware Engineering" data-lang-en="Hardware Engineering">
+                        <i class="fas fa-microchip mr-2 text-sky-400"></i>Hardware Engineering</h3>
                     <ul class="space-y-2 text-gray-300">
-                        <li>回路・基板設計 (KiCad)</li>
-                        <li>組込みシステム (Arduino/M5Stack)</li>
-                        <li>3Dモデリング & プリンティング</li>
-                        <li>無線技術 (1アマ/2陸技)</li>
+                        <li data-lang-ja="回路・基板設計 (KiCad)" data-lang-en="Circuit & PCB Design (KiCad)">回路・基板設計 (KiCad)</li>
+                        <li data-lang-ja="組込みシステム (Arduino/M5Stack)" data-lang-en="Embedded Systems (Arduino/M5Stack)">組込みシステム (Arduino/M5Stack)</li>
+                        <li data-lang-ja="3Dモデリング & プリンティング" data-lang-en="3D Modeling & Printing">3Dモデリング & プリンティング</li>
+                        <li data-lang-ja="無線技術 (1アマ/2陸技)" data-lang-en="Radio Technology (1st Amateur/2nd Land)">無線技術 (1アマ/2陸技)</li>
                     </ul>
                 </div>
                 <div class="glass-card p-6 fade-in" style="transition-delay: 300ms;">
-                    <h3 class="font-bold text-xl text-white mb-3"><i class="fas fa-code mr-2 text-sky-400"></i>Software Development</h3>
+                    <h3 class="font-bold text-xl text-white mb-3" data-lang-ja="Software Development" data-lang-en="Software Development">
+                        <i class="fas fa-code mr-2 text-sky-400"></i>Software Development</h3>
                      <ul class="space-y-2 text-gray-300">
                         <li>C++, Python, JavaScript</li>
                         <li>Unity, Unreal Engine</li>
-                        <li>画像・音響センシング</li>
-                        <li>AIアプリケーション開発</li>
+                        <li data-lang-ja="画像・音響センシング" data-lang-en="Image & Audio Sensing">画像・音響センシング</li>
+                        <li data-lang-ja="AIアプリケーション開発" data-lang-en="AI Application Development">AIアプリケーション開発</li>
                     </ul>
                 </div>
                 <div class="glass-card p-6 fade-in" style="transition-delay: 450ms;">
-                    <h3 class="font-bold text-xl text-white mb-3"><i class="fas fa-briefcase mr-2 text-sky-400"></i>Business</h3>
+                    <h3 class="font-bold text-xl text-white mb-3" data-lang-ja="Business" data-lang-en="Business">
+                        <i class="fas fa-briefcase mr-2 text-sky-400"></i>Business</h3>
                      <ul class="space-y-2 text-gray-300">
-                        <li>事業開発</li>
-                        <li>CTO/役員経験</li>
-                        <li>技術コンサルティング</li>
-                        <li>特許戦略・社会実装</li>
+                        <li data-lang-ja="事業開発" data-lang-en="Business Development">事業開発</li>
+                        <li data-lang-ja="CTO/役員経験" data-lang-en="CTO/Executive Experience">CTO/役員経験</li>
+                        <li data-lang-ja="技術コンサルティング" data-lang-en="Technical Consulting">技術コンサルティング</li>
+                        <li data-lang-ja="特許戦略・社会実装" data-lang-en="Patent Strategy & Social Implementation">特許戦略・社会実装</li>
                     </ul>
                 </div>
             </div>
@@ -283,9 +353,11 @@
         <!-- Contactセクション -->
         <section id="contact" class="section bg-gray-900">
             <div class="text-center max-w-2xl mx-auto fade-in">
-                <h2 class="text-4xl font-bold text-white">GET IN TOUCH</h2>
-                <p class="text-sky-400 font-roboto mb-8">新しい挑戦を、共に。</p>
-                <p class="text-lg text-gray-300 mb-8">
+                <h2 class="text-4xl font-bold text-white" data-lang-ja="GET IN TOUCH" data-lang-en="GET IN TOUCH">GET IN TOUCH</h2>
+                <p class="text-sky-400 font-roboto mb-8" data-lang-ja="新しい挑戦を、共に。" data-lang-en="New challenges, together.">新しい挑戦を、共に。</p>
+                <p class="text-lg text-gray-300 mb-8"
+                   data-lang-ja="「技術とクリエイティブを掛け合わせた、新しい挑戦をしたい」<br>「アイデアはあるが、どう実現すればいいかわからない」<br><br>そんな時は、ぜひお気軽にご相談ください。<br>共に情報メディアの次の可能性を切り拓きましょう。"
+                   data-lang-en="'I want to take on new challenges combining technology and creativity'<br>'I have ideas but don't know how to realize them'<br><br>In such cases, please feel free to consult with us.<br>Let's explore the next possibilities of information media together.">
                     「技術とクリエイティブを掛け合わせた、新しい挑戦をしたい」<br>
                     「アイデアはあるが、どう実現すればいいかわからない」<br><br>
                     そんな時は、ぜひお気軽にご相談ください。<br>共に情報メディアの次の可能性を切り拓きましょう。
@@ -299,7 +371,10 @@
 
     <footer class="bg-gray-900 py-6">
         <div class="text-center text-gray-500">
-            &copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved.
+            <span data-lang-ja="&copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved." 
+                  data-lang-en="&copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved.">
+                &copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved.
+            </span>
         </div>
     </footer>
 
@@ -307,6 +382,7 @@
     <script src="js/main.js"></script>
     <script src="js/games.js"></script>
     <script src="js/effects.js"></script>
+    <script src="js/language.js"></script>
 
 </body>
 </html>

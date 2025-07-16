@@ -244,16 +244,17 @@ function drawColorChart(time) {
     const w = effectsCanvas.width;
     const h = effectsCanvas.height;
     
-    // Macbeth ColorChecker inspired pattern
+    // Professional Video Color Chart for Waveform Analysis
+    // Based on industry standards for camera calibration and video evaluation
     const colors = [
-        // Row 1
-        '#735244', '#C29682', '#627A9D', '#576C43', '#8580B1', '#67BDAA',
-        // Row 2
-        '#D67E2C', '#505BA6', '#C15A63', '#5E3C6C', '#9DD35F', '#EDB120',
-        // Row 3
-        '#8252A0', '#2D5016', '#A13E52', '#EDD51F', '#C44AA0', '#819FF7',
-        // Row 4 (Grayscale)
-        '#F3F3F2', '#C8C8C8', '#A0A0A0', '#7A7A79', '#555555', '#343434'
+        // Row 1: Primary Colors (100% saturation for vectorscope calibration)
+        '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF',
+        // Row 2: Skin Tones (Critical for flesh tone evaluation)
+        '#FFDBAC', '#F1C27D', '#E0AC69', '#C68642', '#8D5524', '#654321',
+        // Row 3: Standard Reference Colors (For color accuracy testing)
+        '#8F3F3F', '#2E8B57', '#4682B4', '#DAA520', '#9932CC', '#DC143C',
+        // Row 4: Grayscale Steps (For luminance and gamma evaluation)
+        '#FFFFFF', '#E0E0E0', '#C0C0C0', '#808080', '#404040', '#000000'
     ];
     
     const cols = 6;
@@ -261,28 +262,88 @@ function drawColorChart(time) {
     const patchW = w / cols;
     const patchH = h / rows;
     
+    // Draw color patches
     for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
             const colorIndex = row * cols + col;
             effectsCtx.fillStyle = colors[colorIndex];
             
-            // Add subtle pulsing effect
-            const pulse = Math.sin(time + colorIndex * 0.5) * 0.1 + 1;
             const x = col * patchW;
             const y = row * patchH;
             
-            effectsCtx.save();
-            effectsCtx.translate(x + patchW/2, y + patchH/2);
-            effectsCtx.scale(pulse, pulse);
-            effectsCtx.fillRect(-patchW/2, -patchH/2, patchW, patchH);
-            effectsCtx.restore();
+            // Fill the color patch
+            effectsCtx.fillRect(x, y, patchW, patchH);
             
-            // Add border
-            effectsCtx.strokeStyle = '#FFFFFF';
+            // Add subtle border for patch separation
+            effectsCtx.strokeStyle = '#333333';
             effectsCtx.lineWidth = 1;
             effectsCtx.strokeRect(x, y, patchW, patchH);
+            
+            // Add IRE value indicators for grayscale patches (bottom row)
+            if (row === 3) {
+                const ireValues = ['100', '80', '60', '40', '20', '0'];
+                effectsCtx.fillStyle = col < 3 ? '#000000' : '#FFFFFF';
+                effectsCtx.font = '12px monospace';
+                effectsCtx.textAlign = 'center';
+                effectsCtx.fillText(ireValues[col] + ' IRE', x + patchW/2, y + patchH/2 + 4);
+            }
         }
     }
+    
+    // Add center cross for alignment reference
+    effectsCtx.strokeStyle = '#FFFFFF';
+    effectsCtx.lineWidth = 2;
+    effectsCtx.setLineDash([5, 5]);
+    effectsCtx.beginPath();
+    effectsCtx.moveTo(w/2 - 20, h/2);
+    effectsCtx.lineTo(w/2 + 20, h/2);
+    effectsCtx.moveTo(w/2, h/2 - 20);
+    effectsCtx.lineTo(w/2, h/2 + 20);
+    effectsCtx.stroke();
+    effectsCtx.setLineDash([]);
+    
+    // Add corner registration marks
+    const markSize = 10;
+    effectsCtx.strokeStyle = '#FFFFFF';
+    effectsCtx.lineWidth = 2;
+    
+    // Top-left
+    effectsCtx.beginPath();
+    effectsCtx.moveTo(markSize, markSize);
+    effectsCtx.lineTo(markSize * 2, markSize);
+    effectsCtx.moveTo(markSize, markSize);
+    effectsCtx.lineTo(markSize, markSize * 2);
+    effectsCtx.stroke();
+    
+    // Top-right
+    effectsCtx.beginPath();
+    effectsCtx.moveTo(w - markSize, markSize);
+    effectsCtx.lineTo(w - markSize * 2, markSize);
+    effectsCtx.moveTo(w - markSize, markSize);
+    effectsCtx.lineTo(w - markSize, markSize * 2);
+    effectsCtx.stroke();
+    
+    // Bottom-left
+    effectsCtx.beginPath();
+    effectsCtx.moveTo(markSize, h - markSize);
+    effectsCtx.lineTo(markSize * 2, h - markSize);
+    effectsCtx.moveTo(markSize, h - markSize);
+    effectsCtx.lineTo(markSize, h - markSize * 2);
+    effectsCtx.stroke();
+    
+    // Bottom-right
+    effectsCtx.beginPath();
+    effectsCtx.moveTo(w - markSize, h - markSize);
+    effectsCtx.lineTo(w - markSize * 2, h - markSize);
+    effectsCtx.moveTo(w - markSize, h - markSize);
+    effectsCtx.lineTo(w - markSize, h - markSize * 2);
+    effectsCtx.stroke();
+    
+    // Add title
+    effectsCtx.fillStyle = '#FFFFFF';
+    effectsCtx.font = 'bold 14px monospace';
+    effectsCtx.textAlign = 'center';
+    effectsCtx.fillText('VIDEO COLOR CHART - WAVEFORM ANALYSIS', w/2, 20);
 }
 
 function drawGridPattern(time) {

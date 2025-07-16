@@ -254,7 +254,8 @@ function handleFullscreenChange() {
     
     if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
         // Entered fullscreen
-        button.innerHTML = '<i class="fas fa-compress mr-1"></i>終了';
+        const exitText = document.documentElement.lang === 'en' ? 'Exit' : '終了';
+        button.innerHTML = `<i class="fas fa-compress mr-1"></i>${exitText}`;
         isFullscreen = true;
         
         // Resize canvas for fullscreen
@@ -264,7 +265,8 @@ function handleFullscreenChange() {
         }, 100);
     } else {
         // Exited fullscreen
-        button.innerHTML = '<i class="fas fa-expand mr-1"></i>フルスクリーン';
+        const fullscreenText = document.documentElement.lang === 'en' ? 'Fullscreen' : 'フルスクリーン';
+        button.innerHTML = `<i class="fas fa-expand mr-1"></i>${fullscreenText}`;
         isFullscreen = false;
         
         // Resize canvas back to normal
