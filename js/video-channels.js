@@ -1,6 +1,13 @@
 // Video Channels Integration for Yuki Koyama Portfolio
 // YouTube and Vimeo API Integration
 
+// APIが利用可能かチェック
+function isAPIAvailable() {
+    return window.API_CONFIG && 
+           window.API_CONFIG.youtube.apiKey !== 'YOUR_YOUTUBE_API_KEY_HERE' &&
+           window.API_CONFIG.vimeo.accessToken !== 'YOUR_VIMEO_ACCESS_TOKEN_HERE';
+}
+
 class VideoChannelManager {
     constructor() {
         this.youtubeChannels = [
@@ -55,6 +62,12 @@ class VideoChannelManager {
 
     async loadYouTubeChannel(channelConfig) {
         try {
+            // APIが利用可能な場合は実際のデータを取得
+            if (isAPIAvailable() && window.youtubeAPI) {
+                await this.loadRealYouTubeData(channelConfig);
+                return;
+            }
+
             // Since we can't use YouTube API directly without API key,
             // we'll create a fallback embed using the channel handle
             const container = document.getElementById(channelConfig.id);
@@ -102,8 +115,61 @@ class VideoChannelManager {
         }
     }
 
+    // 実際のYouTube APIを使用してデータを取得
+    async loadRealYouTubeData(channelConfig) {
+        const container = document.getElementById(channelConfig.id);
+        const statsContainer = document.getElementById(channelConfig.statsId);
+        
+        if (!container) return;
+
+        try {
+            // チャンネル情報を取得
+            const channelInfo = await window.youtubeAPI.getChannelInfo(channelConfig.channelId);
+            const latestVideo = await window.youtubeAPI.getLatestVideo(channelConfig.channelId);
+            const isLive = await window.youtubeAPI.checkLiveStream(channelConfig.channelId);
+
+            if (latestVideo) {
+                // 最新動画を埋め込み
+                container.innerHTML = `
+                    <iframe 
+                        src="https://www.youtube.com/embed/${latestVideo.id.videoId}" 
+                        frameborder="0" 
+                        allowfullscreen
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        class="w-full h-full">
+                    </iframe>
+                `;
+            }
+
+            if (channelInfo && statsContainer) {
+                const subscriberCount = parseInt(channelInfo.statistics.subscriberCount).toLocaleString();
+                const videoCount = parseInt(channelInfo.statistics.videoCount).toLocaleString();
+                const liveIndicator = isLive ? 
+                    '<span class="live-indicator" data-lang-ja="LIVE" data-lang-en="LIVE">LIVE</span>' : '';
+                
+                statsContainer.innerHTML = `
+                    <div class="flex justify-between items-center text-sm text-gray-400">
+                        <span class="subscriber-count">${subscriberCount}</span>
+                        <span class="video-count">${videoCount}</span>
+                        ${liveIndicator}
+                    </div>
+                `;
+            }
+
+        } catch (error) {
+            console.error('Error loading real YouTube data:', error);
+            this.showChannelError(channelConfig.id, 'YouTube');
+        }
+    }
+
     async loadVimeoChannel() {
         try {
+            // APIが利用可能な場合は実際のデータを取得
+            if (isAPIAvailable() && window.vimeoAPI) {
+                await this.loadRealVimeoData();
+                return;
+            }
+
             const container = document.getElementById('vimeo-channel');
             if (!container) return;
 
@@ -129,6 +195,33 @@ class VideoChannelManager {
 
         } catch (error) {
             console.error('Error loading Vimeo channel:', error);
+            this.showChannelError('vimeo-channel', 'Vimeo');
+        }
+    }
+
+    // 実際のVimeo APIを使用してデータを取得
+    async loadRealVimeoData() {
+        const container = document.getElementById('vimeo-channel');
+        if (!container) return;
+
+        try {
+            const videos = await window.vimeoAPI.getUserVideos(this.vimeoUserId, 1);
+            
+            if (videos && videos.length > 0) {
+                const latestVideo = videos[0];
+                const videoId = latestVideo.uri.split('/').pop();
+                
+                container.innerHTML = `
+                    <iframe 
+                        src="https://player.vimeo.com/video/${videoId}" 
+                        frameborder="0" 
+                        allowfullscreen
+                        class="w-full h-full">
+                    </iframe>
+                `;
+            }
+        } catch (error) {
+            console.error('Error loading real Vimeo data:', error);
             this.showChannelError('vimeo-channel', 'Vimeo');
         }
     }
