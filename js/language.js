@@ -63,6 +63,19 @@ const translations = {
         'forethumb-title': 'Forethumb LLC 設立',
         'forethumb-desc': '筑波大学在学中に起業。モールス式キーボード開発から始まり、人工衛星開発、VRコンテンツ開発など、常に新しい領域に挑戦。',
         
+        // Video Channels Section
+        'VIDEO CHANNELS': 'VIDEO CHANNELS',
+        'video-channels-subtitle': '映像制作チャンネル & サンプル映像',
+        'YouTube チャンネル': 'YouTube チャンネル',
+        'youtube-role-description': '撮って出し素材納品のロケカメラマンとして参加',
+        'サンプル映像': 'サンプル映像',
+        'チャンネルを見る': 'チャンネルを見る',
+        '作品を見る': '作品を見る',
+        '全ての作品を見る': '全ての作品を見る',
+        '最新動画を読み込み中...': '最新動画を読み込み中...',
+        '最新映像を読み込み中...': '最新映像を読み込み中...',
+        'LIVE': 'LIVE',
+        
         // Skills Section
         'CORE SKILLS': 'CORE SKILLS',
         'skills-subtitle': '専門領域と技術スタック',
@@ -135,6 +148,19 @@ const translations = {
         'implementation-desc': 'From international exhibitions to national-scale broadcasting and infrastructure sites. Diverse field experience leads projects to success.',
         'network-title': 'Powerful Network',
         'network-desc': 'Collaborating with professionals in each field, we form optimal teams from planning to development, production, and operation.',
+        
+        // Video Channels Section
+        'VIDEO CHANNELS': 'VIDEO CHANNELS',
+        'video-channels-subtitle': 'Video Production Channels & Sample Videos',
+        'YouTube チャンネル': 'YouTube Channels',
+        'youtube-role-description': 'Participating as location cameraman for direct delivery footage',
+        'サンプル映像': 'Sample Videos',
+        'チャンネルを見る': 'View Channel',
+        '作品を見る': 'View Works',
+        '全ての作品を見る': 'View All Works',
+        '最新動画を読み込み中...': 'Loading latest video...',
+        '最新映像を読み込み中...': 'Loading latest video...',
+        'LIVE': 'LIVE',
         
         // Works Section
         'SELECTED WORKS': 'SELECTED WORKS',
