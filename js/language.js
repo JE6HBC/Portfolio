@@ -10,6 +10,7 @@ const translations = {
         'ABOUT': 'ABOUT',
         'INTERACTIVE': 'INTERACTIVE',
         'WORKS': 'WORKS',
+        'VIDEOS': 'VIDEOS',
         'SKILLS': 'SKILLS',
         'CONTACT': 'CONTACT',
         
@@ -112,6 +113,7 @@ const translations = {
         'ABOUT': 'ABOUT',
         'INTERACTIVE': 'INTERACTIVE',
         'WORKS': 'WORKS',
+        'VIDEOS': 'VIDEOS',
         'SKILLS': 'SKILLS',
         'CONTACT': 'CONTACT',
         
