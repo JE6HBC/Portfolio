@@ -163,6 +163,8 @@ const translations = {
         '最新動画を読み込み中...': 'Loading latest video...',
         '最新映像を読み込み中...': 'Loading latest video...',
         'LIVE': 'LIVE',
+        '1st ACとして参加させていただきました。': 'Participated as 1st AC.',
+        '1st ACとして参加させていただきました。': 'Participated as 1st AC.',
         
         // Works Section
         'SELECTED WORKS': 'SELECTED WORKS',
