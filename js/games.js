@@ -902,7 +902,6 @@ function applyRGBSplitEffect(intensity, time) {
 window.applyEffect = function(effect) {
     currentEffect = effect;
     effectTime = 0; // Reset time for new effect
-    currentPattern = 'none'; // Reset pattern when applying effect
     
     // Update button states
     updateButtonStates();
@@ -911,10 +910,10 @@ window.applyEffect = function(effect) {
 window.resetEffects = function() {
     currentEffect = 'none';
     effectTime = 0;
+    currentPattern = 'none'; // Reset pattern only on explicit reset
     
     // Update button states
     updateButtonStates();
-    currentPattern = 'none';
 };
 
 window.updateEffectIntensity = function(value) {
@@ -956,7 +955,7 @@ function updateButtonStates() {
     // Update intensity display visibility
     const intensityContainer = document.querySelector('.flex.flex-col.sm\\:flex-row.items-start.sm\\:items-center.gap-4.mb-4');
     if (intensityContainer) {
-        if (currentEffect === 'none' || currentPattern !== 'none') {
+        if (currentEffect === 'none') {
             intensityContainer.style.opacity = '0.5';
             intensityContainer.style.pointerEvents = 'none';
         } else {
@@ -971,7 +970,7 @@ function updateButtonStates() {
     const sliderContainer = document.querySelector('.slider-container');
     
     if (intensityLabel && intensitySlider && sliderContainer) {
-        if (currentEffect === 'none' || currentPattern !== 'none') {
+        if (currentEffect === 'none') {
             // Visual feedback that intensity is not active, but keep functional
             intensityLabel.style.opacity = '0.5';
             sliderContainer.style.opacity = '0.5';
