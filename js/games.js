@@ -1055,4 +1055,4 @@ function handleSliderInput(value) {
 
 function handleSliderChange(value) {
     updateEffectIntensity(value);
-});
+}
