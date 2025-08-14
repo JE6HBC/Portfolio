@@ -187,6 +187,8 @@ const translations = {
         'aist-desc': 'Led social implementation of patents related to image/acoustic sensing. Developed and deployed measurement systems for railway infrastructure.',
         'media-art-title': 'Media Art Technical Direction',
         'media-art-desc': 'Handled technical direction for numerous domestic and international exhibitions by leading Japanese artists including Yoichi Ochiai and Takayuki Todo.',
+        'museum-title': 'National Museum Exhibition Technology Development Staff',
+        'museum-desc': 'Engaged in the development and operation of exhibition technologies at national museums, building display systems that balance cultural property protection with cutting-edge technology. Responsible for introducing interactive technologies to enhance visitor experience and developing digital archive systems.',
         'forethumb-title': 'Founded Forethumb LLC',
         'forethumb-desc': 'Founded company while studying at University of Tsukuba. Started with Morse keyboard development, constantly challenging new domains including satellite development and VR content development.',
         
