@@ -355,32 +355,6 @@ if (!CanvasRenderingContext2D.prototype.roundRect) {
         this.closePath();
     };
 }
-            }
-        } else if (component.type === 'capacitor') {
-            // Draw capacitor plates
-            circuitCtx.moveTo(component.x, component.y - 15);
-            circuitCtx.lineTo(component.x, component.y + 15);
-            circuitCtx.moveTo(component.x + 10, component.y - 15);
-            circuitCtx.lineTo(component.x + 10, component.y + 15);
-        }
-        
-        circuitCtx.stroke();
-    });
-}
-
-window.addComponent = function(type) {
-    if (!circuitCanvas) return;
-    
-    const x = Math.random() * (circuitCanvas.width - 50) + 25;
-    const y = Math.random() * (circuitCanvas.height - 30) + 15;
-    components.push({ type, x, y });
-    drawCircuit();
-};
-
-window.clearCircuit = function() {
-    components = [];
-    if (circuitCanvas) drawCircuit();
-};
 
 // Visual Effects Playground
 let effectsCanvas, effectsCtx;
@@ -388,7 +362,6 @@ let currentEffect = 'none';
 let currentPattern = 'none';
 let effectIntensity = 50;
 let effectsAnimationId;
-let effectTime = 0;
 
 window.initEffectsCanvas = function() {
     effectsCanvas = document.getElementById('effectsCanvas');
@@ -403,7 +376,6 @@ window.initEffectsCanvas = function() {
 function drawEffects() {
     if (!effectsCtx) return;
     
-    effectTime += 0.016; // ~60fps timing
     effectsCtx.clearRect(0, 0, effectsCanvas.width, effectsCanvas.height);
     
     // Draw base pattern or test pattern
@@ -424,22 +396,16 @@ function drawEffects() {
     
     switch (currentEffect) {
         case 'glitch':
-            applyGlitchEffect(intensity, effectTime);
+            applyGlitchEffect(intensity);
             break;
         case 'chromatic':
-            applyChromaticEffect(intensity, effectTime);
+            applyChromaticEffect(intensity);
             break;
         case 'noise':
-            applyNoiseEffect(intensity, effectTime);
+            applyNoiseEffect(intensity);
             break;
         case 'scan':
-            applyScanLinesEffect(intensity, effectTime);
-            break;
-        case 'wave':
-            applyWaveEffect(intensity, effectTime);
-            break;
-        case 'rgb':
-            applyRGBSplitEffect(intensity, effectTime);
+            applyScanLinesEffect(intensity);
             break;
     }
     
@@ -669,64 +635,36 @@ window.showTestPattern = function(pattern) {
     currentEffect = 'none'; // Reset effects when showing test patterns
 };
 
-function applyGlitchEffect(intensity, time) {
+function applyGlitchEffect(intensity) {
     const imageData = effectsCtx.getImageData(0, 0, effectsCanvas.width, effectsCanvas.height);
     const data = imageData.data;
     
-    // Dynamic glitch frequency based on time and intensity
-    const glitchFreq = intensity * 0.1 + Math.sin(time * 2) * intensity * 0.05;
-    
     for (let i = 0; i < data.length; i += 4) {
-        if (Math.random() < glitchFreq) {
-            const glitchIntensity = intensity * (0.5 + Math.sin(time * 5) * 0.5);
-            data[i] = Math.random() * 255 * glitchIntensity;     // Red
-            data[i + 1] = Math.random() * 255 * glitchIntensity; // Green
-            data[i + 2] = Math.random() * 255 * glitchIntensity; // Blue
+        if (Math.random() < intensity * 0.1) {
+            data[i] = Math.random() * 255;     // Red
+            data[i + 1] = Math.random() * 255; // Green
+            data[i + 2] = Math.random() * 255; // Blue
         }
-    }
-    
-    // Add horizontal displacement lines
-    if (Math.random() < intensity * 0.3) {
-        const y = Math.floor(Math.random() * effectsCanvas.height);
-        const displacement = Math.sin(time * 10) * intensity * 20;
-        const lineHeight = Math.floor(intensity * 10) + 1;
-        
-        const lineData = effectsCtx.getImageData(0, y, effectsCanvas.width, lineHeight);
-        effectsCtx.putImageData(lineData, displacement, y);
     }
     
     effectsCtx.putImageData(imageData, 0, 0);
 }
 
-function applyChromaticEffect(intensity, time) {
-    const offsetX = Math.sin(time * 3) * intensity * 10;
-    const offsetY = Math.cos(time * 2) * intensity * 5;
-    
+function applyChromaticEffect(intensity) {
     effectsCtx.globalCompositeOperation = 'screen';
-    
-    // Red channel
-    effectsCtx.fillStyle = `rgba(255, 0, 0, ${intensity * 0.4})`;
-    effectsCtx.fillRect(offsetX, offsetY, effectsCanvas.width, effectsCanvas.height);
-    
-    // Green channel (stationary)
-    effectsCtx.fillStyle = `rgba(0, 255, 0, ${intensity * 0.2})`;
-    effectsCtx.fillRect(0, 0, effectsCanvas.width, effectsCanvas.height);
-    
-    // Blue channel
-    effectsCtx.fillStyle = `rgba(0, 0, 255, ${intensity * 0.4})`;
-    effectsCtx.fillRect(-offsetX, -offsetY, effectsCanvas.width, effectsCanvas.height);
-    
+    effectsCtx.fillStyle = `rgba(255, 0, 0, ${intensity * 0.3})`;
+    effectsCtx.fillRect(2, 0, effectsCanvas.width, effectsCanvas.height);
+    effectsCtx.fillStyle = `rgba(0, 255, 0, ${intensity * 0.3})`;
+    effectsCtx.fillRect(-2, 0, effectsCanvas.width, effectsCanvas.height);
     effectsCtx.globalCompositeOperation = 'source-over';
 }
 
-function applyNoiseEffect(intensity, time) {
+function applyNoiseEffect(intensity) {
     const imageData = effectsCtx.getImageData(0, 0, effectsCanvas.width, effectsCanvas.height);
     const data = imageData.data;
     
-    const noiseIntensity = intensity * (0.5 + Math.sin(time * 4) * 0.5) * 100;
-    
     for (let i = 0; i < data.length; i += 4) {
-        const noise = (Math.random() - 0.5) * noiseIntensity;
+        const noise = (Math.random() - 0.5) * intensity * 100;
         data[i] += noise;     // Red
         data[i + 1] += noise; // Green
         data[i + 2] += noise; // Blue
@@ -735,106 +673,23 @@ function applyNoiseEffect(intensity, time) {
     effectsCtx.putImageData(imageData, 0, 0);
 }
 
-function applyScanLinesEffect(intensity, time) {
-    const alpha = intensity * 0.5 * (0.7 + Math.sin(time * 6) * 0.3);
-    effectsCtx.strokeStyle = `rgba(0, 0, 0, ${alpha})`;
+function applyScanLinesEffect(intensity) {
+    effectsCtx.strokeStyle = `rgba(0, 0, 0, ${intensity * 0.5})`;
     effectsCtx.lineWidth = 1;
-    
-    const offset = Math.sin(time * 2) * 2;
     for (let y = 0; y < effectsCanvas.height; y += 4) {
         effectsCtx.beginPath();
-        effectsCtx.moveTo(0, y + offset);
-        effectsCtx.lineTo(effectsCanvas.width, y + offset);
+        effectsCtx.moveTo(0, y);
+        effectsCtx.lineTo(effectsCanvas.width, y);
         effectsCtx.stroke();
     }
-    
-    // Add moving highlight line
-    const highlightY = (Math.sin(time) + 1) / 2 * effectsCanvas.height;
-    effectsCtx.strokeStyle = `rgba(56, 189, 248, ${intensity * 0.8})`;
-    effectsCtx.lineWidth = 2;
-    effectsCtx.beginPath();
-    effectsCtx.moveTo(0, highlightY);
-    effectsCtx.lineTo(effectsCanvas.width, highlightY);
-    effectsCtx.stroke();
-}
-
-// New wave effect
-function applyWaveEffect(intensity, time) {
-    const imageData = effectsCtx.getImageData(0, 0, effectsCanvas.width, effectsCanvas.height);
-    const newImageData = effectsCtx.createImageData(effectsCanvas.width, effectsCanvas.height);
-    
-    const waveAmplitude = intensity * 20;
-    const waveFrequency = 0.02;
-    
-    for (let y = 0; y < effectsCanvas.height; y++) {
-        for (let x = 0; x < effectsCanvas.width; x++) {
-            const offset = Math.sin((y + time * 50) * waveFrequency) * waveAmplitude;
-            const sourceX = Math.floor(x + offset);
-            
-            if (sourceX >= 0 && sourceX < effectsCanvas.width) {
-                const destIndex = (y * effectsCanvas.width + x) * 4;
-                const srcIndex = (y * effectsCanvas.width + sourceX) * 4;
-                
-                newImageData.data[destIndex] = imageData.data[srcIndex];
-                newImageData.data[destIndex + 1] = imageData.data[srcIndex + 1];
-                newImageData.data[destIndex + 2] = imageData.data[srcIndex + 2];
-                newImageData.data[destIndex + 3] = imageData.data[srcIndex + 3];
-            }
-        }
-    }
-    
-    effectsCtx.putImageData(newImageData, 0, 0);
-}
-
-// New RGB split effect
-function applyRGBSplitEffect(intensity, time) {
-    const canvas = effectsCtx.canvas;
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = canvas.width;
-    tempCanvas.height = canvas.height;
-    const tempCtx = tempCanvas.getContext('2d');
-    
-    // Copy current frame
-    tempCtx.drawImage(canvas, 0, 0);
-    
-    // Clear main canvas
-    effectsCtx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Dynamic offsets
-    const offsetR = Math.sin(time * 3) * intensity * 15;
-    const offsetG = Math.cos(time * 2.5) * intensity * 12;
-    const offsetB = Math.sin(time * 4) * intensity * 18;
-    
-    // Draw RGB channels with different blend modes
-    effectsCtx.globalCompositeOperation = 'screen';
-    
-    // Red channel
-    effectsCtx.globalAlpha = intensity;
-    effectsCtx.filter = 'sepia(1) saturate(2) hue-rotate(0deg)';
-    effectsCtx.drawImage(tempCanvas, offsetR, 0);
-    
-    // Green channel
-    effectsCtx.filter = 'sepia(1) saturate(2) hue-rotate(120deg)';
-    effectsCtx.drawImage(tempCanvas, offsetG, 0);
-    
-    // Blue channel
-    effectsCtx.filter = 'sepia(1) saturate(2) hue-rotate(240deg)';
-    effectsCtx.drawImage(tempCanvas, offsetB, 0);
-    
-    // Reset
-    effectsCtx.filter = 'none';
-    effectsCtx.globalAlpha = 1;
-    effectsCtx.globalCompositeOperation = 'source-over';
 }
 
 window.applyEffect = function(effect) {
     currentEffect = effect;
-    effectTime = 0; // Reset time for new effect
 };
 
 window.resetEffects = function() {
     currentEffect = 'none';
-    effectTime = 0;
 };
 
 window.updateEffectIntensity = function(value) {
@@ -843,3 +698,4 @@ window.updateEffectIntensity = function(value) {
     if (intensityDisplay) {
         intensityDisplay.textContent = value + '%';
     }
+};
