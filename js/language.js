@@ -110,6 +110,10 @@ const translations = {
         'contact-subtitle': '新しい挑戦を、共に。',
         'contact-description': '「技術とクリエイティブを掛け合わせた、新しい挑戦をしたい」<br>「アイデアはあるが、どう実現すればいいかわからない」<br><br>そんな時は、ぜひお気軽にご相談ください。<br>共に情報メディアの次の可能性を切り拓きましょう。',
         
+        // Visual Effects
+        'テストパターン (Intensity適用なし)': 'テストパターン (Intensity適用なし)',
+        'エフェクト (Intensity適用あり)': 'エフェクト (Intensity適用あり)',
+        
         // Footer
         'copyright': '&copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved.'
     },
@@ -222,6 +226,10 @@ const translations = {
         'GET IN TOUCH': 'GET IN TOUCH',
         'contact-subtitle': 'New challenges, together.',
         'contact-description': '\'I want to take on new challenges combining technology and creativity\'<br>\'I have ideas but don\'t know how to realize them\'<br><br>In such cases, please feel free to consult with us.<br>Let\'s explore the next possibilities of information media together.',
+        
+        // Visual Effects
+        'テストパターン (Intensity適用なし)': 'Test Patterns (No Intensity)',
+        'エフェクト (Intensity適用あり)': 'Effects (With Intensity)',
         
         // Footer
         'copyright': '&copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved.'

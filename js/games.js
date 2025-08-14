@@ -737,6 +737,9 @@ window.showTestPattern = function(pattern) {
     currentPattern = pattern;
     currentEffect = 'none'; // Reset effects when showing test patterns
 };
+    
+    // Update button states
+    updateButtonStates();
 
 function applyGlitchEffect(intensity, time) {
     const imageData = effectsCtx.getImageData(0, 0, effectsCanvas.width, effectsCanvas.height);
@@ -899,11 +902,19 @@ function applyRGBSplitEffect(intensity, time) {
 window.applyEffect = function(effect) {
     currentEffect = effect;
     effectTime = 0; // Reset time for new effect
+    currentPattern = 'none'; // Reset pattern when applying effect
+    
+    // Update button states
+    updateButtonStates();
 };
 
 window.resetEffects = function() {
     currentEffect = 'none';
     effectTime = 0;
+    
+    // Update button states
+    updateButtonStates();
+    currentPattern = 'none';
 };
 
 window.updateEffectIntensity = function(value) {
@@ -913,12 +924,25 @@ window.updateEffectIntensity = function(value) {
     if (intensityDisplay) {
         intensityDisplay.textContent = value + '%';
     }
-    
-    // Force immediate update of effects
-    if (currentEffect !== 'none') {
-        // The effect will be updated in the next animation frame
-    }
 };
+function updateButtonStates() {
+    // Remove active class from all buttons
+    document.querySelectorAll('.effect-button, .test-pattern-button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Add active class to current effect/pattern
+    if (currentEffect !== 'none') {
+        const effectButtons = document.querySelectorAll('.effect-button');
+        effectButtons.forEach(btn => {
+            const onclick = btn.getAttribute('onclick');
+            if (onclick && onclick.includes(`'${currentEffect}'`)) {
+                btn.classList.add('active');
+            }
+        });
+    }
+}
+
     
     // Update intensity display visibility
     const intensityContainer = document.querySelector('.flex.flex-col.sm\\:flex-row.items-start.sm\\:items-center.gap-4.mb-4');
