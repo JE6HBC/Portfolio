@@ -338,6 +338,7 @@ h1, h2, h3, h4, .font-roboto {
     
     .game-container {
         margin-bottom: 1.5rem;
+        padding: 1rem;
     }
     
     /* テキストの重なりを防ぐ */
@@ -360,6 +361,64 @@ h1, h2, h3, h4, .font-roboto {
         line-height: 1.6;
         margin-bottom: 1rem;
     }
+    
+    /* Visual Effects Playground モバイル最適化 */
+    .effects-container {
+        height: 250px;
+        margin-bottom: 1rem;
+    }
+    
+    .game-container h3 {
+        font-size: 1.125rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    /* エフェクトボタンのモバイル対応 */
+    .effect-button,
+    .test-pattern-button {
+        padding: 10px 14px;
+        font-size: 0.75rem;
+        margin: 3px 2px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    /* フルスクリーンボタン */
+    #fullscreenBtn {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+        min-height: 36px;
+    }
+    
+    /* ボタングループのレイアウト改善 */
+    .flex.flex-wrap.gap-2 {
+        gap: 0.25rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* Intensityコントロールのモバイル対応 */
+    .flex.flex-col.sm\:flex-row.items-start.sm\:items-center.gap-4 {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    
+    /* Intensityラベルとスライダーコンテナ */
+    .slider-container {
+        width: 100%;
+        padding: 15px 0;
+        margin: 5px 0;
+    }
+    
+    /* Intensity表示 */
+    #intensityValue {
+        align-self: center;
+        font-size: 1rem;
+        font-weight: bold;
+    }
 }
 
 @media (max-width: 480px) {
@@ -381,6 +440,36 @@ h1, h2, h3, h4, .font-roboto {
     .game-container {
         padding: 1rem;
         margin-bottom: 1rem;
+    }
+    
+    /* 超小画面でのエフェクトコンテナ */
+    .effects-container {
+        height: 200px;
+    }
+    
+    /* ボタンを2列に配置 */
+    .effect-button,
+    .test-pattern-button {
+        flex: 1 1 calc(50% - 4px);
+        max-width: calc(50% - 4px);
+        padding: 8px 4px;
+        font-size: 0.6875rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* テストパターンとエフェクトの説明テキストを小さく */
+    .text-xs.text-gray-500 {
+        font-size: 0.625rem;
+        line-height: 1.2;
+        margin-bottom: 0.25rem;
+    }
+    
+    /* ボタングループのコンテナ改善 */
+    .mb-2 > .effect-button,
+    .mb-2 > .test-pattern-button {
+        margin: 2px 1px;
     }
 }
 
