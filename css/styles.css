@@ -503,51 +503,96 @@ h1, h2, h3, h4, .font-roboto {
     border-radius: 3px;
     outline: none;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
+    min-height: 20px;
+    padding: 7px 0;
+    cursor: pointer;
+    pointer-events: auto !important;
+    touch-action: manipulation;
 }
 
 .intensity-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     background: linear-gradient(45deg, #38bdf8, #a78bfa);
     border-radius: 50%;
     cursor: pointer;
+    cursor: grab;
     box-shadow: 0 2px 6px rgba(56, 189, 248, 0.3);
     transition: all 0.2s ease;
+    position: relative;
+    z-index: 11;
 }
 
 .intensity-slider::-webkit-slider-thumb:hover {
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(56, 189, 248, 0.5);
+    cursor: grab;
 }
 
 .intensity-slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     background: linear-gradient(45deg, #38bdf8, #a78bfa);
     border-radius: 50%;
     cursor: pointer;
+    cursor: grab;
     border: none;
     box-shadow: 0 2px 6px rgba(56, 189, 248, 0.3);
     transition: all 0.2s ease;
+    position: relative;
+    z-index: 11;
 }
 
 .intensity-slider::-moz-range-thumb:hover {
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(56, 189, 248, 0.5);
+    cursor: grab;
 }
 
 .intensity-slider:focus {
     background: #4b5563;
+    outline: 2px solid rgba(56, 189, 248, 0.5);
+    outline-offset: 2px;
 }
 
 .intensity-slider:active::-webkit-slider-thumb {
     transform: scale(0.95);
+    cursor: grabbing;
 }
 
 .intensity-slider:active::-moz-range-thumb {
     transform: scale(0.95);
+    cursor: grabbing;
+}
+
+/* スライダー周辺のcontainerの設定 */
+.slider-container {
+    position: relative;
+    z-index: 10;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+/* スマホでの操作性向上 */
+@media (max-width: 768px) {
+    .intensity-slider {
+        min-height: 30px;
+        padding: 10px 0;
+    }
+    
+    .intensity-slider::-webkit-slider-thumb {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .intensity-slider::-moz-range-thumb {
+        width: 28px;
+        height: 28px;
+    }
 }
 
 /* Test Pattern Buttons - Different styling */

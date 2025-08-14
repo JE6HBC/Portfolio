@@ -986,11 +986,63 @@ function updateButtonStates() {
 document.addEventListener('DOMContentLoaded', function() {
     const slider = document.getElementById('effectIntensity');
     if (slider) {
+        console.log('Intensity slider found and initializing...');
+        
+        // Remove any existing event listeners to prevent duplicates
+        slider.removeEventListener('input', handleSliderInput);
+        slider.removeEventListener('change', handleSliderChange);
+        
+        // Add event listeners
         slider.addEventListener('input', function() {
-            updateEffectIntensity(this.value);
+            console.log('Slider input:', this.value);
+            handleSliderInput(this.value);
         });
         
+        slider.addEventListener('change', function() {
+            console.log('Slider change:', this.value);
+            handleSliderChange(this.value);
+        });
+        
+        // Touch events for mobile
+        slider.addEventListener('touchstart', function(e) {
+            console.log('Touch start on slider');
+            e.preventDefault();
+            this.focus();
+        });
+        
+        slider.addEventListener('touchmove', function(e) {
+            console.log('Touch move on slider');
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = this.getBoundingClientRect();
+            const percent = (touch.clientX - rect.left) / rect.width;
+            const value = Math.round(Math.max(0, Math.min(100, percent * 100)));
+            this.value = value;
+            handleSliderInput(value);
+        });
+        
+        slider.addEventListener('touchend', function(e) {
+            console.log('Touch end on slider');
+            e.preventDefault();
+            handleSliderChange(this.value);
+        });
+        
+        // Force initial styling
+        slider.style.pointerEvents = 'auto';
+        slider.style.zIndex = '10';
+        slider.style.position = 'relative';
+        
         // Set initial value
-        updateEffectIntensity(slider.value);
+        handleSliderInput(slider.value);
+        console.log('Slider initialized with value:', slider.value);
     }
+});
+
+// Separate handler functions
+function handleSliderInput(value) {
+    updateEffectIntensity(value);
+}
+
+function handleSliderChange(value) {
+    updateEffectIntensity(value);
 });
