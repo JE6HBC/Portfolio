@@ -93,38 +93,169 @@ function isPositionOccupied(gridX, gridY) {
 }
 
 // Find next available position
-function findNextPosition() {
+function findRandomPosition() {
     const cols = Math.floor(circuitCanvas.width / GRID_SIZE);
     const rows = Math.floor(circuitCanvas.height / GRID_SIZE);
+    const availablePositions = [];
     
-    // Start from top-left, move right then down
+    // Find all available positions
     for (let row = 1; row < rows - 1; row++) {
         for (let col = 1; col < cols - 1; col++) {
             const x = col * GRID_SIZE + GRID_SIZE / 2;
             const y = row * GRID_SIZE + GRID_SIZE / 2;
             
             if (!isPositionOccupied(x, y)) {
-                return { x, y };
+                availablePositions.push({ x, y });
             }
         }
     }
+    
+    // Return random position from available ones
+    if (availablePositions.length > 0) {
+        const randomIndex = Math.floor(Math.random() * availablePositions.length);
+        return availablePositions[randomIndex];
+    }
+    
     return null; // Grid is full
 }
 
-// Add connection lines between adjacent components
+// Check if line intersects with any component or other lines
+function lineIntersectsComponent(x1, y1, x2, y2, excludeComponents = []) {
+    // Check intersection with components
+    for (const component of components) {
+        if (excludeComponents.includes(component)) continue;
+        
+        const compLeft = component.x - COMPONENT_WIDTH/2;
+        const compRight = component.x + COMPONENT_WIDTH/2;
+        const compTop = component.y - COMPONENT_HEIGHT/2;
+        const compBottom = component.y + COMPONENT_HEIGHT/2;
+        
+        // Check if line passes through component bounds
+        if (lineIntersectsRect(x1, y1, x2, y2, compLeft, compTop, compRight, compBottom)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Line-rectangle intersection test
+function lineIntersectsRect(x1, y1, x2, y2, rectLeft, rectTop, rectRight, rectBottom) {
+    // Simple line-rectangle intersection test
+    // Check if either endpoint is inside rectangle
+    if ((x1 >= rectLeft && x1 <= rectRight && y1 >= rectTop && y1 <= rectBottom) ||
+        (x2 >= rectLeft && x2 <= rectRight && y2 >= rectTop && y2 <= rectBottom)) {
+        return true;
+    }
+    
+    // Check if line crosses rectangle edges
+    return (
+        lineIntersectsLine(x1, y1, x2, y2, rectLeft, rectTop, rectRight, rectTop) ||    // Top edge
+        lineIntersectsLine(x1, y1, x2, y2, rectRight, rectTop, rectRight, rectBottom) || // Right edge
+        lineIntersectsLine(x1, y1, x2, y2, rectRight, rectBottom, rectLeft, rectBottom) || // Bottom edge
+        lineIntersectsLine(x1, y1, x2, y2, rectLeft, rectBottom, rectLeft, rectTop)      // Left edge
+    );
+}
+
+// Line-line intersection test
+function lineIntersectsLine(x1, y1, x2, y2, x3, y3, x4, y4) {
+    const denom = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+    if (Math.abs(denom) < 0.0001) return false; // Lines are parallel
+    
+    const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denom;
+    const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / denom;
+    
+    return t >= 0 && t <= 1 && u >= 0 && u <= 1;
+}
+
+// Add smart connection lines that avoid intersections
 function drawConnections() {
     circuitCtx.strokeStyle = '#38bdf8';
     circuitCtx.lineWidth = 2;
+    const drawnConnections = []; // Track drawn connections to avoid duplicates
     
     components.forEach((component, index) => {
-        // Connect to adjacent components
+        // Find nearby components to connect (within reasonable distance)
         components.forEach((otherComponent, otherIndex) => {
             if (index !== otherIndex) {
                 const dx = Math.abs(component.x - otherComponent.x);
                 const dy = Math.abs(component.y - otherComponent.y);
+                const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                // Connect if components are adjacent on grid
-                if ((dx === GRID_SIZE && dy === 0) || (dx === 0 && dy === GRID_SIZE)) {
+                // Connect if components are close enough (within 2-3 grid units)
+                if (distance <= GRID_SIZE * 2.5 && distance > 0) {
+                    const connectionKey = `${Math.min(index, otherIndex)}-${Math.max(index, otherIndex)}`;
+                    if (drawnConnections.includes(connectionKey)) return;
+                    
+                    // Check for intersections with other components
+                    if (!lineIntersectsComponent(component.x, component.y, otherComponent.x, otherComponent.y, [component, otherComponent])) {
+                        drawConnection(component, otherComponent);
+                        drawnConnections.push(connectionKey);
+                    }
+                }
+            }
+        });
+    });
+}
+
+// Draw connection between two components
+function drawConnection(comp1, comp2) {
+    circuitCtx.strokeStyle = '#38bdf8';
+    circuitCtx.lineWidth = 2;
+    circuitCtx.beginPath();
+    
+    const dx = comp2.x - comp1.x;
+    const dy = comp2.y - comp1.y;
+    
+    // Determine connection points based on relative positions
+    let startX, startY, endX, endY;
+    
+    if (Math.abs(dx) > Math.abs(dy)) {
+        // Horizontal connection
+        if (dx > 0) {
+            // comp1 is left of comp2
+            startX = comp1.x + COMPONENT_WIDTH/2;
+            startY = comp1.y;
+            endX = comp2.x - COMPONENT_WIDTH/2;
+            endY = comp2.y;
+        } else {
+            // comp1 is right of comp2
+            startX = comp1.x - COMPONENT_WIDTH/2;
+            startY = comp1.y;
+            endX = comp2.x + COMPONENT_WIDTH/2;
+            endY = comp2.y;
+        }
+    } else {
+        // Vertical connection
+        if (dy > 0) {
+            // comp1 is above comp2
+            startX = comp1.x;
+            startY = comp1.y + COMPONENT_HEIGHT/2;
+            endX = comp2.x;
+            endY = comp2.y - COMPONENT_HEIGHT/2;
+        } else {
+            // comp1 is below comp2
+            startX = comp1.x;
+            startY = comp1.y - COMPONENT_HEIGHT/2;
+            endX = comp2.x;
+            endY = comp2.y + COMPONENT_HEIGHT/2;
+        }
+    }
+    
+    // Draw L-shaped connection for non-aligned components
+    if (Math.abs(dx) > GRID_SIZE/2 && Math.abs(dy) > GRID_SIZE/2) {
+        const midX = startX + dx/2;
+        circuitCtx.moveTo(startX, startY);
+        circuitCtx.lineTo(midX, startY);
+        circuitCtx.lineTo(midX, endY);
+        circuitCtx.lineTo(endX, endY);
+    } else {
+        // Direct connection for aligned components
+        circuitCtx.moveTo(startX, startY);
+        circuitCtx.lineTo(endX, endY);
+    }
+    
+    circuitCtx.stroke();
+}</parameter>
                     circuitCtx.beginPath();
                     
                     if (dx === GRID_SIZE && dy === 0) {
@@ -172,23 +303,10 @@ function drawCircuit() {
     // Draw components
     components.forEach(component => {
         circuitCtx.strokeStyle = '#38bdf8';
-        circuitCtx.lineWidth = 2;
-        circuitCtx.fillStyle = '#1e293b';
-        
-        // Draw component background
-        circuitCtx.beginPath();
-        circuitCtx.roundRect(
-            component.x - COMPONENT_WIDTH/2, 
-            component.y - COMPONENT_HEIGHT/2, 
-            COMPONENT_WIDTH, 
-            COMPONENT_HEIGHT, 
-            5
-        );
-        circuitCtx.fill();
-        circuitCtx.stroke();
+        circuitCtx.lineWidth = 3;
         
         // Draw component symbols
-        circuitCtx.lineWidth = 2;
+        circuitCtx.lineWidth = 3;
         circuitCtx.strokeStyle = '#38bdf8';
         
         const centerX = component.x;
@@ -214,9 +332,9 @@ function drawCircuit() {
                 
                 // Component label
                 circuitCtx.fillStyle = '#38bdf8';
-                circuitCtx.font = '10px monospace';
+                circuitCtx.font = 'bold 12px monospace';
                 circuitCtx.textAlign = 'center';
-                circuitCtx.fillText('R', centerX, centerY + 15);
+                circuitCtx.fillText('R', centerX, centerY + 18);
                 break;
                 
             case 'capacitor':
@@ -240,9 +358,9 @@ function drawCircuit() {
                 
                 // Component label
                 circuitCtx.fillStyle = '#38bdf8';
-                circuitCtx.font = '10px monospace';
+                circuitCtx.font = 'bold 12px monospace';
                 circuitCtx.textAlign = 'center';
-                circuitCtx.fillText('C', centerX, centerY + 15);
+                circuitCtx.fillText('C', centerX, centerY + 18);
                 break;
                 
             case 'inductor':
@@ -267,9 +385,9 @@ function drawCircuit() {
                 
                 // Component label
                 circuitCtx.fillStyle = '#38bdf8';
-                circuitCtx.font = '10px monospace';
+                circuitCtx.font = 'bold 12px monospace';
                 circuitCtx.textAlign = 'center';
-                circuitCtx.fillText('L', centerX, centerY + 15);
+                circuitCtx.fillText('L', centerX, centerY + 18);
                 break;
         }
     });
@@ -278,7 +396,7 @@ function drawCircuit() {
 window.addComponent = function(type) {
     if (!circuitCanvas) return;
     
-    const position = findNextPosition();
+    const position = findRandomPosition();
     if (!position) {
         // Grid is full, show message
         circuitCtx.fillStyle = '#ef4444';
