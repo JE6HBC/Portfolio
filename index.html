@@ -183,7 +183,10 @@
                     <button class="interactive-button text-sm" onclick="resetEffects()">Reset</button>
                 </div>
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
-                    <label class="text-gray-400 text-sm">Intensity:</label>
+                    <label class="text-gray-400 text-sm">
+                        <span data-lang-ja="強度:" data-lang-en="Intensity:">強度:</span>
+                        <span id="currentEffect" class="text-sky-400 ml-2">None</span>
+                    </label>
                     <input type="range" id="effectIntensity" min="0" max="100" value="50" class="flex-1" onchange="updateEffectIntensity(this.value)">
                     <span id="intensityValue" class="text-sky-400 text-sm">50%</span>
                 </div>
@@ -329,18 +332,6 @@
                        data-lang-en="Handled technical direction for numerous domestic and international exhibitions by leading Japanese artists including Yoichi Ochiai and Takayuki Todo.">
                        落合陽一氏、藤堂高行氏など、日本を代表するアーティストの国内外の展示でテクニカルディレクションを多数担当。国内50件国外30件以上の展示実績で、増加中。</p>
                     <div class="mt-2"><span class="tag">テクニカルディレクション</span><span class="tag">メディアアート</span><span class="tag">インスタレーション</span></div>
-                </div>
-                <div class="timeline-item other-category">
-                    <div class="timeline-dot"></div>
-                    <p class="text-sm text-gray-400">2018 - 現在</p>
-                    <h3 class="text-xl font-bold text-sky-400"
-                        data-lang-ja="国立博物館 展示技術開発スタッフ"
-                        data-lang-en="National Museum Exhibition Technology Development Staff">国立博物館 展示技術開発スタッフ</h3>
-                    <p class="text-gray-300 mt-2 leading-relaxed"
-                       data-lang-ja="国立博物館における展示技術の開発・運用に携わり、文化財の保護と最新技術を両立する展示システムを構築。来館者体験向上のためのインタラクティブ技術導入や、デジタルアーカイブシステムの開発を担当。"
-                       data-lang-en="Engaged in the development and operation of exhibition technologies at national museums, building display systems that balance cultural property protection with cutting-edge technology. Responsible for introducing interactive technologies to enhance visitor experience and developing digital archive systems.">
-                       国立博物館における展示技術の開発・運用に携わり、文化財の保護と最新技術を両立する展示システムを構築。来館者体験向上のためのインタラクティブ技術導入や、デジタルアーカイブシステムの開発を担当。</p>
-                    <div class="mt-2"><span class="tag">展示技術</span><span class="tag">文化財保護</span><span class="tag">インタラクティブシステム</span><span class="tag">デジタルアーカイブ</span></div>
                 </div>
                 <div class="timeline-item other-category">
                     <div class="timeline-dot"></div>
@@ -505,7 +496,7 @@
                         <li data-lang-ja="回路・基板設計 (KiCad)" data-lang-en="Circuit & PCB Design (KiCad)">回路・基板設計 (KiCad)</li>
                         <li data-lang-ja="組込みシステム (Arduino/M5Stack/PIC)" data-lang-en="Embedded Systems (Arduino/M5Stack/PIC)">組込みシステム (Arduino/M5Stack/PIC)</li>
                         <li data-lang-ja="3Dモデリング & プリンティング" data-lang-en="3D Modeling & Printing">3Dモデリング & プリンティング</li>
-                        <li data-lang-ja="無線技術 (2陸技)" data-lang-en="Radio Technology (2nd Land)">無線技術 (2陸技)</li>
+                        <li data-lang-ja="無線技術 (1アマ・2陸技)" data-lang-en="Radio Technology (1st Amateur・2nd Land)">無線技術 (1アマ・2陸技)</li>
                     </ul>
                 </div>
                 <div class="glass-card p-6 fade-in" style="transition-delay: 300ms;">
@@ -513,10 +504,10 @@
                         <i class="fas fa-code mr-2 text-sky-400"></i>Software Development</h3>
                      <ul class="space-y-3 text-gray-300">
                         <li>C++, Python, JavaScript</li>
-                        <li>Docker, ESXi, SmallServerPlacement</li>
+                        <li>Docker, ESXi, Server Management</li>
                         <li>Unity, Unreal Engine</li>
-                        <li data-lang-ja="動画・画像・音響センシング" data-lang-en="Video, Image & Audio Sensing">画像・音響センシング</li>
-                        <li data-lang-ja="AI駆動アプリケーション開発" data-lang-en="AI Application Development">AIアプリケーション開発</li>
+                        <li data-lang-ja="動画・画像・音響センシング" data-lang-en="Video, Image & Audio Sensing">動画・画像・音響センシング</li>
+                        <li data-lang-ja="AI駆動アプリケーション開発" data-lang-en="AI Application Development">AI駆動アプリケーション開発</li>
                     </ul>
                 </div>
                 <div class="glass-card p-6 fade-in" style="transition-delay: 450ms;">
