@@ -65,6 +65,8 @@ const translations = {
         'aist-desc': '画像/音響センシングに関する特許の社会実装をリード。鉄道インフラ向け計測システムを開発・導入。',
         'media-art-title': 'メディアアート テクニカルディレクション',
         'media-art-desc': '落合陽一氏、藤堂高行氏など、日本を代表するアーティストの国内外の展示でテクニカルディレクションを多数担当。',
+        '国立博物館 展示技術開発スタッフ': '国立博物館 展示技術開発スタッフ',
+        '国立博物館における展示技術の開発・運用に携わり、文化財の保護と最新技術を両立する展示システムを構築。来館者体験向上のためのインタラクティブ技術導入や、デジタルアーカイブシステムの開発を担当。': '国立博物館における展示技術の開発・運用に携わり、文化財の保護と最新技術を両立する展示システムを構築。来館者体験向上のためのインタラクティブ技術導入や、デジタルアーカイブシステムの開発を担当。',
         'forethumb-title': 'Forethumb LLC 設立',
         'forethumb-desc': '筑波大学在学中に起業。モールス式キーボード開発から始まり、人工衛星開発、VRコンテンツ開発など、常に新しい領域に挑戦。',
         
@@ -187,6 +189,8 @@ const translations = {
         'aist-desc': 'Led social implementation of patents related to image/acoustic sensing. Developed and deployed measurement systems for railway infrastructure.',
         'media-art-title': 'Media Art Technical Direction',
         'media-art-desc': 'Handled technical direction for numerous domestic and international exhibitions by leading Japanese artists including Yoichi Ochiai and Takayuki Todo.',
+        '国立博物館 展示技術開発スタッフ': 'National Museum Exhibition Technology Development Staff',
+        '国立博物館における展示技術の開発・運用に携わり、文化財の保護と最新技術を両立する展示システムを構築。来館者体験向上のためのインタラクティブ技術導入や、デジタルアーカイブシステムの開発を担当。': 'Engaged in the development and operation of exhibition technologies at national museums, building display systems that balance cultural property protection with cutting-edge technology. Responsible for introducing interactive technologies to enhance visitor experience and developing digital archive systems.',
         'museum-title': 'National Museum Exhibition Technology Development Staff',
         'museum-desc': 'Engaged in the development and operation of exhibition technologies at national museums, building display systems that balance cultural property protection with cutting-edge technology. Responsible for introducing interactive technologies to enhance visitor experience and developing digital archive systems.',
         'forethumb-title': 'Founded Forethumb LLC',
