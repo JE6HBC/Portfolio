@@ -58,6 +58,10 @@ window.changeWaveform = function(type) {
 // Circuit Designer Game
 let circuitCanvas, circuitCtx;
 let components = [];
+let circuitGrid = {};
+const GRID_SIZE = 40;
+const COMPONENT_WIDTH = 60;
+const COMPONENT_HEIGHT = 20;
 
 window.initCircuitCanvas = function() {
     circuitCanvas = document.getElementById('circuitCanvas');
@@ -66,41 +70,291 @@ window.initCircuitCanvas = function() {
     circuitCtx = circuitCanvas.getContext('2d');
     circuitCanvas.width = circuitCanvas.offsetWidth;
     circuitCanvas.height = circuitCanvas.offsetHeight;
+    
+    // Initialize grid tracking
+    circuitGrid = {};
+    components = [];
+    
     drawCircuit();
 };
 
+// Helper function to get grid position
+function getGridPos(x, y) {
+    return {
+        x: Math.floor(x / GRID_SIZE) * GRID_SIZE + GRID_SIZE / 2,
+        y: Math.floor(y / GRID_SIZE) * GRID_SIZE + GRID_SIZE / 2
+    };
+}
+
+// Check if position is occupied
+function isPositionOccupied(gridX, gridY) {
+    const key = `${gridX}_${gridY}`;
+    return circuitGrid[key] !== undefined;
+}
+
+// Find next available position
+function findNextPosition() {
+    const cols = Math.floor(circuitCanvas.width / GRID_SIZE);
+    const rows = Math.floor(circuitCanvas.height / GRID_SIZE);
+    
+    // Start from top-left, move right then down
+    for (let row = 1; row < rows - 1; row++) {
+        for (let col = 1; col < cols - 1; col++) {
+            const x = col * GRID_SIZE + GRID_SIZE / 2;
+            const y = row * GRID_SIZE + GRID_SIZE / 2;
+            
+            if (!isPositionOccupied(x, y)) {
+                return { x, y };
+            }
+        }
+    }
+    return null; // Grid is full
+}
+
+// Add connection lines between adjacent components
+function drawConnections() {
+    circuitCtx.strokeStyle = '#38bdf8';
+    circuitCtx.lineWidth = 2;
+    
+    components.forEach((component, index) => {
+        // Connect to adjacent components
+        components.forEach((otherComponent, otherIndex) => {
+            if (index !== otherIndex) {
+                const dx = Math.abs(component.x - otherComponent.x);
+                const dy = Math.abs(component.y - otherComponent.y);
+                
+                // Connect if components are adjacent on grid
+                if ((dx === GRID_SIZE && dy === 0) || (dx === 0 && dy === GRID_SIZE)) {
+                    circuitCtx.beginPath();
+                    
+                    if (dx === GRID_SIZE && dy === 0) {
+                        // Horizontal connection
+                        const leftComp = component.x < otherComponent.x ? component : otherComponent;
+                        const rightComp = component.x > otherComponent.x ? component : otherComponent;
+                        
+                        circuitCtx.moveTo(leftComp.x + COMPONENT_WIDTH/2, leftComp.y);
+                        circuitCtx.lineTo(rightComp.x - COMPONENT_WIDTH/2, rightComp.y);
+                    } else {
+                        // Vertical connection
+                        const topComp = component.y < otherComponent.y ? component : otherComponent;
+                        const bottomComp = component.y > otherComponent.y ? component : otherComponent;
+                        
+                        circuitCtx.moveTo(topComp.x, topComp.y + COMPONENT_HEIGHT/2);
+                        circuitCtx.lineTo(bottomComp.x, bottomComp.y - COMPONENT_HEIGHT/2);
+                    }
+                    
+                    circuitCtx.stroke();
+                }
+            }
+        });
+    });
+}
 function drawCircuit() {
     if (!circuitCtx) return;
     
     circuitCtx.clearRect(0, 0, circuitCanvas.width, circuitCanvas.height);
     
-    // Draw grid
-    circuitCtx.strokeStyle = '#334155';
+    // Draw grid points
+    circuitCtx.fillStyle = '#334155';
     circuitCtx.lineWidth = 1;
-    for (let x = 0; x < circuitCanvas.width; x += 20) {
-        circuitCtx.beginPath();
-        circuitCtx.moveTo(x, 0);
-        circuitCtx.lineTo(x, circuitCanvas.height);
-        circuitCtx.stroke();
+    
+    for (let x = GRID_SIZE / 2; x < circuitCanvas.width; x += GRID_SIZE) {
+        for (let y = GRID_SIZE / 2; y < circuitCanvas.height; y += GRID_SIZE) {
+            circuitCtx.beginPath();
+            circuitCtx.arc(x, y, 1, 0, Math.PI * 2);
+            circuitCtx.fill();
+        }
     }
-    for (let y = 0; y < circuitCanvas.height; y += 20) {
-        circuitCtx.beginPath();
-        circuitCtx.moveTo(0, y);
-        circuitCtx.lineTo(circuitCanvas.width, y);
-        circuitCtx.stroke();
-    }
+    
+    // Draw connections first (behind components)
+    drawConnections();
 
     // Draw components
     components.forEach(component => {
         circuitCtx.strokeStyle = '#38bdf8';
-        circuitCtx.lineWidth = 3;
-        circuitCtx.beginPath();
+        circuitCtx.lineWidth = 2;
+        circuitCtx.fillStyle = '#1e293b';
         
-        if (component.type === 'resistor') {
-            // Draw resistor zigzag
-            circuitCtx.moveTo(component.x, component.y);
-            for (let i = 0; i < 6; i++) {
-                circuitCtx.lineTo(component.x + i * 8, component.y + (i % 2 ? -10 : 10));
+        // Draw component background
+        circuitCtx.beginPath();
+        circuitCtx.roundRect(
+            component.x - COMPONENT_WIDTH/2, 
+            component.y - COMPONENT_HEIGHT/2, 
+            COMPONENT_WIDTH, 
+            COMPONENT_HEIGHT, 
+            5
+        );
+        circuitCtx.fill();
+        circuitCtx.stroke();
+        
+        // Draw component symbols
+        circuitCtx.lineWidth = 2;
+        circuitCtx.strokeStyle = '#38bdf8';
+        
+        const centerX = component.x;
+        const centerY = component.y;
+        
+        switch (component.type) {
+            case 'resistor':
+                // Draw resistor zigzag pattern
+                circuitCtx.beginPath();
+                const zigzagWidth = COMPONENT_WIDTH * 0.6;
+                const zigzagHeight = 8;
+                const segments = 6;
+                const segmentWidth = zigzagWidth / segments;
+                
+                circuitCtx.moveTo(centerX - zigzagWidth/2, centerY);
+                for (let i = 0; i < segments; i++) {
+                    const x = centerX - zigzagWidth/2 + (i + 0.5) * segmentWidth;
+                    const y = centerY + (i % 2 ? -zigzagHeight : zigzagHeight);
+                    circuitCtx.lineTo(x, y);
+                }
+                circuitCtx.lineTo(centerX + zigzagWidth/2, centerY);
+                circuitCtx.stroke();
+                
+                // Component label
+                circuitCtx.fillStyle = '#38bdf8';
+                circuitCtx.font = '10px monospace';
+                circuitCtx.textAlign = 'center';
+                circuitCtx.fillText('R', centerX, centerY + 15);
+                break;
+                
+            case 'capacitor':
+                // Draw capacitor plates
+                const plateGap = 4;
+                const plateHeight = COMPONENT_HEIGHT * 0.6;
+                
+                circuitCtx.beginPath();
+                // Left plate
+                circuitCtx.moveTo(centerX - plateGap/2, centerY - plateHeight/2);
+                circuitCtx.lineTo(centerX - plateGap/2, centerY + plateHeight/2);
+                // Right plate
+                circuitCtx.moveTo(centerX + plateGap/2, centerY - plateHeight/2);
+                circuitCtx.lineTo(centerX + plateGap/2, centerY + plateHeight/2);
+                // Connection lines
+                circuitCtx.moveTo(centerX - COMPONENT_WIDTH/2, centerY);
+                circuitCtx.lineTo(centerX - plateGap/2, centerY);
+                circuitCtx.moveTo(centerX + plateGap/2, centerY);
+                circuitCtx.lineTo(centerX + COMPONENT_WIDTH/2, centerY);
+                circuitCtx.stroke();
+                
+                // Component label
+                circuitCtx.fillStyle = '#38bdf8';
+                circuitCtx.font = '10px monospace';
+                circuitCtx.textAlign = 'center';
+                circuitCtx.fillText('C', centerX, centerY + 15);
+                break;
+                
+            case 'inductor':
+                // Draw inductor coil pattern
+                const coilRadius = 6;
+                const coils = 4;
+                const coilSpacing = (COMPONENT_WIDTH * 0.6) / coils;
+                
+                circuitCtx.beginPath();
+                circuitCtx.moveTo(centerX - COMPONENT_WIDTH/2, centerY);
+                
+                for (let i = 0; i < coils; i++) {
+                    const startX = centerX - COMPONENT_WIDTH/2 + i * coilSpacing + coilSpacing/2;
+                    const endX = startX + coilSpacing;
+                    
+                    // Draw half circle (coil)
+                    circuitCtx.arc(startX, centerY, coilRadius/2, Math.PI, 0, false);
+                }
+                
+                circuitCtx.lineTo(centerX + COMPONENT_WIDTH/2, centerY);
+                circuitCtx.stroke();
+                
+                // Component label
+                circuitCtx.fillStyle = '#38bdf8';
+                circuitCtx.font = '10px monospace';
+                circuitCtx.textAlign = 'center';
+                circuitCtx.fillText('L', centerX, centerY + 15);
+                break;
+        }
+    });
+}
+
+window.addComponent = function(type) {
+    if (!circuitCanvas) return;
+    
+    const position = findNextPosition();
+    if (!position) {
+        // Grid is full, show message
+        circuitCtx.fillStyle = '#ef4444';
+        circuitCtx.font = '16px sans-serif';
+        circuitCtx.textAlign = 'center';
+        circuitCtx.fillText('回路が満杯です！クリアしてください', circuitCanvas.width/2, 30);
+        setTimeout(() => drawCircuit(), 2000);
+        return;
+    }
+    
+    const component = {
+        type: type,
+        x: position.x,
+        y: position.y,
+        id: components.length
+    };
+    
+    components.push(component);
+    circuitGrid[`${position.x}_${position.y}`] = component;
+    
+    drawCircuit();
+    
+    // Show success message briefly
+    setTimeout(() => {
+        circuitCtx.fillStyle = '#10b981';
+        circuitCtx.font = '12px sans-serif';
+        circuitCtx.textAlign = 'center';
+        circuitCtx.fillText(`${getComponentName(type)}を追加しました`, circuitCanvas.width/2, 30);
+    }, 100);
+    
+    setTimeout(() => drawCircuit(), 1500);
+};
+
+function getComponentName(type) {
+    const names = {
+        'resistor': '抵抗',
+        'capacitor': 'コンデンサ',
+        'inductor': 'インダクタ'
+    };
+    return names[type] || type;
+}
+
+window.clearCircuit = function() {
+    components = [];
+    circuitGrid = {};
+    if (circuitCanvas) {
+        drawCircuit();
+        
+        // Show clear message
+        setTimeout(() => {
+            circuitCtx.fillStyle = '#6b7280';
+            circuitCtx.font = '14px sans-serif';
+            circuitCtx.textAlign = 'center';
+            circuitCtx.fillText('回路をクリアしました', circuitCanvas.width/2, circuitCanvas.height/2);
+        }, 100);
+        
+        setTimeout(() => drawCircuit(), 1500);
+    }
+};
+
+// Add roundRect method if not available
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function(x, y, width, height, radius) {
+        this.beginPath();
+        this.moveTo(x + radius, y);
+        this.lineTo(x + width - radius, y);
+        this.arcTo(x + width, y, x + width, y + radius, radius);
+        this.lineTo(x + width, y + height - radius);
+        this.arcTo(x + width, y + height, x + width - radius, y + height, radius);
+        this.lineTo(x + radius, y + height);
+        this.arcTo(x, y + height, x, y + height - radius, radius);
+        this.lineTo(x, y + radius);
+        this.arcTo(x, y, x + radius, y, radius);
+        this.closePath();
+    };
+}
             }
         } else if (component.type === 'capacitor') {
             // Draw capacitor plates
