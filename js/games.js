@@ -965,20 +965,30 @@ function updateButtonStates() {
         }
     }
     
-    // Update intensity container visibility but keep slider functional
+    // Update intensity container visual state but keep slider functional
     const intensityLabel = document.querySelector('label');
     const intensitySlider = document.getElementById('effectIntensity');
+    const sliderContainer = document.querySelector('.slider-container');
     
-    if (intensityLabel && intensitySlider) {
+    if (intensityLabel && intensitySlider && sliderContainer) {
         if (currentEffect === 'none' || currentPattern !== 'none') {
-            // Disable visual appearance but keep slider functional
+            // Visual feedback that intensity is not active, but keep functional
             intensityLabel.style.opacity = '0.5';
-            intensitySlider.style.opacity = '0.5';
-            // DO NOT set pointerEvents to 'none' - this breaks the slider
+            sliderContainer.style.opacity = '0.5';
+            // Ensure slider remains functional
+            intensitySlider.style.pointerEvents = 'auto';
+            intensitySlider.style.cursor = 'pointer';
         } else {
+            // Full visibility when effects are active
             intensityLabel.style.opacity = '1';
-            intensitySlider.style.opacity = '1';
+            sliderContainer.style.opacity = '1';
+            intensitySlider.style.pointerEvents = 'auto';
+            intensitySlider.style.cursor = 'pointer';
         }
+        
+        // Force z-index to ensure slider is always on top
+        intensitySlider.style.zIndex = '10';
+        intensitySlider.style.position = 'relative';
     }
 }
 
