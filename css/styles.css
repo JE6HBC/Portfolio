@@ -494,6 +494,62 @@ h1, h2, h3, h4, .font-roboto {
     }
 }
 
+/* Intensity Slider Styling */
+.intensity-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: #374151;
+    border-radius: 3px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.intensity-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(45deg, #38bdf8, #a78bfa);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(56, 189, 248, 0.3);
+    transition: all 0.2s ease;
+}
+
+.intensity-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.5);
+}
+
+.intensity-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(45deg, #38bdf8, #a78bfa);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(56, 189, 248, 0.3);
+    transition: all 0.2s ease;
+}
+
+.intensity-slider::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.5);
+}
+
+.intensity-slider:focus {
+    background: #4b5563;
+}
+
+.intensity-slider:active::-webkit-slider-thumb {
+    transform: scale(0.95);
+}
+
+.intensity-slider:active::-moz-range-thumb {
+    transform: scale(0.95);
+}
+
 /* Test Pattern Buttons - Different styling */
 .test-pattern-button {
     background: linear-gradient(45deg, #6b7280, #9ca3af);

@@ -918,7 +918,7 @@ window.resetEffects = function() {
 };
 
 window.updateEffectIntensity = function(value) {
-    effectIntensity = value;
+    effectIntensity = parseInt(value);
     effectIntensity = parseInt(value); // Ensure it's a number
     const intensityDisplay = document.getElementById('intensityValue');
     if (intensityDisplay) {
@@ -941,7 +941,12 @@ function updateButtonStates() {
             }
         });
     }
-}
+        });
+        
+        // Set initial value
+        updateEffectIntensity(slider.value);
+    }
+});
 
     
     // Update intensity display visibility
@@ -953,5 +958,21 @@ function updateButtonStates() {
         } else {
             intensityContainer.style.opacity = '1';
             intensityContainer.style.pointerEvents = 'auto';
+        }
+    }
+    
+    // Update intensity container visibility but keep slider functional
+    const intensityLabel = document.querySelector('label');
+    const intensitySlider = document.getElementById('effectIntensity');
+    
+    if (intensityLabel && intensitySlider) {
+        if (currentEffect === 'none' || currentPattern !== 'none') {
+            // Disable visual appearance but keep slider functional
+            intensityLabel.style.opacity = '0.5';
+            intensitySlider.style.opacity = '0.5';
+            // DO NOT set pointerEvents to 'none' - this breaks the slider
+        } else {
+            intensityLabel.style.opacity = '1';
+            intensitySlider.style.opacity = '1';
         }
     }

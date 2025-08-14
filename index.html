@@ -205,9 +205,7 @@
                         <span data-lang-ja="強度:" data-lang-en="Intensity:">強度:</span>
                         <span id="currentEffect" class="text-sky-400 ml-2">None</span>
                     </label>
-                    <input type="range" id="effectIntensity" min="0" max="100" value="50" class="flex-1" 
-                           onchange="updateEffectIntensity(this.value)" 
-                           oninput="updateEffectIntensity(this.value)">
+                    <input type="range" id="effectIntensity" min="0" max="100" value="50" step="1" class="flex-1 intensity-slider">
                     <span id="intensityValue" class="text-sky-400 text-sm">50%</span>
                 </div>
                 <p class="text-gray-400 text-sm mt-2"
