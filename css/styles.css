@@ -81,8 +81,41 @@ h1, h2, h3, h4, .font-roboto {
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
-    background-color: #38bdf8;
     border: 2px solid #111827;
+    /* Default color - can be overridden by category classes */
+    background-color: #6b7280;
+}
+
+/* Timeline Category Colors */
+/* 映像関係の実績: 紫系 */
+.timeline-item.video-category .timeline-dot {
+    background-color: #a78bfa;
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.3);
+}
+
+/* エンジニアリング関係の実績: 青系 */
+.timeline-item.engineering-category .timeline-dot {
+    background-color: #38bdf8;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+/* その他実績: 緑系 */
+.timeline-item.other-category .timeline-dot {
+    background-color: #10b981;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+/* カテゴリー別のボーダー色 */
+.timeline-item.video-category {
+    border-left-color: #a78bfa;
+}
+
+.timeline-item.engineering-category {
+    border-left-color: #38bdf8;
+}
+
+.timeline-item.other-category {
+    border-left-color: #10b981;
 }
 
 .tag {
