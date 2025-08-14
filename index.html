@@ -171,23 +171,43 @@
                     <canvas id="effectsCanvas" class="w-full h-full"></canvas>
                 </div>
                 <div class="flex flex-wrap gap-2 mb-6">
-                    <button class="interactive-button text-sm" onclick="showTestPattern('smpte')">SMPTEバー</button>
-                    <button class="interactive-button text-sm" onclick="showTestPattern('colorChart')">カラーチャート</button>
-                    <button class="interactive-button text-sm" onclick="showTestPattern('grid')">グリッドパターン</button>
-                    <button class="interactive-button text-sm" onclick="applyEffect('glitch')">Glitch</button>
-                    <button class="interactive-button text-sm" onclick="applyEffect('chromatic')">Chromatic</button>
-                    <button class="interactive-button text-sm" onclick="applyEffect('wave')">Wave</button>
-                    <button class="interactive-button text-sm" onclick="applyEffect('rgb')">RGB Split</button>
-                    <button class="interactive-button text-sm" onclick="applyEffect('noise')">Noise</button>
-                    <button class="interactive-button text-sm" onclick="applyEffect('scan')">Scan Lines</button>
-                    <button class="interactive-button text-sm" onclick="resetEffects()">Reset</button>
+                    <div class="mb-2">
+                        <p class="text-xs text-gray-500 mb-1" data-lang-ja="テストパターン (Intensity適用なし)" data-lang-en="Test Patterns (No Intensity)">テストパターン (Intensity適用なし)</p>
+                        <button class="test-pattern-button text-sm" onclick="showTestPattern('smpte')">SMPTEバー</button>
+                        <button class="test-pattern-button text-sm" onclick="showTestPattern('colorChart')">カラーチャート</button>
+                        <button class="test-pattern-button text-sm" onclick="showTestPattern('grid')">グリッドパターン</button>
+                        <button class="test-pattern-button text-sm" onclick="resetEffects()">Reset</button>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 mb-1" data-lang-ja="エフェクト (Intensity適用あり)" data-lang-en="Effects (With Intensity)">エフェクト (Intensity適用あり)</p>
+                        <button class="effect-button text-sm" onclick="applyEffect('glitch')">
+                            <i class="fas fa-bolt mr-1"></i>Glitch
+                        </button>
+                        <button class="effect-button text-sm" onclick="applyEffect('chromatic')">
+                            <i class="fas fa-prism mr-1"></i>Chromatic
+                        </button>
+                        <button class="effect-button text-sm" onclick="applyEffect('wave')">
+                            <i class="fas fa-wave-square mr-1"></i>Wave
+                        </button>
+                        <button class="effect-button text-sm" onclick="applyEffect('rgb')">
+                            <i class="fas fa-palette mr-1"></i>RGB Split
+                        </button>
+                        <button class="effect-button text-sm" onclick="applyEffect('noise')">
+                            <i class="fas fa-static mr-1"></i>Noise
+                        </button>
+                        <button class="effect-button text-sm" onclick="applyEffect('scan')">
+                            <i class="fas fa-lines-leaning mr-1"></i>Scan Lines
+                        </button>
+                    </div>
                 </div>
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
                     <label class="text-gray-400 text-sm">
                         <span data-lang-ja="強度:" data-lang-en="Intensity:">強度:</span>
                         <span id="currentEffect" class="text-sky-400 ml-2">None</span>
                     </label>
-                    <input type="range" id="effectIntensity" min="0" max="100" value="50" class="flex-1" onchange="updateEffectIntensity(this.value)">
+                    <input type="range" id="effectIntensity" min="0" max="100" value="50" class="flex-1" 
+                           onchange="updateEffectIntensity(this.value)" 
+                           oninput="updateEffectIntensity(this.value)">
                     <span id="intensityValue" class="text-sky-400 text-sm">50%</span>
                 </div>
                 <p class="text-gray-400 text-sm mt-2"

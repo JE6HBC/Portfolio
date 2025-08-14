@@ -908,8 +908,26 @@ window.resetEffects = function() {
 
 window.updateEffectIntensity = function(value) {
     effectIntensity = value;
+    effectIntensity = parseInt(value); // Ensure it's a number
     const intensityDisplay = document.getElementById('intensityValue');
     if (intensityDisplay) {
         intensityDisplay.textContent = value + '%';
     }
+    
+    // Force immediate update of effects
+    if (currentEffect !== 'none') {
+        // The effect will be updated in the next animation frame
+    }
 };
+    
+    // Update intensity display visibility
+    const intensityContainer = document.querySelector('.flex.flex-col.sm\\:flex-row.items-start.sm\\:items-center.gap-4.mb-4');
+    if (intensityContainer) {
+        if (currentEffect === 'none' || currentPattern !== 'none') {
+            intensityContainer.style.opacity = '0.5';
+            intensityContainer.style.pointerEvents = 'none';
+        } else {
+            intensityContainer.style.opacity = '1';
+            intensityContainer.style.pointerEvents = 'auto';
+        }
+    }
