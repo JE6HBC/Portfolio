@@ -195,6 +195,8 @@ const translations = {
         'media-art-desc': 'Handled technical direction for numerous domestic and international exhibitions by leading Japanese artists including Yoichi Ochiai and Takayuki Todo.',
         '国立博物館 展示技術開発スタッフ': 'National Museum Exhibition Technology Development Staff',
         '国立博物館における展示技術の開発・運用に携わり、文化財の保護と最新技術を両立する展示システムを構築。来館者体験向上のためのインタラクティブ技術導入や、デジタルアーカイブシステムの開発を担当。': 'Engaged in the development and operation of exhibition technologies at national museums, building display systems that balance cultural property protection with cutting-edge technology. Responsible for introducing interactive technologies to enhance visitor experience and developing digital archive systems.',
+        '国立博物館 展示技術開発スタッフ': 'National Museum Exhibition Technology Development Staff',
+        '国立博物館における展示技術の開発・運用に携わり、文化財の保護と最新技術を両立する展示システムを構築。来館者体験向上のためのインタラクティブ技術導入や、デジタルアーカイブシステムの開発を担当。': 'Engaged in the development and operation of exhibition technologies at national museums, building display systems that balance cultural property protection with cutting-edge technology. Responsible for introducing interactive technologies to enhance visitor experience and developing digital archive systems.',
         'museum-title': 'National Museum Exhibition Technology Development Staff',
         'museum-desc': 'Engaged in the development and operation of exhibition technologies at national museums, building display systems that balance cultural property protection with cutting-edge technology. Responsible for introducing interactive technologies to enhance visitor experience and developing digital archive systems.',
         'forethumb-title': 'Founded Forethumb LLC',
