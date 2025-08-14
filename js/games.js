@@ -49,7 +49,7 @@ function drawSignal() {
     
     signalCtx.stroke();
     signalAnimationId = requestAnimationFrame(drawSignal);
-};
+}
 
 window.changeWaveform = function(type) {
     currentWaveform = type;
@@ -255,31 +255,8 @@ function drawConnection(comp1, comp2) {
     }
     
     circuitCtx.stroke();
-}</parameter>
-                    circuitCtx.beginPath();
-                    
-                    if (dx === GRID_SIZE && dy === 0) {
-                        // Horizontal connection
-                        const leftComp = component.x < otherComponent.x ? component : otherComponent;
-                        const rightComp = component.x > otherComponent.x ? component : otherComponent;
-                        
-                        circuitCtx.moveTo(leftComp.x + COMPONENT_WIDTH/2, leftComp.y);
-                        circuitCtx.lineTo(rightComp.x - COMPONENT_WIDTH/2, rightComp.y);
-                    } else {
-                        // Vertical connection
-                        const topComp = component.y < otherComponent.y ? component : otherComponent;
-                        const bottomComp = component.y > otherComponent.y ? component : otherComponent;
-                        
-                        circuitCtx.moveTo(topComp.x, topComp.y + COMPONENT_HEIGHT/2);
-                        circuitCtx.lineTo(bottomComp.x, bottomComp.y - COMPONENT_HEIGHT/2);
-                    }
-                    
-                    circuitCtx.stroke();
-                }
-            }
-        });
-    });
 }
+
 function drawCircuit() {
     if (!circuitCtx) return;
     
