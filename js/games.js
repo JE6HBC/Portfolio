@@ -736,10 +736,10 @@ function drawGridPattern(time) {
 window.showTestPattern = function(pattern) {
     currentPattern = pattern;
     currentEffect = 'none'; // Reset effects when showing test patterns
-};
     
     // Update button states
     updateButtonStates();
+};
 
 function applyGlitchEffect(intensity, time) {
     const imageData = effectsCtx.getImageData(0, 0, effectsCanvas.width, effectsCanvas.height);
@@ -925,6 +925,7 @@ window.updateEffectIntensity = function(value) {
         intensityDisplay.textContent = value + '%';
     }
 };
+
 function updateButtonStates() {
     // Remove active class from all buttons
     document.querySelectorAll('.effect-button, .test-pattern-button').forEach(btn => {
@@ -941,13 +942,16 @@ function updateButtonStates() {
             }
         });
     }
+    
+    if (currentPattern !== 'none') {
+        const patternButtons = document.querySelectorAll('.test-pattern-button');
+        patternButtons.forEach(btn => {
+            const onclick = btn.getAttribute('onclick');
+            if (onclick && onclick.includes(`'${currentPattern}'`)) {
+                btn.classList.add('active');
+            }
         });
-        
-        // Set initial value
-        updateEffectIntensity(slider.value);
     }
-});
-
     
     // Update intensity display visibility
     const intensityContainer = document.querySelector('.flex.flex-col.sm\\:flex-row.items-start.sm\\:items-center.gap-4.mb-4');
@@ -976,3 +980,17 @@ function updateButtonStates() {
             intensitySlider.style.opacity = '1';
         }
     }
+}
+
+// Initialize intensity slider
+document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('effectIntensity');
+    if (slider) {
+        slider.addEventListener('input', function() {
+            updateEffectIntensity(this.value);
+        });
+        
+        // Set initial value
+        updateEffectIntensity(slider.value);
+    }
+});
