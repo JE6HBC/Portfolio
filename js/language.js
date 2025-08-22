@@ -333,6 +333,7 @@ window.switchLanguage = function(lang) {
     
     // Store language preference
     localStorage.setItem('preferred-language', lang);
+}
 
 // Initialize language on page load
 document.addEventListener('DOMContentLoaded', function() {
