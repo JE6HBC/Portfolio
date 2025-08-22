@@ -210,6 +210,26 @@ const translations = {
         'forethumb-title': 'Founded Forethumb LLC',
         'forethumb-desc': 'Founded company while studying at University of Tsukuba. Started with Morse keyboard development, constantly challenging new domains including satellite development and VR content development.',
         
+        // Major Works - Artists
+        'by 藤堂高行': 'by Takayuki Todo',
+        'by Takayuki Todo': 'by Takayuki Todo',
+        
+        // Tags - Small
+        '電子基板設計': 'PCB Design',
+        'テクニカルD': 'Technical Direction',
+        'インタラクティブ': 'Interactive',
+        'プロトタイピング': 'Prototyping',
+        '技術検証': 'Tech Validation',
+        
+        // Tags - Regular
+        '展示技術': 'Exhibition Tech',
+        '文化財保護': 'Cultural Heritage',
+        'インタラクティブシステム': 'Interactive Systems',
+        'デジタルアーカイブ': 'Digital Archive',
+        '起業': 'Startup',
+        'ハードウェア開発': 'Hardware Dev',
+        'プロダクト開発': 'Product Dev',
+        
         // Skills Section
         'CORE SKILLS': 'CORE SKILLS',
         'skills-subtitle': 'Specialized Domains and Technology Stack',
