@@ -276,18 +276,40 @@ window.switchLanguage = function(lang) {
     // Update button states
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
     });
-    document.getElementById(`lang${lang.charAt(0).toUpperCase() + lang.slice(1)}`).classList.add('active');
+    const activeButton = document.getElementById(`lang${lang.charAt(0).toUpperCase() + lang.slice(1)}`);
+    activeButton.classList.add('active');
+    activeButton.setAttribute('aria-pressed', 'true');
     
     // Update all elements with language attributes
-    document.querySelectorAll('[data-lang-ja]').forEach(element => {
-        const key = element.getAttribute(`data-lang-${lang}`);
-        if (key) {
-            if (element.tagName === 'INPUT' && element.type === 'button') {
-                element.value = key;
-            } else {
-                element.innerHTML = key;
+    document.querySelectorAll('[data-lang-ja], [data-lang-alt-ja]').forEach(element => {
+        // Handle alt attributes for images
+        if (element.hasAttribute(`data-lang-alt-${lang}`)) {
+            const altText = element.getAttribute(`data-lang-alt-${lang}`);
+            if (altText) {
+                element.setAttribute('alt', altText);
             }
+        }
+        
+        // Handle text content
+        if (element.hasAttribute(`data-lang-${lang}`)) {
+            const key = element.getAttribute(`data-lang-${lang}`);
+            if (key) {
+                if (element.tagName === 'INPUT' && element.type === 'button') {
+                    element.value = key;
+                } else {
+                    element.innerHTML = key;
+                }
+            }
+        }
+    });
+    
+    // Update aria-labels for better accessibility
+    document.querySelectorAll('[data-aria-label-ja]').forEach(element => {
+        const ariaLabel = element.getAttribute(`data-aria-label-${lang}`);
+        if (ariaLabel) {
+            element.setAttribute('aria-label', ariaLabel);
         }
     });
     
@@ -298,15 +320,19 @@ window.switchLanguage = function(lang) {
         if (isFullscreen) {
             const exitText = lang === 'en' ? 'Exit' : '終了';
             fullscreenBtn.innerHTML = `<i class="fas fa-compress mr-1"></i>${exitText}`;
+            fullscreenBtn.setAttribute('aria-label', lang === 'en' ? 'Exit fullscreen mode' : 'フルスクリーンモードを終了する');
         } else {
             const fullscreenText = lang === 'en' ? 'Fullscreen' : 'フルスクリーン';
             fullscreenBtn.innerHTML = `<i class="fas fa-expand mr-1"></i>${fullscreenText}`;
+            fullscreenBtn.setAttribute('aria-label', lang === 'en' ? 'Enter fullscreen mode' : 'フルスクリーンモードに切り替える');
         }
     }
     
+    // Update document language
+    document.documentElement.setAttribute('lang', lang);
+    
     // Store language preference
     localStorage.setItem('preferred-language', lang);
-};
 
 // Initialize language on page load
 document.addEventListener('DOMContentLoaded', function() {

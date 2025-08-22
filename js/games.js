@@ -918,10 +918,15 @@ window.resetEffects = function() {
 
 window.updateEffectIntensity = function(value) {
     effectIntensity = parseInt(value);
-    effectIntensity = parseInt(value); // Ensure it's a number
     const intensityDisplay = document.getElementById('intensityValue');
     if (intensityDisplay) {
         intensityDisplay.textContent = value + '%';
+    }
+    
+    // Update aria-valuenow for accessibility
+    const slider = document.getElementById('effectIntensity');
+    if (slider) {
+        slider.setAttribute('aria-valuenow', value);
     }
 };
 
@@ -1012,6 +1017,32 @@ document.addEventListener('DOMContentLoaded', function() {
             handleSliderChange(this.value);
         });
         
+        // Keyboard accessibility
+        slider.addEventListener('keydown', function(e) {
+            let newValue = parseInt(this.value);
+            switch(e.key) {
+                case 'ArrowLeft':
+                case 'ArrowDown':
+                    newValue = Math.max(0, newValue - 5);
+                    break;
+                case 'ArrowRight':
+                case 'ArrowUp':
+                    newValue = Math.min(100, newValue + 5);
+                    break;
+                case 'Home':
+                    newValue = 0;
+                    break;
+                case 'End':
+                    newValue = 100;
+                    break;
+                default:
+                    return;
+            }
+            e.preventDefault();
+            this.value = newValue;
+            handleSliderInput(newValue);
+        });
+        
         // Touch events for mobile
         slider.addEventListener('touchstart', function(e) {
             console.log('Touch start on slider');
@@ -1044,6 +1075,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set initial value
         handleSliderInput(slider.value);
         console.log('Slider initialized with value:', slider.value);
+        
+        // Initialize ARIA attributes
+        slider.setAttribute('aria-valuenow', slider.value);
+        slider.setAttribute('aria-valuetext', slider.value + '%');
     }
 });
 

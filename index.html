@@ -10,6 +10,10 @@
     <meta name="keywords" content="映像技術,エンジニアリング,テクニカルディレクション,ハードウェア開発,メディアアート">
     <meta name="author" content="Yuki Koyama">
     
+    <!-- Accessibility Improvements -->
+    <meta name="theme-color" content="#111827">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Roboto:wght@700;900&display=swap" as="style">
+    
     <!-- External Dependencies -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -23,41 +27,56 @@
 <body class="antialiased">
 
     <!-- ヘッダー -->
-    <header class="fixed w-full bg-gray-900/80 backdrop-blur-sm z-50 shadow-md">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="fixed w-full bg-gray-900/80 backdrop-blur-sm z-50 shadow-md" role="banner">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" role="navigation" aria-label="メインナビゲーション">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <span class="font-bold text-xl gradient-text">Yuki Koyama</span>
+                    <span class="font-bold text-xl gradient-text" role="heading" aria-level="1">Yuki Koyama</span>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <div class="language-switcher">
-                        <button id="langJa" class="lang-btn active" onclick="switchLanguage('ja')">日本語</button>
-                        <button id="langEn" class="lang-btn" onclick="switchLanguage('en')">English</button>
+                    <div class="language-switcher" role="group" aria-label="言語選択">
+                        <button id="langJa" class="lang-btn active" onclick="switchLanguage('ja')" 
+                                aria-label="日本語に切り替える" aria-pressed="true">日本語</button>
+                        <button id="langEn" class="lang-btn" onclick="switchLanguage('en')" 
+                                aria-label="Switch to English" aria-pressed="false">English</button>
                     </div>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="ABOUT" data-lang-en="ABOUT">ABOUT</a>
-                        <a href="#interactive" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="INTERACTIVE" data-lang-en="INTERACTIVE">INTERACTIVE</a>
-                        <a href="#works" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="WORKS" data-lang-en="WORKS">WORKS</a>
-                        <a href="#video-channels" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="VIDEOS" data-lang-en="VIDEOS">VIDEOS</a>
-                        <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="SKILLS" data-lang-en="SKILLS">SKILLS</a>
-                        <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" data-lang-ja="CONTACT" data-lang-en="CONTACT">CONTACT</a>
+                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" 
+                           data-lang-ja="ABOUT" data-lang-en="ABOUT" aria-label="自己紹介セクションへ移動">ABOUT</a>
+                        <a href="#interactive" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" 
+                           data-lang-ja="INTERACTIVE" data-lang-en="INTERACTIVE" aria-label="インタラクティブ体験セクションへ移動">INTERACTIVE</a>
+                        <a href="#works" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" 
+                           data-lang-ja="WORKS" data-lang-en="WORKS" aria-label="実績紹介セクションへ移動">WORKS</a>
+                        <a href="#video-channels" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" 
+                           data-lang-ja="VIDEOS" data-lang-en="VIDEOS" aria-label="動画チャンネルセクションへ移動">VIDEOS</a>
+                        <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" 
+                           data-lang-ja="SKILLS" data-lang-en="SKILLS" aria-label="スキル紹介セクションへ移動">SKILLS</a>
+                        <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" 
+                           data-lang-ja="CONTACT" data-lang-en="CONTACT" aria-label="お問い合わせセクションへ移動">CONTACT</a>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main>
+    <main role="main">
         <!-- ヒーローセクション -->
-        <section class="min-h-screen flex items-center justify-center text-center bg-grid-gray-700/[0.2] relative overflow-hidden">
-            <div class="matrix-rain" id="matrixRain"></div>
+        <section class="min-h-screen flex items-center justify-center text-center bg-grid-gray-700/[0.2] relative overflow-hidden" 
+                 aria-label="ヒーローセクション">
+            <div class="matrix-rain" id="matrixRain" aria-hidden="true"></div>
             <div class="px-4 relative z-10 max-w-6xl mx-auto">
                 <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter">
                     <span class="gradient-text glitch" data-lang-ja="Bridging" data-lang-en="Bridging">Bridging</span> 
                     <span class="text-white" data-lang-ja="Worlds" data-lang-en="Worlds">Worlds</span>
                 </h1>
+                <div class="sr-only">
+                    <span data-lang-ja="技術とクリエイティブの境界を架橋する小山裕貴のポートフォリオサイト" 
+                          data-lang-en="Yuki Koyama's portfolio site bridging technology and creativity">
+                        技術とクリエイティブの境界を架橋する小山裕貴のポートフォリオサイト
+                    </span>
+                </div>
                 <p class="mt-6 text-lg md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed" 
                    data-lang-ja="技術とクリエイティブの境界を溶かし、アイデアを現実に。<br>エンジニアリングとアートを越境し、前例のないプロジェクトを実現する。"
                    data-lang-en="Dissolving the boundaries between technology and creativity, turning ideas into reality.<br>Crossing the borders of engineering and art to realize unprecedented projects.">
@@ -65,28 +84,32 @@
                     <br>エンジニアリングとアートを越境し、前例のないプロジェクトを実現する。
                 </p>
                 <div class="mt-10 relative inline-block">
-                    <div class="pulse-ring"></div>
-                    <a href="#interactive" class="interactive-button">
+                    <div class="pulse-ring" aria-hidden="true"></div>
+                    <a href="#interactive" class="interactive-button" 
+                       aria-label="インタラクティブデモ体験セクションへ移動"
+                       role="button">
                         <i class="fas fa-play mr-2"></i>
                         <span data-lang-ja="Experience Interactive Demo" data-lang-en="Experience Interactive Demo">Experience Interactive Demo</span>
                     </a>
                 </div>
             </div>
-            <div class="floating-particles" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
-            <div class="floating-particles" style="top: 60%; right: 15%; animation-delay: 2s;"></div>
-            <div class="floating-particles" style="top: 80%; left: 70%; animation-delay: 4s;"></div>
+            <div class="floating-particles" style="top: 20%; left: 10%; animation-delay: 0s;" aria-hidden="true"></div>
+            <div class="floating-particles" style="top: 60%; right: 15%; animation-delay: 2s;" aria-hidden="true"></div>
+            <div class="floating-particles" style="top: 80%; left: 70%; animation-delay: 4s;" aria-hidden="true"></div>
         </section>
 
         <!-- Aboutセクション -->
-        <section id="about" class="section">
+        <section id="about" class="section" aria-labelledby="about-heading">
             <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-white" data-lang-ja="ABOUT ME" data-lang-en="ABOUT ME">ABOUT ME</h2>
+                <h2 id="about-heading" class="text-4xl font-bold text-white" data-lang-ja="ABOUT ME" data-lang-en="ABOUT ME">ABOUT ME</h2>
                 <p class="text-sky-400 font-roboto" data-lang-ja="小山 裕貴 / Forethumb LLC 代表" data-lang-en="Yuki Koyama / CEO of Forethumb LLC">小山 裕貴 / Forethumb LLC 代表</p>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-12 fade-in">
                 <div class="md:w-1/3 text-center">
                      <img src="https://placehold.co/300x300/1f2937/e5e7eb?text=Y.K" 
-                          alt="小山裕貴のプロフィール写真" 
+                          alt="小山裕貴のプロフィール写真。エンジニアリングと映像技術を融合する専門家として活動" 
+                          data-lang-alt-ja="小山裕貴のプロフィール写真。エンジニアリングと映像技術を融合する専門家として活動"
+                          data-lang-alt-en="Profile photo of Yuki Koyama, a specialist in fusing engineering and video technology"
                           class="rounded-full mx-auto shadow-lg w-48 h-48 md:w-64 md:h-64 object-cover border-4 border-gray-700">
                 </div>
                 <div class="md:w-2/3">
@@ -105,114 +128,162 @@
         </section>
 
         <!-- インタラクティブセクション -->
-        <section id="interactive" class="section bg-gray-900">
+        <section id="interactive" class="section bg-gray-900" aria-labelledby="interactive-heading">
             <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-white" data-lang-ja="INTERACTIVE EXPERIENCE" data-lang-en="INTERACTIVE EXPERIENCE">INTERACTIVE EXPERIENCE</h2>
+                <h2 id="interactive-heading" class="text-4xl font-bold text-white" data-lang-ja="INTERACTIVE EXPERIENCE" data-lang-en="INTERACTIVE EXPERIENCE">INTERACTIVE EXPERIENCE</h2>
                 <p class="text-sky-400 font-roboto" data-lang-ja="映像技術 × エンジニアリング体験" data-lang-en="Video Technology × Engineering Experience">映像技術 × エンジニアリング体験</p>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8 mb-12">
                 <!-- シグナル処理ゲーム -->
-                <div class="game-container p-6 fade-in">
-                    <div class="circuit-board"></div>
-                    <h3 class="text-xl font-bold text-white mb-4 relative z-10" data-lang-ja="Signal Processing Lab" data-lang-en="Signal Processing Lab">
+                <div class="game-container p-6 fade-in" role="region" aria-labelledby="signal-lab-heading">
+                    <div class="circuit-board" aria-hidden="true"></div>
+                    <h3 id="signal-lab-heading" class="text-xl font-bold text-white mb-4 relative z-10" data-lang-ja="Signal Processing Lab" data-lang-en="Signal Processing Lab">
                         <i class="fas fa-wave-square mr-2 text-sky-400"></i>Signal Processing Lab
                     </h3>
-                    <div class="video-frame h-32 mb-4 relative">
-                        <canvas id="signalCanvas" class="w-full h-full"></canvas>
-                        <div class="signal-wave" style="top: 50%;"></div>
+                    <div class="video-frame h-32 mb-4 relative" role="img" aria-label="信号波形の可視化キャンバス">
+                        <canvas id="signalCanvas" class="w-full h-full" 
+                                aria-label="リアルタイム信号波形表示" 
+                                role="img"></canvas>
+                        <div class="signal-wave" style="top: 50%;" aria-hidden="true"></div>
+                        <div class="sr-only" id="signal-description">
+                            <span data-lang-ja="現在の波形タイプと動作状況がリアルタイムで表示されています" 
+                                  data-lang-en="Current waveform type and operation status are displayed in real-time">
+                                現在の波形タイプと動作状況がリアルタイムで表示されています
+                            </span>
+                        </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <button class="interactive-button text-sm" onclick="changeWaveform('sine')">Sine</button>
-                        <button class="interactive-button text-sm" onclick="changeWaveform('square')">Square</button>
-                        <button class="interactive-button text-sm" onclick="changeWaveform('sawtooth')">Sawtooth</button>
+                    <div class="flex flex-wrap gap-2 mb-4" role="group" aria-label="波形タイプ選択ボタン">
+                        <button class="interactive-button text-sm" onclick="changeWaveform('sine')" 
+                                aria-label="正弦波を選択" aria-describedby="signal-description">Sine</button>
+                        <button class="interactive-button text-sm" onclick="changeWaveform('square')" 
+                                aria-label="矩形波を選択" aria-describedby="signal-description">Square</button>
+                        <button class="interactive-button text-sm" onclick="changeWaveform('sawtooth')" 
+                                aria-label="鋸歯状波を選択" aria-describedby="signal-description">Sawtooth</button>
                     </div>
                     <p class="text-gray-400 text-sm" 
-                       data-lang-ja="映像で使用する信号波形をブラウザ生成"
-                       data-lang-en="Generation of signal waveforms based on browser">
-                       映像で使用する信号波形をブラウザ生成</p>
+                       data-lang-ja="放送技術で使用する信号波形をリアルタイム生成"
+                       data-lang-en="Real-time generation of signal waveforms used in broadcast technology">
+                       放送技術で使用する信号波形をリアルタイム生成</p>
                 </div>
 
                 <!-- 回路設計シミュレーター -->
-                <div class="game-container p-6 fade-in" style="transition-delay: 200ms;">
-                    <div class="circuit-board"></div>
-                    <h3 class="text-xl font-bold text-white mb-4 relative z-10" data-lang-ja="Circuit Designer" data-lang-en="Circuit Designer">
+                <div class="game-container p-6 fade-in" style="transition-delay: 200ms;" role="region" aria-labelledby="circuit-designer-heading">
+                    <div class="circuit-board" aria-hidden="true"></div>
+                    <h3 id="circuit-designer-heading" class="text-xl font-bold text-white mb-4 relative z-10" data-lang-ja="Circuit Designer" data-lang-en="Circuit Designer">
                         <i class="fas fa-microchip mr-2 text-sky-400"></i>Circuit Designer
                     </h3>
-                    <div class="video-frame h-32 mb-4 relative">
-                        <canvas id="circuitCanvas" class="w-full h-full"></canvas>
+                    <div class="video-frame h-32 mb-4 relative" role="img" aria-label="電子回路設計キャンバス">
+                        <canvas id="circuitCanvas" class="w-full h-full" 
+                                aria-label="インタラクティブ回路設計ボード" 
+                                role="img"></canvas>
+                        <div class="sr-only" id="circuit-description">
+                            <span data-lang-ja="電子部品を配置して回路を設計できます。部品間は自動的に配線されます" 
+                                  data-lang-en="You can design circuits by placing electronic components. Connections between components are automatically wired">
+                                電子部品を配置して回路を設計できます。部品間は自動的に配線されます
+                            </span>
+                        </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <button class="interactive-button text-sm" onclick="addComponent('resistor')">抵抗</button>
-                        <button class="interactive-button text-sm" onclick="addComponent('capacitor')">コンデンサ</button>
-                        <button class="interactive-button text-sm" onclick="addComponent('inductor')">インダクタ</button>
-                        <button class="interactive-button text-sm" onclick="clearCircuit()">クリア</button>
+                    <div class="flex flex-wrap gap-2 mb-4" role="group" aria-label="電子部品追加ボタン">
+                        <button class="interactive-button text-sm" onclick="addComponent('resistor')" 
+                                aria-label="抵抗を回路に追加" aria-describedby="circuit-description">抵抗</button>
+                        <button class="interactive-button text-sm" onclick="addComponent('capacitor')" 
+                                aria-label="コンデンサを回路に追加" aria-describedby="circuit-description">コンデンサ</button>
+                        <button class="interactive-button text-sm" onclick="addComponent('inductor')" 
+                                aria-label="インダクタを回路に追加" aria-describedby="circuit-description">インダクタ</button>
+                        <button class="interactive-button text-sm" onclick="clearCircuit()" 
+                                aria-label="回路をクリアして初期状態に戻す" aria-describedby="circuit-description">クリア</button>
                     </div>
                     <p class="text-gray-400 text-sm"
                        data-lang-ja="ハードウェア設計っぽい回路的な何かで遊べます(改良予定)"
-                       data-lang-en="Payground: circuits design like something.(TBD)">
+                       data-lang-en="Playground: circuits design like something.(TBD)">
                        ハードウェア設計っぽい回路的な何かで遊べます(改良予定)</p>
                 </div>
             </div>
 
             <!-- 映像エフェクトプレイグラウンド -->
-            <div class="game-container p-6 fade-in" style="transition-delay: 400ms;">
-                <div class="circuit-board"></div>
+            <div class="game-container p-6 fade-in" style="transition-delay: 400ms;" role="region" aria-labelledby="effects-playground-heading">
+                <div class="circuit-board" aria-hidden="true"></div>
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-                    <h3 class="text-xl font-bold text-white relative z-10" data-lang-ja="Visual Effects Playground" data-lang-en="Visual Effects Playground">
+                    <h3 id="effects-playground-heading" class="text-xl font-bold text-white relative z-10" data-lang-ja="Visual Effects Playground" data-lang-en="Visual Effects Playground">
                         <i class="fas fa-video mr-2 text-sky-400"></i>Visual Effects Playground
                     </h3>
                     <button id="fullscreenBtn" class="interactive-button text-sm relative z-10" onclick="toggleFullscreen()" 
-                            data-lang-ja="フルスクリーン" data-lang-en="Fullscreen">
+                            data-lang-ja="フルスクリーン" data-lang-en="Fullscreen"
+                            aria-label="フルスクリーンモードに切り替える">
                         <i class="fas fa-expand mr-1"></i>フルスクリーン
                     </button>
                 </div>
-                <div id="effectsContainer" class="video-frame effects-container mb-4 relative">
-                    <canvas id="effectsCanvas" class="w-full h-full"></canvas>
+                <div id="effectsContainer" class="video-frame effects-container mb-4 relative" role="img" 
+                     aria-label="視覚エフェクトプレビューエリア">
+                    <canvas id="effectsCanvas" class="w-full h-full" 
+                            aria-label="リアルタイム映像エフェクト表示" 
+                            role="img"></canvas>
+                    <div class="sr-only" id="effects-description">
+                        <span data-lang-ja="テストパターンと視覚エフェクトをリアルタイムで確認できます" 
+                              data-lang-en="You can view test patterns and visual effects in real-time">
+                            テストパターンと視覚エフェクトをリアルタイムで確認できます
+                        </span>
+                    </div>
                 </div>
                 <div class="flex flex-wrap gap-2 mb-6">
                     <div class="mb-2">
                         <p class="text-xs text-gray-500 mb-1" data-lang-ja="テストパターン (Intensity適用なし)" data-lang-en="Test Patterns (No Intensity)">テストパターン (Intensity適用なし)</p>
-                        <div class="flex flex-wrap gap-1">
-                            <button class="test-pattern-button text-sm" onclick="showTestPattern('smpte')">SMPTEバー</button>
-                            <button class="test-pattern-button text-sm" onclick="showTestPattern('colorChart')">カラーチャート</button>
-                            <button class="test-pattern-button text-sm" onclick="showTestPattern('grid')">グリッド</button>
-                            <button class="test-pattern-button text-sm" onclick="resetEffects()">Reset</button>
+                        <div class="flex flex-wrap gap-1" role="group" aria-label="テストパターン選択">
+                            <button class="test-pattern-button text-sm" onclick="showTestPattern('smpte')" 
+                                    aria-label="SMPTEカラーバーを表示" aria-describedby="effects-description">SMPTEバー</button>
+                            <button class="test-pattern-button text-sm" onclick="showTestPattern('colorChart')" 
+                                    aria-label="カラーチャートを表示" aria-describedby="effects-description">カラーチャート</button>
+                            <button class="test-pattern-button text-sm" onclick="showTestPattern('grid')" 
+                                    aria-label="グリッドパターンを表示" aria-describedby="effects-description">グリッド</button>
+                            <button class="test-pattern-button text-sm" onclick="resetEffects()" 
+                                    aria-label="すべてのエフェクトとパターンをリセット" aria-describedby="effects-description">Reset</button>
                         </div>
                     </div>
                     <div class="mb-2">
                         <p class="text-xs text-gray-500 mb-1" data-lang-ja="エフェクト (Intensity適用あり)" data-lang-en="Effects (With Intensity)">エフェクト (Intensity適用あり)</p>
-                        <div class="flex flex-wrap gap-1">
-                            <button class="effect-button text-sm" onclick="applyEffect('glitch')">
+                        <div class="flex flex-wrap gap-1" role="group" aria-label="視覚エフェクト選択">
+                            <button class="effect-button text-sm" onclick="applyEffect('glitch')" 
+                                    aria-label="グリッチエフェクトを適用" aria-describedby="effects-description">
                                 <i class="fas fa-bolt mr-1"></i><span>Glitch</span>
                             </button>
-                            <button class="effect-button text-sm" onclick="applyEffect('chromatic')">
+                            <button class="effect-button text-sm" onclick="applyEffect('chromatic')" 
+                                    aria-label="色収差エフェクトを適用" aria-describedby="effects-description">
                                 <i class="fas fa-prism mr-1"></i><span>Chromatic</span>
                             </button>
-                            <button class="effect-button text-sm" onclick="applyEffect('wave')">
+                            <button class="effect-button text-sm" onclick="applyEffect('wave')" 
+                                    aria-label="波形エフェクトを適用" aria-describedby="effects-description">
                                 <i class="fas fa-wave-square mr-1"></i><span>Wave</span>
                             </button>
-                            <button class="effect-button text-sm" onclick="applyEffect('rgb')">
+                            <button class="effect-button text-sm" onclick="applyEffect('rgb')" 
+                                    aria-label="RGB分離エフェクトを適用" aria-describedby="effects-description">
                                 <i class="fas fa-palette mr-1"></i><span>RGB Split</span>
                             </button>
-                            <button class="effect-button text-sm" onclick="applyEffect('noise')">
+                            <button class="effect-button text-sm" onclick="applyEffect('noise')" 
+                                    aria-label="ノイズエフェクトを適用" aria-describedby="effects-description">
                                 <i class="fas fa-static mr-1"></i><span>Noise</span>
                             </button>
-                            <button class="effect-button text-sm" onclick="applyEffect('scan')">
+                            <button class="effect-button text-sm" onclick="applyEffect('scan')" 
+                                    aria-label="スキャンラインエフェクトを適用" aria-describedby="effects-description">
                                 <i class="fas fa-lines-leaning mr-1"></i><span>Scan</span>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4" role="group" 
+                     aria-labelledby="intensity-label">
                     <label class="text-gray-400 text-sm whitespace-nowrap">
-                        <span data-lang-ja="強度:" data-lang-en="Intensity:">強度:</span>
+                        <span id="intensity-label" data-lang-ja="強度:" data-lang-en="Intensity:">強度:</span>
                         <span id="currentEffect" class="text-sky-400 ml-2">None</span>
                     </label>
                     <div class="slider-container flex-1">
-                        <input type="range" id="effectIntensity" min="0" max="100" value="50" step="1" class="intensity-slider w-full">
+                        <input type="range" id="effectIntensity" min="0" max="100" value="50" step="1" 
+                               class="intensity-slider w-full" 
+                               aria-labelledby="intensity-label" 
+                               aria-describedby="intensity-value effects-description"
+                               aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
                     </div>
-                    <span id="intensityValue" class="text-sky-400 text-sm font-bold">50%</span>
+                    <span id="intensityValue" class="text-sky-400 text-sm font-bold" aria-live="polite">50%</span>
                 </div>
                 <p class="text-gray-400 text-sm mt-2"
                    data-lang-ja="映像制作で使用するリアルタイムエフェクトを体験"
@@ -222,13 +293,13 @@
         </section>
 
         <!-- Value Propositionセクション -->
-        <section class="section">
+        <section class="section" aria-labelledby="value-heading">
              <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-white" data-lang-ja="OUR VALUE" data-lang-en="OUR VALUE">OUR VALUE</h2>
+                <h2 id="value-heading" class="text-4xl font-bold text-white" data-lang-ja="OUR VALUE" data-lang-en="OUR VALUE">OUR VALUE</h2>
                 <p class="text-sky-400 font-roboto" data-lang-ja="ワンストップで実現する実装力" data-lang-en="One-stop Implementation Power">ワンストップで実現する実装力</p>
             </div>
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass-card p-8 text-center fade-in">
+                <div class="glass-card p-8 text-center fade-in" role="article">
                     <i class="fas fa-laptop-code text-5xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold text-white mb-2" 
                         data-lang-ja="技術と表現の融合" 
@@ -238,7 +309,7 @@
                        data-lang-en="Deeply understanding both engineering and creative languages, we develop plans that maximize potential.">
                        エンジニアリングとクリエイティブ、両言語を深く理解し、ポテンシャルを最大化する企画を立案します。</p>
                 </div>
-                <div class="glass-card p-8 text-center fade-in" style="transition-delay: 150ms;">
+                <div class="glass-card p-8 text-center fade-in" style="transition-delay: 150ms;" role="article">
                     <i class="fas fa-hard-hat text-5xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold text-white mb-2"
                         data-lang-ja="圧倒的な現場技術力"
@@ -248,7 +319,7 @@
                        data-lang-en="From international exhibitions to national-scale broadcasting and infrastructure sites. Diverse field experience leads projects to success.">
                        国際展示から国家規模の放送、インフラ現場まで。多様な現場経験がプロジェクトを成功に導きます。</p>
                 </div>
-                <div class="glass-card p-8 text-center fade-in" style="transition-delay: 300ms;">
+                <div class="glass-card p-8 text-center fade-in" style="transition-delay: 300ms;" role="article">
                     <i class="fas fa-network-wired text-5xl gradient-text mb-4"></i>
                     <h3 class="text-2xl font-bold text-white mb-2"
                         data-lang-ja="強力なネットワーク"
@@ -262,18 +333,18 @@
         </section>
 
         <!-- Works/実績セクション -->
-        <section id="works" class="section bg-gray-900">
+        <section id="works" class="section bg-gray-900" aria-labelledby="works-heading">
             <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-white" data-lang-ja="SELECTED WORKS" data-lang-en="SELECTED WORKS">SELECTED WORKS</h2>
+                <h2 id="works-heading" class="text-4xl font-bold text-white" data-lang-ja="SELECTED WORKS" data-lang-en="SELECTED WORKS">SELECTED WORKS</h2>
                 <p class="text-sky-400 font-roboto" data-lang-ja="主要プロジェクトタイムライン" data-lang-en="Major Project Timeline">主要プロジェクトタイムライン</p>
             </div>
-            <div class="max-w-4xl mx-auto fade-in">
+            <div class="max-w-4xl mx-auto fade-in" role="main">
                 <!-- カテゴリー分類ガイド:
                      video-category: 映像制作・撮影・放送技術関連の実績
                      engineering-category: ハードウェア・ソフトウェア開発・技術開発関連の実績
                      other-category: 事業・経営・複合領域・その他の実績
                 -->
-                <div class="timeline-item video-category">
+                <div class="timeline-item video-category" role="article">
                     <div class="timeline-dot"></div>
                     <p class="text-sm text-gray-400">2025</p>
                     <h3 class="text-xl font-bold text-sky-400"
@@ -448,9 +519,9 @@
         </section>
 
         <!-- Video Channelsセクション -->
-        <section id="video-channels" class="section">
+        <section id="video-channels" class="section" aria-labelledby="video-channels-heading">
             <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-white" data-lang-ja="VIDEO CHANNELS" data-lang-en="VIDEO CHANNELS">VIDEO CHANNELS</h2>
+                <h2 id="video-channels-heading" class="text-4xl font-bold text-white" data-lang-ja="VIDEO CHANNELS" data-lang-en="VIDEO CHANNELS">VIDEO CHANNELS</h2>
                 <p class="text-sky-400 font-roboto" data-lang-ja="映像制作チャンネル & サンプル映像" data-lang-en="Video Production Channels & Sample Videos">映像制作チャンネル & サンプル映像</p>
             </div>
             
@@ -461,47 +532,51 @@
                 
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- あごずれととのう Channel -->
-                    <div class="glass-card p-6">
+                    <div class="glass-card p-6" role="article" aria-labelledby="agozure-channel-title">
                         <div class="flex items-center mb-4">
                             <i class="fab fa-youtube text-red-500 text-2xl mr-3"></i>
                             <div>
-                                <h4 class="text-lg font-bold text-white">あごずれととのう</h4>
-                                <a href="https://www.youtube.com/@agozuretotonou" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm">@agozuretotonou</a>
+                                <h4 id="agozure-channel-title" class="text-lg font-bold text-white">あごずれととのう</h4>
+                                <a href="https://www.youtube.com/@agozuretotonou" target="_blank" 
+                                   class="text-sky-400 hover:text-sky-300 text-sm"
+                                   aria-label="あごずれととのうのYouTubeチャンネルを新しいタブで開く">@agozuretotonou</a>
                             </div>
                         </div>
-                        <div class="video-embed mb-4" id="youtube-channel-1">
+                        <div class="video-embed mb-4" id="youtube-channel-1" role="region" aria-label="YouTubeチャンネルの最新動画">
                             <div class="loading-placeholder">
-                                <i class="fas fa-spinner fa-spin text-sky-400 text-2xl"></i>
+                                <i class="fas fa-spinner fa-spin text-sky-400 text-2xl" aria-hidden="true"></i>
                                 <p class="text-gray-400 mt-2" data-lang-ja="最新動画を読み込み中..." data-lang-en="Loading latest video...">最新動画を読み込み中...</p>
                             </div>
                         </div>
-                        <div class="channel-stats" id="stats-channel-1">
+                        <div class="channel-stats" id="stats-channel-1" role="region" aria-label="チャンネル統計情報">
                             <div class="flex justify-between text-sm text-gray-400">
-                                <span class="subscriber-count">-</span>
-                                <span class="video-count">-</span>
+                                <span class="subscriber-count" aria-label="チャンネル登録者数">-</span>
+                                <span class="video-count" aria-label="動画数">-</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Timee Real Channel -->
-                    <div class="glass-card p-6">
+                    <div class="glass-card p-6" role="article" aria-labelledby="timee-channel-title">
                         <div class="flex items-center mb-4">
                             <i class="fab fa-youtube text-red-500 text-2xl mr-3"></i>
                             <div>
-                                <h4 class="text-lg font-bold text-white">Timee Real</h4>
-                                <a href="https://www.youtube.com/@Timee_Real" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm">@Timee_Real</a>
+                                <h4 id="timee-channel-title" class="text-lg font-bold text-white">Timee Real</h4>
+                                <a href="https://www.youtube.com/@Timee_Real" target="_blank" 
+                                   class="text-sky-400 hover:text-sky-300 text-sm"
+                                   aria-label="Timee RealのYouTubeチャンネルを新しいタブで開く">@Timee_Real</a>
                             </div>
                         </div>
-                        <div class="video-embed mb-4" id="youtube-channel-2">
+                        <div class="video-embed mb-4" id="youtube-channel-2" role="region" aria-label="YouTubeチャンネルの最新動画">
                             <div class="loading-placeholder">
-                                <i class="fas fa-spinner fa-spin text-sky-400 text-2xl"></i>
+                                <i class="fas fa-spinner fa-spin text-sky-400 text-2xl" aria-hidden="true"></i>
                                 <p class="text-gray-400 mt-2" data-lang-ja="最新動画を読み込み中..." data-lang-en="Loading latest video...">最新動画を読み込み中...</p>
                             </div>
                         </div>
-                        <div class="channel-stats" id="stats-channel-2">
+                        <div class="channel-stats" id="stats-channel-2" role="region" aria-label="チャンネル統計情報">
                             <div class="flex justify-between text-sm text-gray-400">
-                                <span class="subscriber-count">-</span>
-                                <span class="video-count">-</span>
+                                <span class="subscriber-count" aria-label="チャンネル登録者数">-</span>
+                                <span class="video-count" aria-label="動画数">-</span>
                             </div>
                         </div>
                     </div>
@@ -572,13 +647,13 @@
             </div>
         </section>
         <!-- スキルセクション -->
-        <section id="skills" class="section">
+        <section id="skills" class="section" aria-labelledby="skills-heading">
             <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-white" data-lang-ja="CORE SKILLS" data-lang-en="CORE SKILLS">CORE SKILLS</h2>
+                <h2 id="skills-heading" class="text-4xl font-bold text-white" data-lang-ja="CORE SKILLS" data-lang-en="CORE SKILLS">CORE SKILLS</h2>
                 <p class="text-sky-400 font-roboto" data-lang-ja="専門領域と技術スタック" data-lang-en="Specialized Domains and Technology Stack">専門領域と技術スタック</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="glass-card p-6 fade-in">
+                <div class="glass-card p-6 fade-in" role="article">
                     <h3 class="font-bold text-xl text-white mb-3" data-lang-ja="Creative & Direction" data-lang-en="Creative & Direction">
                         <i class="fas fa-magic mr-2 text-sky-400"></i>Creative & Direction</h3>
                     <ul class="space-y-3 text-gray-300">
@@ -588,7 +663,7 @@
                         <li data-lang-ja="プロジェクトマネジメント" data-lang-en="Project Management">プロジェクトマネジメント</li>
                     </ul>
                 </div>
-                <div class="glass-card p-6 fade-in" style="transition-delay: 150ms;">
+                <div class="glass-card p-6 fade-in" style="transition-delay: 150ms;" role="article">
                     <h3 class="font-bold text-xl text-white mb-3" data-lang-ja="Hardware Engineering" data-lang-en="Hardware Engineering">
                         <i class="fas fa-microchip mr-2 text-sky-400"></i>Hardware Engineering</h3>
                     <ul class="space-y-3 text-gray-300">
@@ -598,7 +673,7 @@
                         <li data-lang-ja="無線技術 (1アマ・2陸技)" data-lang-en="Radio Technology (1st Amateur・2nd Land)">無線技術 (1アマ・2陸技)</li>
                     </ul>
                 </div>
-                <div class="glass-card p-6 fade-in" style="transition-delay: 300ms;">
+                <div class="glass-card p-6 fade-in" style="transition-delay: 300ms;" role="article">
                     <h3 class="font-bold text-xl text-white mb-3" data-lang-ja="Software Development" data-lang-en="Software Development">
                         <i class="fas fa-code mr-2 text-sky-400"></i>Software Development</h3>
                      <ul class="space-y-3 text-gray-300">
@@ -609,7 +684,7 @@
                         <li data-lang-ja="AI駆動アプリケーション開発" data-lang-en="AI Application Development">AI駆動アプリケーション開発</li>
                     </ul>
                 </div>
-                <div class="glass-card p-6 fade-in" style="transition-delay: 450ms;">
+                <div class="glass-card p-6 fade-in" style="transition-delay: 450ms;" role="article">
                     <h3 class="font-bold text-xl text-white mb-3" data-lang-ja="Business" data-lang-en="Business">
                         <i class="fas fa-briefcase mr-2 text-sky-400"></i>Business</h3>
                      <ul class="space-y-3 text-gray-300">
@@ -623,9 +698,9 @@
         </section>
         
         <!-- Contactセクション -->
-        <section id="contact" class="section bg-gray-900">
+        <section id="contact" class="section bg-gray-900" aria-labelledby="contact-heading">
             <div class="text-center max-w-2xl mx-auto fade-in">
-                <h2 class="text-4xl font-bold text-white" data-lang-ja="GET IN TOUCH" data-lang-en="GET IN TOUCH">GET IN TOUCH</h2>
+                <h2 id="contact-heading" class="text-4xl font-bold text-white" data-lang-ja="GET IN TOUCH" data-lang-en="GET IN TOUCH">GET IN TOUCH</h2>
                 <p class="text-sky-400 font-roboto mb-8" data-lang-ja="新しい挑戦を、共に。" data-lang-en="New challenges, together.">新しい挑戦を、共に。</p>
                 <p class="text-lg text-gray-300 mb-10 leading-relaxed"
                    data-lang-ja="「技術とクリエイティブを掛け合わせた、新しい挑戦をしたい」<br>「アイデアはあるが、どう実現すればいいかわからない」<br><br>そんな時は、ぜひお気軽にご相談ください。<br>共に情報メディアの次の可能性を切り拓きましょう。"
@@ -634,14 +709,16 @@
                     「アイデアはあるが、どう実現すればいいかわからない」<br><br>
                     そんな時は、ぜひお気軽にご相談ください。<br>共に情報メディアの次の可能性を切り拓きましょう。
                 </p>
-                <a href="mailto:info@d-io.com" class="mt-4 inline-block bg-sky-500 text-white font-bold py-4 px-10 rounded-full text-xl hover:bg-sky-600 transition-transform transform hover:scale-105">
+                <a href="mailto:info@d-io.com" 
+                   class="mt-4 inline-block bg-sky-500 text-white font-bold py-4 px-10 rounded-full text-xl hover:bg-sky-600 transition-transform transform hover:scale-105"
+                   aria-label="メールでお問い合わせ：info@d-io.com">
                     <i class="fas fa-envelope mr-2"></i> info@d-io.com
                 </a>
             </div>
         </section>
     </main>
 
-    <footer class="bg-gray-900 py-8 mt-8">
+    <footer class="bg-gray-900 py-8 mt-8" role="contentinfo">
         <div class="text-center text-gray-500">
             <span data-lang-ja="&copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved." 
                   data-lang-en="&copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved.">
