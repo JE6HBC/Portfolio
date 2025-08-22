@@ -220,6 +220,12 @@ window.toggleFullscreen = function() {
     
     if (!canvas || !button) return;
     
+    // モバイルの場合は特別な処理
+    if (window.innerWidth <= 768) {
+        toggleMobileFullscreen();
+        return;
+    }
+    
     if (!document.fullscreenElement) {
         // Enter fullscreen
         if (canvas.requestFullscreen) {
@@ -240,6 +246,38 @@ window.toggleFullscreen = function() {
         }
     }
 };
+
+// モバイル向けフルスクリーン機能
+function toggleMobileFullscreen() {
+    const canvas = document.getElementById('effectsCanvas');
+    const container = document.getElementById('effectsContainer');
+    const button = document.getElementById('fullscreenBtn');
+    
+    if (!canvas || !container || !button) return;
+    
+    if (!container.classList.contains('mobile-fullscreen')) {
+        // モバイルフルスクリーン有効
+        container.classList.add('mobile-fullscreen');
+        button.innerHTML = '<i class="fas fa-compress mr-1"></i>終了';
+        
+        // 画面サイズに合わせてキャンバスをリサイズ
+        setTimeout(() => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }, 100);
+    } else {
+        // モバイルフルスクリーン終了
+        container.classList.remove('mobile-fullscreen');
+        const fullscreenText = document.documentElement.lang === 'en' ? 'Fullscreen' : 'フルスクリーン';
+        button.innerHTML = `<i class="fas fa-expand mr-1"></i>${fullscreenText}`;
+        
+        // 通常サイズに戻す
+        setTimeout(() => {
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+        }, 100);
+    }
+}
 
 // Handle fullscreen change events
 document.addEventListener('fullscreenchange', handleFullscreenChange);
