@@ -428,6 +428,11 @@ textarea:focus {
         margin-top: 1rem;
     }
     
+    .grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
     .interactive-button {
         padding: 8px 12px;
         font-size: 0.875rem;
