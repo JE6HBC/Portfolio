@@ -12,6 +12,7 @@ const translations = {
         'WORKS': 'WORKS',
         'VIDEOS': 'VIDEOS',
         'SKILLS': 'SKILLS',
+        'PRICING': 'PRICING',
         'CONTACT': 'CONTACT',
         
         // Hero Section
@@ -129,6 +130,7 @@ const translations = {
         'WORKS': 'WORKS',
         'VIDEOS': 'VIDEOS',
         'SKILLS': 'SKILLS',
+        'PRICING': 'PRICING',
         'CONTACT': 'CONTACT',
         
         // Hero Section
