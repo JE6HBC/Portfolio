@@ -1,33 +1,749 @@
-</div>
-                    </div>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuki Koyama - Bridging Worlds</title>
+    <meta name="description" content="小山裕貴（Forethumb LLC代表）のポートフォリオサイト。映像技術とエンジニアリングを融合したインタラクティブな体験。">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'noto': ['Noto Sans JP', 'sans-serif'],
+                        'roboto': ['Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Skip Link for Screen Readers -->
+    <a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded">
+        <span data-lang-ja="メインコンテンツにスキップ" data-lang-en="Skip to main content">メインコンテンツにスキップ</span>
+    </a>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-gray-900/90 backdrop-blur-sm z-50" role="banner">
+        <nav class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center" role="navigation" aria-label="メインナビゲーション">
+            <!-- Logo -->
+            <div class="font-bold text-xl gradient-text font-roboto">
+                <span data-lang-ja="Yuki Koyama" data-lang-en="Yuki Koyama">Yuki Koyama</span>
+            </div>
+            
+            <!-- Navigation Links -->
+            <div class="hidden md:flex space-x-6">
+                <a href="#about" class="hover:text-sky-400 transition-colors" data-lang-ja="ABOUT" data-lang-en="ABOUT">ABOUT</a>
+                <a href="#interactive" class="hover:text-sky-400 transition-colors" data-lang-ja="INTERACTIVE" data-lang-en="INTERACTIVE">INTERACTIVE</a>
+                <a href="#works" class="hover:text-sky-400 transition-colors" data-lang-ja="WORKS" data-lang-en="WORKS">WORKS</a>
+                <a href="#video-channels" class="hover:text-sky-400 transition-colors" data-lang-ja="VIDEOS" data-lang-en="VIDEOS">VIDEOS</a>
+                <a href="#skills" class="hover:text-sky-400 transition-colors" data-lang-ja="SKILLS" data-lang-en="SKILLS">SKILLS</a>
+                <a href="#contact" class="hover:text-sky-400 transition-colors" data-lang-ja="CONTACT" data-lang-en="CONTACT">CONTACT</a>
+            </div>
+            
+            <!-- Language Switcher -->
+            <div class="language-switcher" role="group" aria-label="言語選択">
+                <button id="langJa" class="lang-btn active" onclick="switchLanguage('ja')" 
+                        aria-pressed="true" aria-label="日本語に切り替え">日本語</button>
+                <button id="langEn" class="lang-btn" onclick="switchLanguage('en')" 
+                        aria-pressed="false" aria-label="Switch to English">EN</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        <!-- Matrix Rain Background -->
+        <div id="matrixRain" class="matrix-rain" aria-hidden="true"></div>
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden" role="banner">
+            <div class="text-center z-10">
+                <h1 class="text-6xl md:text-8xl font-bold mb-6 gradient-text font-roboto fade-in">
+                    <span data-lang-ja="Bridging" data-lang-en="Bridging">Bridging</span><br>
+                    <span data-lang-ja="Worlds" data-lang-en="Worlds">Worlds</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto fade-in" data-lang-ja="技術とクリエイティブの境界を溶かし、アイデアを現実に。<br>エンジニアリングとアートを越境し、前例のないプロジェクトを実現する。" data-lang-en="Dissolving the boundaries between technology and creativity, turning ideas into reality.<br>Crossing the borders of engineering and art to realize unprecedented projects.">
+                    技術とクリエイティブの境界を溶かし、アイデアを現実に。<br>エンジニアリングとアートを越境し、前例のないプロジェクトを実現する。
+                </p>
+                <a href="#interactive" class="interactive-button fade-in" data-lang-ja="Experience Interactive Demo" data-lang-en="Experience Interactive Demo">
+                    Experience Interactive Demo
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section fade-in" role="region" aria-labelledby="about-heading">
+            <div class="glass-card p-8">
+                <h2 id="about-heading" class="text-4xl font-bold mb-6 text-center font-roboto" data-lang-ja="ABOUT ME" data-lang-en="ABOUT ME">ABOUT ME</h2>
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold mb-4 gradient-text" data-lang-ja="小山 裕貴 / Forethumb LLC 代表" data-lang-en="Yuki Koyama / CEO of Forethumb LLC">小山 裕貴 / Forethumb LLC 代表</h3>
                 </div>
+                <div class="max-w-4xl mx-auto space-y-6 text-lg">
+                    <p data-lang-ja="鹿児島に生まれ、NY留学や離島生活を経て多様な価値観を育む。筑波大学在学中にメディアアート研究、人工衛星開発、福祉用キーボード開発で技術の礎を築き、Forethumb LLCを起業。" data-lang-en="Born in Kagoshima, developed diverse perspectives through NY study abroad and island life. Built technical foundation through media art research, satellite development, and welfare keyboard development at University of Tsukuba, then founded Forethumb LLC.">
+                        鹿児島に生まれ、NY留学や離島生活を経て多様な価値観を育む。筑波大学在学中にメディアアート研究、人工衛星開発、福祉用キーボード開発で技術の礎を築き、Forethumb LLCを起業。
+                    </p>
+                    <p data-lang-ja="ハードウェアエンジニアからキャリアを始め、テクニカルディレクター、カメラマン、経営者と、常に領域を越境。技術とクリエイティブ、理論と実践を繋ぐハブとして、複雑なプロジェクトを成功に導きます。" data-lang-en="Started career as hardware engineer, constantly crossing domains as technical director, cameraman, and business executive. Serves as a hub connecting technology and creativity, theory and practice, leading complex projects to success.">
+                        ハードウェアエンジニアからキャリアを始め、テクニカルディレクター、カメラマン、経営者と、常に領域を越境。技術とクリエイティブ、理論と実践を繋ぐハブとして、複雑なプロジェクトを成功に導きます。
+                    </p>
+                </div>
+            </div>
+        </section>
 
-                <!-- Business 料金 -->
-                <div class="glass-card p-6 mt-6 fade-in">
-                    <h4 class="text-lg font-bold mb-4 text-orange-400" 
-                        data-lang-ja="Business 標準単価" data-lang-en="Business Rates">Business 標準単価</h4>
-                    
-                    <div class="space-y-3 mb-4">
-                        <div class="flex justify-between items-center py-2 border-b border-gray-700">
-                            <span data-lang-ja="技術コンサル（時間）" data-lang-en="Tech Consulting (hourly)">技術コンサル（時間）</span>
-                            <span class="font-bold text-orange-400">¥12,000〜20,000</span>
+        <!-- Our Value Section -->
+        <section id="value" class="section fade-in" role="region" aria-labelledby="value-heading">
+            <div class="glass-card p-8">
+                <h2 id="value-heading" class="text-4xl font-bold mb-6 text-center font-roboto" data-lang-ja="OUR VALUE" data-lang-en="OUR VALUE">OUR VALUE</h2>
+                <p class="text-xl text-center mb-12 text-gray-300" data-lang-ja="ワンストップで実現する実装力" data-lang-en="One-stop Implementation Power">ワンストップで実現する実装力</p>
+                
+                <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="text-center fade-in">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-sky-400 to-purple-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-lightbulb text-white text-2xl" aria-hidden="true"></i>
                         </div>
-                        <div class="flex justify-between items-center py-2 border-b border-gray-700">
-                            <span data-lang-ja="現場統括（10時間/日）" data-lang-en="Field Management (10hrs/day)">現場統括（10時間/日）</span>
-                            <span class="font-bold text-orange-400">¥80,000〜120,000</span>
-                        </div>
-                        <div class="flex justify-between items-center py-2 border-b border-gray-700">
-                            <span data-lang-ja="事業開発・特許戦略" data-lang-en="Business Dev・Patent Strategy">事業開発・特許戦略</span>
-                            <span class="font-bold text-orange-400">¥200,000〜500,000</span>
-                        </div>
+                        <h3 class="text-xl font-bold mb-4" data-lang-ja="技術と表現の融合" data-lang-en="Fusion of Technology and Expression">技術と表現の融合</h3>
+                        <p class="text-gray-300" data-lang-ja="エンジニアリングとクリエイティブ、両言語を深く理解し、ポテンシャルを最大化する企画を立案します。" data-lang-en="Deeply understanding both engineering and creative languages, we develop plans that maximize potential.">
+                            エンジニアリングとクリエイティブ、両言語を深く理解し、ポテンシャルを最大化する企画を立案します。
+                        </p>
                     </div>
-
-                    <div class="text-sm text-gray-500 space-y-1">
-                        <p data-lang-ja="※国際放送規模：+50-100% / 長期パートナーシップ：-10%" 
-                           data-lang-en="※International broadcast: +50-100% / Long-term partnership: -10%">※国際放送規模：+50-100% / 長期パートナーシップ：-10%</p>
-                        <p data-lang-ja="※月末締翌月末払い / 大型案件：着手金50%" 
-                           data-lang-en="※Monthly billing / Large projects: 50% upfront">※月末締翌月末払い / 大型案件：着手金50%</p>
+                    
+                    <div class="text-center fade-in">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-tools text-white text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4" data-lang-ja="圧倒的な現場技術力" data-lang-en="Overwhelming Field Technology">圧倒的な現場技術力</h3>
+                        <p class="text-gray-300" data-lang-ja="国際展示から国家規模の放送、インフラ現場まで。多様な現場経験がプロジェクトを成功に導きます。" data-lang-en="From international exhibitions to national-scale broadcasting and infrastructure sites. Diverse field experience leads projects to success.">
+                            国際展示から国家規模の放送、インフラ現場まで。多様な現場経験がプロジェクトを成功に導きます。
+                        </p>
+                    </div>
+                    
+                    <div class="text-center fade-in">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-network-wired text-white text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4" data-lang-ja="強力なネットワーク" data-lang-en="Powerful Network">強力なネットワーク</h3>
+                        <p class="text-gray-300" data-lang-ja="各分野のプロと連携し、企画から開発、制作、運用まで最適なチームを編成して実現します。" data-lang-en="Collaborating with professionals in each field, we form optimal teams from planning to development, production, and operation.">
+                            各分野のプロと連携し、企画から開発、制作、運用まで最適なチームを編成して実現します。
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Interactive Experience Section -->
+        <section id="interactive" class="section fade-in" role="region" aria-labelledby="interactive-heading">
+            <div class="glass-card p-8">
+                <h2 id="interactive-heading" class="text-4xl font-bold mb-6 text-center font-roboto" data-lang-ja="INTERACTIVE EXPERIENCE" data-lang-en="INTERACTIVE EXPERIENCE">INTERACTIVE EXPERIENCE</h2>
+                <p class="text-xl text-center mb-12 text-gray-300" data-lang-ja="映像技術 × エンジニアリング体験" data-lang-en="Video Technology × Engineering Experience">映像技術 × エンジニアリング体験</p>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Signal Processing Lab -->
+                    <div class="game-container fade-in" role="region" aria-labelledby="signal-heading">
+                        <div class="circuit-board" aria-hidden="true"></div>
+                        <div class="p-6 relative z-10">
+                            <h3 id="signal-heading" class="text-xl font-bold mb-4" data-lang-ja="Signal Processing Lab" data-lang-en="Signal Processing Lab">Signal Processing Lab</h3>
+                            <p class="text-sm text-gray-300 mb-4" data-lang-ja="放送技術で使用する信号波形をリアルタイム生成" data-lang-en="Real-time generation of signal waveforms used in broadcast technology">放送技術で使用する信号波形をリアルタイム生成</p>
+                            
+                            <canvas id="signalCanvas" width="280" height="150" 
+                                    class="w-full border border-gray-600 mb-4 rounded bg-black"
+                                    aria-label="信号波形表示キャンバス" role="img"
+                                    aria-describedby="signal-description">
+                            </canvas>
+                            <div id="signal-description" class="sr-only">
+                                <span data-lang-ja="選択された波形タイプの信号がリアルタイムで表示されています" data-lang-en="Real-time display of the selected waveform type">選択された波形タイプの信号がリアルタイムで表示されています</span>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-2" role="group" aria-label="波形選択ボタン">
+                                <button onclick="changeWaveform('sine')" class="interactive-button text-sm" 
+                                        aria-describedby="sine-desc">サイン波</button>
+                                <button onclick="changeWaveform('square')" class="interactive-button text-sm"
+                                        aria-describedby="square-desc">矩形波</button>
+                                <button onclick="changeWaveform('sawtooth')" class="interactive-button text-sm"
+                                        aria-describedby="sawtooth-desc">のこぎり波</button>
+                            </div>
+                            <div class="sr-only">
+                                <div id="sine-desc" data-lang-ja="正弦波形を表示します" data-lang-en="Display sine waveform">正弦波形を表示します</div>
+                                <div id="square-desc" data-lang-ja="矩形波形を表示します" data-lang-en="Display square waveform">矩形波形を表示します</div>
+                                <div id="sawtooth-desc" data-lang-ja="のこぎり波形を表示します" data-lang-en="Display sawtooth waveform">のこぎり波形を表示します</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Circuit Designer -->
+                    <div class="game-container fade-in" role="region" aria-labelledby="circuit-heading">
+                        <div class="circuit-board" aria-hidden="true"></div>
+                        <div class="p-6 relative z-10">
+                            <h3 id="circuit-heading" class="text-xl font-bold mb-4" data-lang-ja="Circuit Designer" data-lang-en="Circuit Designer">Circuit Designer</h3>
+                            <p class="text-sm text-gray-300 mb-4" data-lang-ja="ハードウェア設計の基礎回路をインタラクティブに構築" data-lang-en="Interactive construction of basic circuits for hardware design">ハードウェア設計の基礎回路をインタラクティブに構築</p>
+                            
+                            <canvas id="circuitCanvas" width="280" height="150" 
+                                    class="w-full border border-gray-600 mb-4 rounded bg-black"
+                                    aria-label="回路設計キャンバス" role="img"
+                                    aria-describedby="circuit-description">
+                            </canvas>
+                            <div id="circuit-description" class="sr-only">
+                                <span data-lang-ja="設計された電子回路が表示されています" data-lang-en="Designed electronic circuits are displayed">設計された電子回路が表示されています</span>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-2 mb-2" role="group" aria-label="回路部品追加ボタン">
+                                <button onclick="addComponent('resistor')" class="interactive-button text-sm"
+                                        aria-describedby="resistor-desc">抵抗</button>
+                                <button onclick="addComponent('capacitor')" class="interactive-button text-sm"
+                                        aria-describedby="capacitor-desc">コンデンサ</button>
+                                <button onclick="addComponent('inductor')" class="interactive-button text-sm"
+                                        aria-describedby="inductor-desc">インダクタ</button>
+                            </div>
+                            <button onclick="clearCircuit()" class="interactive-button text-sm bg-red-600 hover:bg-red-700"
+                                    aria-describedby="clear-desc">クリア</button>
+                            <div class="sr-only">
+                                <div id="resistor-desc" data-lang-ja="抵抗素子を回路に追加します" data-lang-en="Add resistor to circuit">抵抗素子を回路に追加します</div>
+                                <div id="capacitor-desc" data-lang-ja="コンデンサを回路に追加します" data-lang-en="Add capacitor to circuit">コンデンサを回路に追加します</div>
+                                <div id="inductor-desc" data-lang-ja="インダクタを回路に追加します" data-lang-en="Add inductor to circuit">インダクタを回路に追加します</div>
+                                <div id="clear-desc" data-lang-ja="回路をクリアします" data-lang-en="Clear circuit">回路をクリアします</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Effects Playground -->
+                    <div class="game-container fade-in" role="region" aria-labelledby="effects-heading">
+                        <div class="circuit-board" aria-hidden="true"></div>
+                        <div class="p-6 relative z-10">
+                            <h3 id="effects-heading" class="text-xl font-bold mb-4" data-lang-ja="Visual Effects Playground" data-lang-en="Visual Effects Playground">Visual Effects Playground</h3>
+                            <p class="text-sm text-gray-300 mb-4" data-lang-ja="映像制作で使用するリアルタイムエフェクトを体験" data-lang-en="Experience real-time effects used in video production">映像制作で使用するリアルタイムエフェクトを体験</p>
+                            
+                            <div id="effectsContainer" class="effects-container rounded overflow-hidden mb-4 bg-black border border-gray-600">
+                                <canvas id="effectsCanvas" class="w-full h-full"
+                                        aria-label="ビジュアルエフェクト表示キャンバス" role="img"
+                                        aria-describedby="effects-description">
+                                </canvas>
+                                <div id="effects-description" class="sr-only">
+                                    <span data-lang-ja="選択されたビジュアルエフェクトがリアルタイムで表示されています" data-lang-en="Selected visual effects are displayed in real-time">選択されたビジュアルエフェクトがリアルタイムで表示されています</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Intensity Control -->
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
+                                <label for="effectIntensity" class="text-sm font-medium whitespace-nowrap">
+                                    <span data-lang-ja="Intensity:" data-lang-en="Intensity:">Intensity:</span>
+                                </label>
+                                <div class="slider-container flex items-center gap-2 flex-1">
+                                    <input type="range" id="effectIntensity" min="0" max="100" value="50" 
+                                           class="intensity-slider flex-1"
+                                           aria-label="エフェクト強度調整スライダー"
+                                           aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+                                           aria-describedby="intensity-help">
+                                    <span id="intensityValue" class="text-sm font-bold min-w-[3rem] text-center">50%</span>
+                                </div>
+                            </div>
+                            <div id="intensity-help" class="sr-only">
+                                <span data-lang-ja="左右の矢印キーまたはドラッグでエフェクトの強度を調整できます" data-lang-en="Use arrow keys or drag to adjust effect intensity">左右の矢印キーまたはドラッグでエフェクトの強度を調整できます</span>
+                            </div>
+                            
+                            <!-- Test Patterns -->
+                            <div class="mb-2">
+                                <p class="text-xs text-gray-500 mb-1" data-lang-ja="テストパターン (Intensity適用なし)" data-lang-en="Test Patterns (No Intensity)">テストパターン (Intensity適用なし)</p>
+                                <div class="flex flex-wrap gap-2" role="group" aria-label="テストパターン選択">
+                                    <button onclick="showTestPattern('smpte')" class="test-pattern-button text-xs"
+                                            aria-describedby="smpte-desc">SMPTE</button>
+                                    <button onclick="showTestPattern('colorChart')" class="test-pattern-button text-xs"
+                                            aria-describedby="color-desc">Color Chart</button>
+                                    <button onclick="showTestPattern('grid')" class="test-pattern-button text-xs"
+                                            aria-describedby="grid-desc">Grid</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Effects -->
+                            <div class="mb-2">
+                                <p class="text-xs text-gray-500 mb-1" data-lang-ja="エフェクト (Intensity適用あり)" data-lang-en="Effects (With Intensity)">エフェクト (Intensity適用あり)</p>
+                                <div class="flex flex-wrap gap-2" role="group" aria-label="エフェクト選択">
+                                    <button onclick="applyEffect('glitch')" class="effect-button text-xs"
+                                            aria-describedby="glitch-desc">Glitch</button>
+                                    <button onclick="applyEffect('chromatic')" class="effect-button text-xs"
+                                            aria-describedby="chromatic-desc">Chromatic</button>
+                                    <button onclick="applyEffect('noise')" class="effect-button text-xs"
+                                            aria-describedby="noise-desc">Noise</button>
+                                    <button onclick="applyEffect('scan')" class="effect-button text-xs"
+                                            aria-describedby="scan-desc">Scan Lines</button>
+                                    <button onclick="applyEffect('wave')" class="effect-button text-xs"
+                                            aria-describedby="wave-desc">Wave</button>
+                                    <button onclick="applyEffect('rgb')" class="effect-button text-xs"
+                                            aria-describedby="rgb-desc">RGB Split</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Control Buttons -->
+                            <div class="flex gap-2 mt-3">
+                                <button onclick="resetEffects()" class="interactive-button text-xs bg-gray-600 hover:bg-gray-500">
+                                    <span data-lang-ja="リセット" data-lang-en="Reset">リセット</span>
+                                </button>
+                                <button id="fullscreenBtn" onclick="toggleFullscreen()" class="interactive-button text-xs">
+                                    <i class="fas fa-expand mr-1"></i>
+                                    <span data-lang-ja="フルスクリーン" data-lang-en="Fullscreen">フルスクリーン</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Screen Reader Descriptions -->
+                            <div class="sr-only">
+                                <div id="smpte-desc" data-lang-ja="SMPTE カラーバーテストパターンを表示" data-lang-en="Display SMPTE color bar test pattern">SMPTE カラーバーテストパターンを表示</div>
+                                <div id="color-desc" data-lang-ja="ビデオ用カラーチャートを表示" data-lang-en="Display video color chart">ビデオ用カラーチャートを表示</div>
+                                <div id="grid-desc" data-lang-ja="グリッドパターンを表示" data-lang-en="Display grid pattern">グリッドパターンを表示</div>
+                                <div id="glitch-desc" data-lang-ja="グリッチエフェクトを適用" data-lang-en="Apply glitch effect">グリッチエフェクトを適用</div>
+                                <div id="chromatic-desc" data-lang-ja="色収差エフェクトを適用" data-lang-en="Apply chromatic aberration effect">色収差エフェクトを適用</div>
+                                <div id="noise-desc" data-lang-ja="ノイズエフェクトを適用" data-lang-en="Apply noise effect">ノイズエフェクトを適用</div>
+                                <div id="scan-desc" data-lang-ja="スキャンラインエフェクトを適用" data-lang-en="Apply scan lines effect">スキャンラインエフェクトを適用</div>
+                                <div id="wave-desc" data-lang-ja="ウェーブエフェクトを適用" data-lang-en="Apply wave effect">ウェーブエフェクトを適用</div>
+                                <div id="rgb-desc" data-lang-ja="RGB分離エフェクトを適用" data-lang-en="Apply RGB split effect">RGB分離エフェクトを適用</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Works Section -->
+        <section id="works" class="section fade-in" role="region" aria-labelledby="works-heading">
+            <div class="glass-card p-8">
+                <h2 id="works-heading" class="text-4xl font-bold mb-6 text-center font-roboto" data-lang-ja="SELECTED WORKS" data-lang-en="SELECTED WORKS">SELECTED WORKS</h2>
+                <p class="text-xl text-center mb-12 text-gray-300" data-lang-ja="主要プロジェクトタイムライン" data-lang-en="Major Project Timeline">主要プロジェクトタイムライン</p>
+
+                <div class="max-w-4xl mx-auto">
+                    <!-- 2024 -->
+                    <div class="timeline-item video-category fade-in">
+                        <div class="timeline-dot" aria-hidden="true"></div>
+                        <div class="mb-2 text-sm text-gray-400">2024</div>
+                        <h3 class="text-xl font-bold mb-2" data-lang-ja="FENDI SPY スペシャルムービー (1st AC)" data-lang-en="FENDI SPY Special Movie (1st AC)">FENDI SPY スペシャルムービー (1st AC)</h3>
+                        <p class="text-gray-300 mb-3" data-lang-ja="新たなジャンルの映像に進出中。" data-lang-en="Expanding into new genres of video production.">新たなジャンルの映像に進出中。</p>
+                        <span class="tag">1st AC</span>
+                        <span class="tag">商業映像</span>
+                        <span class="tag">ファッション</span>
+                    </div>
+
+                    <div class="timeline-item engineering-category fade-in">
+                        <div class="timeline-dot" aria-hidden="true"></div>
+                        <div class="mb-2 text-sm text-gray-400">2023</div>
+                        <h3 class="text-xl font-bold mb-2" data-lang-ja="サウジアラビア国際放送中継" data-lang-en="Saudi Arabia International Broadcasting Relay">サウジアラビア国際放送中継</h3>
+                        <p class="text-gray-300 mb-3" data-lang-ja="日本側放送技術チーフコーディネーターとして、NHKテクノロジースタッフ100名以上を率い、国家プロジェクトを成功に導く。" data-lang-en="As chief coordinator of broadcast technology on the Japanese side, led over 100 NHK technology staff to successfully complete a national project.">日本側放送技術チーフコーディネーターとして、NHKテクノロジースタッフ100名以上を率い、国家プロジェクトを成功に導く。</p>
+                        <span class="tag">国際放送</span>
+                        <span class="tag">プロジェクトマネジメント</span>
+                        <span class="tag">チーフコーディネーター</span>
+                    </div>
+
+                    <div class="timeline-item other-category fade-in">
+                        <div class="timeline-dot" aria-hidden="true"></div>
+                        <div class="mb-2 text-sm text-gray-400">2023 - 進行中</div>
+                        <h3 class="text-xl font-bold mb-2" data-lang-ja="インタラクティブ映像・音響システム開発" data-lang-en="Interactive Video & Audio System Development">インタラクティブ映像・音響システム開発</h3>
+                        <p class="text-gray-300 mb-3" data-lang-ja="自社プロダクトとして、次世代のインタラクティブ映像・音響技術を開発中。視聴者の反応に応じてリアルタイムに変化する映像・音響体験システムの構築。2025年中に一部機能の公開を予定。" data-lang-en="Developing next-generation interactive video and audio technologies as proprietary products. Building systems for video and audio experiences that change in real-time based on viewer reactions. Partial functionality release planned for 2025.">自社プロダクトとして、次世代のインタラクティブ映像・音響技術を開発中。視聴者の反応に応じてリアルタイムに変化する映像・音響体験システムの構築。2025年中に一部機能の公開を予定。</p>
+                        <span class="tag">インタラクティブシステム</span>
+                        <span class="tag">プロダクト開発</span>
+                        <span class="tag">R&D</span>
+                    </div>
+
+                    <div class="timeline-item other-category fade-in">
+                        <div class="timeline-dot" aria-hidden="true"></div>
+                        <div class="mb-2 text-sm text-gray-400">2022 - 2023</div>
+                        <h3 class="text-xl font-bold mb-2" data-lang-ja="AI駆動消費者行動分析システム" data-lang-en="AI-Driven Consumer Behavior Analysis System">AI駆動消費者行動分析システム</h3>
+                        <p class="text-gray-300 mb-3" data-lang-ja="動画解析とAI学習により、評価者の判断基準を反映した非ルールベースの消費者行動分析システムを開発。従来の定量的指標に加え、感性的・直感的な評価要素をAIが学習し、より人間的な消費者行動の予測を実現。" data-lang-en="Developed a non-rule-based consumer behavior analysis system using video analysis and AI learning that reflects evaluator judgment criteria. In addition to traditional quantitative metrics, AI learns emotional and intuitive evaluation elements to achieve more human-like consumer behavior prediction.">動画解析とAI学習により、評価者の判断基準を反映した非ルールベースの消費者行動分析システムを開発。従来の定量的指標に加え、感性的・直感的な評価要素をAIが学習し、より人間的な消費者行動の予測を実現。</p>
+                        <span class="tag">AIアプリケーション開発</span>
+                        <span class="tag">画像・音響センシング</span>
+                        <span class="tag">消費者行動分析</span>
+                    </div>
+
+                    <div class="timeline-item engineering-category fade-in">
+                        <div class="timeline-dot" aria-hidden="true"></div>
+                        <div class="mb-2 text-sm text-gray-400">2021</div>
+                        <h3 class="text-xl font-bold mb-2" data-lang-ja="大手通信会社VRコンテンツ検証実験" data-lang-en="Major Telecom Company VR Content Verification">大手通信会社VRコンテンツ検証実験</h3>
+                        <p class="text-gray-300 mb-3" data-lang-ja="大手通信会社からのVRコンテンツ検証実験を受託。次世代通信技術の実証に貢献。" data-lang-en="Contracted VR content verification experiments from major telecom company. Contributed to next-generation communication technology demonstration.">大手通信会社からのVRコンテンツ検証実験を受託。次世代通信技術の実証に貢献。</p>
+                        <span class="tag">VR</span>
+                        <span class="tag">技術検証</span>
+                        <span class="tag">通信技術</span>
+                    </div>
+
+                    <div class="timeline-item engineering-category fade-in">
+                        <div class="timeline-dot" aria-hidden="true"></div>
+                        <div class="mb-2 text-sm text-gray-400">2018 - 2020</div>
+                        <h3 class="text-xl font-bold mb-2" data-lang-ja="産総研技術移転ベンチャーCTO" data-lang-en="AIST Technology Transfer Venture CTO">産総研技術移転ベンチャーCTO</h3>
+                        <p class="text-gray-300 mb-3" data-lang-ja="画像/音響センシングに関する特許の社会実装をリード。鉄道インフラ向け計測システムを開発・導入。" data-lang-en="Led social implementation of patents related to image/acoustic sensing. Developed and deployed measurement systems for railway infrastructure.">画像/音響センシングに関する特許の社会実装をリード。鉄道インフラ向け計測システムを開発・導入。</p>
+                        <span class="tag">CTO</span>
+                        <span class="tag">特許戦略・社会実装</span>
+                        <span class="tag">インフラ</span>
+                    </div>
+
+                    <div class="timeline-item video-category fade-in">
+                        <div class="timeline-dot" aria-hidden="true"></div>
+                        <div class="mb-2 text-sm text-gray-400">2016 - 2018</div>
+                        <h3 class="text-xl font-bold mb-2" data-lang-ja="メディアアート テクニカルディレクション" data-lang-en="Media Art Technical Direction">メディアアート テクニカルディレクション</h3>
+                        <p class="text-gray-300 mb-3" data-lang-ja="落合陽一氏、藤堂高行氏など、日本を代表するアーティストの国内外の展示でテクニカルディレクションを多数担当。" data-lang-en="Handled technical direction for numerous domestic and international exhibitions by leading Japanese artists including Yoichi Ochiai and Takayuki Todo.">落合陽一氏、藤堂高行氏など、日本を代表するアーティストの国内外の展示でテクニカルディレクションを多数担当。</p>
+                        <span class="tag">テクニカルディレクション</span>
+                        <span class="tag">メディアアート</span>
+                        <span class="tag">国際展示</span>
+
+                        <!-- 主要参加作品のサブセクション -->
+                        <div class="mt-4 pl-4 border-l-2 border-purple-400/30">
+                            <h4 class="font-bold mb-2" data-lang-ja="主要参加作品" data-lang-en="Major Participated Works">主要参加作品</h4>
+                            
+                            <div class="mb-3">
+                                <strong>SEER: Simulative Emotional Expression Robot</strong>
+                                <span class="ml-2 text-gray-400" data-lang-ja="by 落合陽一" data-lang-en="by Yoichi Ochiai">by 落合陽一</span>
+                                <p class="text-sm text-gray-400 mt-1" data-lang-ja="初期の電子基板設計から各種展示のテクニカルディレクションまでを担当。複雑なインタラクティブシステムの技術実装を実現。" data-lang-en="Responsible for initial electronic circuit board design to technical direction for various exhibitions. Realized technical implementation of complex interactive systems.">初期の電子基板設計から各種展示のテクニカルディレクションまでを担当。複雑なインタラクティブシステムの技術実装を実現。</p>
+                                <div class="mt-1">
+                                    <span class="tag-small" data-lang-ja="電子基板設計" data-lang-en="PCB Design">電子基板設計</span>
+                                    <span class="tag-small" data-lang-ja="テクニカルD" data-lang-en="Technical Direction">テクニカルD</span>
+                                    <span class="tag-small" data-lang-ja="インタラクティブ" data-lang-en="Interactive">インタラクティブ</span>
+                                </div>
+                                <a href="https://www.youtube.com/watch?v=GGz7_JbWTpE" target="_blank" 
+                                   class="text-xs text-sky-400 hover:text-sky-300 mt-1 inline-block">
+                                    <span data-lang-ja="作品詳細" data-lang-en="View Work">作品詳細</span> →
+                                </a>
+                            </div>
+
+                            <div class="mb-3">
+                                <strong>DogOnALeash</strong>
+                                <span class="ml-2 text-gray-400" data-lang-ja="by 藤堂高行" data-lang-en="by Takayuki Todo">by 藤堂高行</span>
+                                <p class="text-sm text-gray-400 mt-1" data-lang-ja="テクニカルディレクション及びプロトタイピングを担当。アイデアから実装まで、技術的実現可能性を検証しながら作品制作をサポート。" data-lang-en="Responsible for technical direction and prototyping. Supported artwork creation while verifying technical feasibility from idea to implementation.">テクニカルディレクション及びプロトタイピングを担当。アイデアから実装まで、技術的実現可能性を検証しながら作品制作をサポート。</p>
+                                <div class="mt-1">
+                                    <span class="tag-small" data-lang-ja="プロトタイピング" data-lang-en="Prototyping">プロトタイピング</span>
+                                    <span class="tag-small" data-lang-ja="技術検証" data-lang-en="Tech Validation">技術検証</span>
+                                    <span class="tag-small" data-lang-ja="テクニカルD" data-lang-en="Technical Direction">テクニカルD</span>
+                                </div>
+                                <a href="https://vimeo.com/212766069" target="_blank" 
+                                   class="text-xs text-sky-400 hover:text-sky-300 mt-1 inline-block">
+                                    <span data-lang-ja="作品詳細" data-lang-en="View Work">作品詳細</span> →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item other-category fade-in">
+                        <div class="timeline-dot" aria-hidden="true"></div>
+                        <div class="mb-2 text-sm text-gray-400">2015 - 2016</div>
+                        <h3 class="text-xl font-bold mb-2" data-lang-ja="国立博物館 展示技術開発スタッフ" data-lang-en="National Museum Exhibition Technology Development Staff">国立博物館 展示技術開発スタッフ</h3>
+                        <p class="text-gray-300 mb-3" data-lang-ja="国立博物館における展示技術の開発・運用に携わり、文化財の保護と最新技術を両立する展示システムを構築。来館者体験向上のためのインタラクティブ技術導入や、デジタルアーカイブシステムの開発を担当。" data-lang-en="Engaged in the development and operation of exhibition technologies at national museums, building display systems that balance cultural property protection with cutting-edge technology. Responsible for introducing interactive technologies to enhance visitor experience and developing digital archive systems.">国立博物館における展示技術の開発・運用に携わり、文化財の保護と最新技術を両立する展示システムを構築。来館者体験向上のためのインタラクティブ技術導入や、デジタルアーカイブシステムの開発を担当。</p>
+                        <span class="tag" data-lang-ja="展示技術" data-lang-en="Exhibition Tech">展示技術</span>
+                        <span class="tag" data-lang-ja="文化財保護" data-lang-en="Cultural Heritage">文化財保護</span>
+                        <span class="tag" data-lang-ja="インタラクティブシステム" data-lang-en="Interactive Systems">インタラクティブシステム</span>
+                        <span class="tag" data-lang-ja="デジタルアーカイブ" data-lang-en="Digital Archive">デジタルアーカイブ</span>
+                    </div>
+
+                    <div class="timeline-item other-category fade-in">
+                        <div class="timeline-dot" aria-hidden="true"></div>
+                        <div class="mb-2 text-sm text-gray-400">2014</div>
+                        <h3 class="text-xl font-bold mb-2" data-lang-ja="Forethumb LLC 設立" data-lang-en="Founded Forethumb LLC">Forethumb LLC 設立</h3>
+                        <p class="text-gray-300 mb-3" data-lang-ja="筑波大学在学中に起業。モールス式キーボード開発から始まり、人工衛星開発、VRコンテンツ開発など、常に新しい領域に挑戦。" data-lang-en="Founded company while studying at University of Tsukuba. Started with Morse keyboard development, constantly challenging new domains including satellite development and VR content development.">筑波大学在学中に起業。モールス式キーボード開発から始まり、人工衛星開発、VRコンテンツ開発など、常に新しい領域に挑戦。</p>
+                        <span class="tag" data-lang-ja="起業" data-lang-en="Startup">起業</span>
+                        <span class="tag" data-lang-ja="ハードウェア開発" data-lang-en="Hardware Dev">ハードウェア開発</span>
+                        <span class="tag" data-lang-ja="プロダクト開発" data-lang-en="Product Dev">プロダクト開発</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Channels Section -->
+        <section id="video-channels" class="section fade-in" role="region" aria-labelledby="video-channels-heading">
+            <div class="glass-card p-8">
+                <h2 id="video-channels-heading" class="text-4xl font-bold mb-6 text-center font-roboto" data-lang-ja="VIDEO CHANNELS" data-lang-en="VIDEO CHANNELS">VIDEO CHANNELS</h2>
+                <p class="text-xl text-center mb-12 text-gray-300" data-lang-ja="映像制作チャンネル & サンプル映像" data-lang-en="Video Production Channels & Sample Videos">映像制作チャンネル & サンプル映像</p>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- YouTube Channel 1 -->
+                    <div class="fade-in">
+                        <h3 class="text-lg font-bold mb-4" data-lang-ja="YouTube チャンネル" data-lang-en="YouTube Channels">YouTube チャンネル</h3>
+                        <div class="video-embed loading-placeholder mb-4" id="youtube-channel-1" aria-label="YouTubeチャンネル動画">
+                            <div class="flex flex-col items-center justify-center h-full">
+                                <div class="loading-spinner mb-4" aria-hidden="true">
+                                    <i class="fas fa-spinner fa-spin text-sky-400 text-2xl"></i>
+                                </div>
+                                <p class="text-gray-300 text-sm" data-lang-ja="最新動画を読み込み中..." data-lang-en="Loading latest video...">最新動画を読み込み中...</p>
+                            </div>
+                        </div>
+                        <div class="channel-stats" id="stats-channel-1" aria-live="polite"></div>
+                        <p class="text-sm text-gray-400" data-lang-ja="撮って出し素材納品のロケカメラマンとして参加" data-lang-en="Participating as location cameraman for direct delivery footage">撮って出し素材納品のロケカメラマンとして参加</p>
+                    </div>
+
+                    <!-- YouTube Channel 2 -->
+                    <div class="fade-in">
+                        <h3 class="text-lg font-bold mb-4" data-lang-ja="YouTube チャンネル" data-lang-en="YouTube Channels">YouTube チャンネル</h3>
+                        <div class="video-embed loading-placeholder mb-4" id="youtube-channel-2" aria-label="YouTubeチャンネル動画">
+                            <div class="flex flex-col items-center justify-center h-full">
+                                <div class="loading-spinner mb-4" aria-hidden="true">
+                                    <i class="fas fa-spinner fa-spin text-sky-400 text-2xl"></i>
+                                </div>
+                                <p class="text-gray-300 text-sm" data-lang-ja="最新動画を読み込み中..." data-lang-en="Loading latest video...">最新動画を読み込み中...</p>
+                            </div>
+                        </div>
+                        <div class="channel-stats" id="stats-channel-2" aria-live="polite"></div>
+                        <p class="text-sm text-gray-400" data-lang-ja="撮って出し素材納品のロケカメラマンとして参加" data-lang-en="Participating as location cameraman for direct delivery footage">撮って出し素材納品のロケカメラマンとして参加</p>
+                    </div>
+
+                    <!-- Vimeo Channel -->
+                    <div class="fade-in">
+                        <h3 class="text-lg font-bold mb-4" data-lang-ja="サンプル映像" data-lang-en="Sample Videos">サンプル映像</h3>
+                        <div class="video-embed loading-placeholder mb-4" id="vimeo-channel" aria-label="Vimeo作品集">
+                            <div class="flex flex-col items-center justify-center h-full">
+                                <div class="loading-spinner mb-4" aria-hidden="true">
+                                    <i class="fas fa-spinner fa-spin text-blue-400 text-2xl"></i>
+                                </div>
+                                <p class="text-gray-300 text-sm" data-lang-ja="最新映像を読み込み中..." data-lang-en="Loading latest video...">最新映像を読み込み中...</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400" data-lang-ja="1st ACとして参加させていただきました。" data-lang-en="Participated as 1st AC.">1st ACとして参加させていただきました。</p>
+                        <div class="mt-4">
+                            <a href="https://vimeo.com/user212766069" target="_blank" class="interactive-button text-sm">
+                                <i class="fab fa-vimeo mr-2"></i>
+                                <span data-lang-ja="全ての作品を見る" data-lang-en="View All Works">全ての作品を見る</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Skills Section -->
+        <section id="skills" class="section fade-in" role="region" aria-labelledby="skills-heading">
+            <div class="glass-card p-8">
+                <h2 id="skills-heading" class="text-4xl font-bold mb-6 text-center font-roboto" data-lang-ja="CORE SKILLS" data-lang-en="CORE SKILLS">CORE SKILLS</h2>
+                <p class="text-xl text-center mb-12 text-gray-300" data-lang-ja="専門領域と技術スタック" data-lang-en="Specialized Domains and Technology Stack">専門領域と技術スタック</p>
+
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <!-- Creative & Direction -->
+                    <div class="glass-card p-6 fade-in">
+                        <h3 class="text-xl font-bold mb-4 text-sky-400" data-lang-ja="Creative & Direction" data-lang-en="Creative & Direction">Creative & Direction</h3>
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-sky-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="テクニカルディレクション" data-lang-en="Technical Direction">テクニカルディレクション</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-sky-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="映像監督・撮影 (シネマ/ビデオ)" data-lang-en="Video Direction & Shooting (Cinema/Video)">映像監督・撮影 (シネマ/ビデオ)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-sky-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="ライブスイッチング" data-lang-en="Live Switching">ライブスイッチング</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-sky-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="プロジェクトマネジメント" data-lang-en="Project Management">プロジェクトマネジメント</span>
+                            </div>
+                        </div>
+
+                        <!-- Creative & Direction 料金 -->
+                        <div class="glass-card p-6 mt-6 fade-in">
+                            <h4 class="text-lg font-bold mb-4 text-sky-400" data-lang-ja="Creative & Direction 標準単価" data-lang-en="Creative & Direction Rates">Creative & Direction 標準単価</h4>
+                            
+                            <div class="space-y-3 mb-4">
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="撮影（8時間/日）" data-lang-en="Shooting (8hrs/day)">撮影（8時間/日）</span>
+                                    <span class="font-bold text-sky-400">¥50,000〜80,000</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="編集（時間単価）" data-lang-en="Editing (hourly)">編集（時間単価）</span>
+                                    <span class="font-bold text-sky-400">¥8,000〜15,000</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="ライブスイッチング" data-lang-en="Live Switching">ライブスイッチング</span>
+                                    <span class="font-bold text-sky-400">¥60,000〜100,000</span>
+                                </div>
+                            </div>
+
+                            <div class="text-sm text-gray-500 space-y-1">
+                                <p data-lang-ja="※急ぎ案件・夜間休日：+20-50% / 長期プロジェクト：-15%" data-lang-en="※Rush jobs・nights/weekends: +20-50% / Long-term: -15%">※急ぎ案件・夜間休日：+20-50% / 長期プロジェクト：-15%</p>
+                                <p data-lang-ja="※機材レンタル・交通費・宿泊費別途" data-lang-en="※Equipment rental, travel, accommodation extra">※機材レンタル・交通費・宿泊費別途</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hardware Engineering -->
+                    <div class="glass-card p-6 fade-in">
+                        <h3 class="text-xl font-bold mb-4 text-purple-400" data-lang-ja="Hardware Engineering" data-lang-en="Hardware Engineering">Hardware Engineering</h3>
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-purple-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="回路・基板設計 (KiCad)" data-lang-en="Circuit & PCB Design (KiCad)">回路・基板設計 (KiCad)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-purple-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="組込みシステム (Arduino/M5Stack)" data-lang-en="Embedded Systems (Arduino/M5Stack)">組込みシステム (Arduino/M5Stack)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-purple-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="3Dモデリング & プリンティング" data-lang-en="3D Modeling & Printing">3Dモデリング & プリンティング</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-purple-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="無線技術 (2陸技)" data-lang-en="Radio Technology (2nd Land)">無線技術 (2陸技)</span>
+                            </div>
+                        </div>
+
+                        <!-- Hardware Engineering 料金 -->
+                        <div class="glass-card p-6 mt-6 fade-in">
+                            <h4 class="text-lg font-bold mb-4 text-purple-400" data-lang-ja="Hardware Engineering 標準単価" data-lang-en="Hardware Engineering Rates">Hardware Engineering 標準単価</h4>
+                            
+                            <div class="space-y-3 mb-4">
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="回路・基板設計" data-lang-en="Circuit & PCB Design">回路・基板設計</span>
+                                    <span class="font-bold text-purple-400">¥300,000〜800,000</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="組込みシステム開発" data-lang-en="Embedded Systems Dev">組込みシステム開発</span>
+                                    <span class="font-bold text-purple-400">¥400,000〜1,000,000</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="プロトタイピング" data-lang-en="Prototyping">プロトタイピング</span>
+                                    <span class="font-bold text-purple-400">¥150,000〜400,000</span>
+                                </div>
+                            </div>
+
+                            <div class="text-sm text-gray-500 space-y-1">
+                                <p data-lang-ja="※部材費・治具費別途 / 量産対応：+30-50%" data-lang-en="※Component costs extra / Mass production: +30-50%">※部材費・治具費別途 / 量産対応：+30-50%</p>
+                                <p data-lang-ja="※新技術・R&D要素：+30-50%" data-lang-en="※New technology・R&D: +30-50%">※新技術・R&D要素：+30-50%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Software Development -->
+                    <div class="glass-card p-6 fade-in">
+                        <h3 class="text-xl font-bold mb-4 text-green-400" data-lang-ja="Software Development" data-lang-en="Software Development">Software Development</h3>
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-green-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="画像・音響センシング" data-lang-en="Image & Audio Sensing">画像・音響センシング</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-green-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="AIアプリケーション開発" data-lang-en="AI Application Development">AIアプリケーション開発</span>
+                            </div>
+                        </div>
+
+                        <!-- Software Development 料金 -->
+                        <div class="glass-card p-6 mt-6 fade-in">
+                            <h4 class="text-lg font-bold mb-4 text-green-400" data-lang-ja="Software Development 標準単価" data-lang-en="Software Development Rates">Software Development 標準単価</h4>
+                            
+                            <div class="space-y-3 mb-4">
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="画像・音響センシング" data-lang-en="Image & Audio Sensing">画像・音響センシング</span>
+                                    <span class="font-bold text-green-400">¥500,000〜1,500,000</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="AIアプリケーション開発" data-lang-en="AI Application Dev">AIアプリケーション開発</span>
+                                    <span class="font-bold text-green-400">¥800,000〜2,000,000</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="システム統合・API開発" data-lang-en="System Integration・API">システム統合・API開発</span>
+                                    <span class="font-bold text-green-400">¥400,000〜1,200,000</span>
+                                </div>
+                            </div>
+
+                            <div class="text-sm text-gray-500 space-y-1">
+                                <p data-lang-ja="※3ヶ月保守込み / クラウド・インフラ費別途" data-lang-en="※3 months maintenance included / Cloud & infrastructure extra">※3ヶ月保守込み / クラウド・インフラ費別途</p>
+                                <p data-lang-ja="※学術・文化プロジェクト：-20%" data-lang-en="※Academic・cultural projects: -20%">※学術・文化プロジェクト：-20%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business -->
+                    <div class="glass-card p-6 fade-in">
+                        <h3 class="text-xl font-bold mb-4 text-orange-400" data-lang-ja="Business" data-lang-en="Business">Business</h3>
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-orange-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="事業開発" data-lang-en="Business Development">事業開発</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-orange-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="CTO/役員経験" data-lang-en="CTO/Executive Experience">CTO/役員経験</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-orange-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="技術コンサルティング" data-lang-en="Technical Consulting">技術コンサルティング</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-orange-400 rounded-full mr-3" aria-hidden="true"></div>
+                                <span data-lang-ja="特許戦略・社会実装" data-lang-en="Patent Strategy & Social Implementation">特許戦略・社会実装</span>
+                            </div>
+                        </div>
+
+                        <!-- Business 料金 -->
+                        <div class="glass-card p-6 mt-6 fade-in">
+                            <h4 class="text-lg font-bold mb-4 text-orange-400" data-lang-ja="Business 標準単価" data-lang-en="Business Rates">Business 標準単価</h4>
+                            
+                            <div class="space-y-3 mb-4">
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="技術コンサル（時間）" data-lang-en="Tech Consulting (hourly)">技術コンサル（時間）</span>
+                                    <span class="font-bold text-orange-400">¥12,000〜20,000</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="現場統括（10時間/日）" data-lang-en="Field Management (10hrs/day)">現場統括（10時間/日）</span>
+                                    <span class="font-bold text-orange-400">¥80,000〜120,000</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                                    <span data-lang-ja="事業開発・特許戦略" data-lang-en="Business Dev・Patent Strategy">事業開発・特許戦略</span>
+                                    <span class="font-bold text-orange-400">¥200,000〜500,000</span>
+                                </div>
+                            </div>
+
+                            <div class="text-sm text-gray-500 space-y-1">
+                                <p data-lang-ja="※国際放送規模：+50-100% / 長期パートナーシップ：-10%" data-lang-en="※International broadcast: +50-100% / Long-term partnership: -10%">※国際放送規模：+50-100% / 長期パートナーシップ：-10%</p>
+                                <p data-lang-ja="※月末締翌月末払い / 大型案件：着手金50%" data-lang-en="※Monthly billing / Large projects: 50% upfront">※月末締翌月末払い / 大型案件：着手金50%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section fade-in" role="region" aria-labelledby="contact-heading">
+            <div class="glass-card p-8 text-center">
+                <h2 id="contact-heading" class="text-4xl font-bold mb-6 font-roboto" data-lang-ja="GET IN TOUCH" data-lang-en="GET IN TOUCH">GET IN TOUCH</h2>
+                <p class="text-xl mb-8 gradient-text font-bold" data-lang-ja="新しい挑戦を、共に。" data-lang-en="New challenges, together.">新しい挑戦を、共に。</p>
+                
+                <div class="max-w-3xl mx-auto mb-12">
+                    <p class="text-lg mb-6" data-lang-ja="「技術とクリエイティブを掛け合わせた、新しい挑戦をしたい」<br>「アイデアはあるが、どう実現すればいいかわからない」<br><br>そんな時は、ぜひお気軽にご相談ください。<br>共に情報メディアの次の可能性を切り拓きましょう。" data-lang-en="'I want to take on new challenges combining technology and creativity'<br>'I have ideas but don't know how to realize them'<br><br>In such cases, please feel free to consult with us.<br>Let's explore the next possibilities of information media together.">'技術とクリエイティブを掛け合わせた、新しい挑戦をしたい'<br>'アイデアはあるが、どう実現すればいいかわからない'<br><br>そんな時は、ぜひお気軽にご相談ください。<br>共に情報メディアの次の可能性を切り拓きましょう。</p>
+                </div>
+
+                <div class="flex justify-center space-x-6">
+                    <a href="mailto:contact@forethumb.com" class="interactive-button" aria-label="メールでお問い合わせ">
+                        <i class="fas fa-envelope mr-2"></i>
+                        contact@forethumb.com
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 mt-16" role="contentinfo">
+        <div class="max-w-6xl mx-auto px-4 text-center text-gray-500">
+            <p data-lang-ja="&copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved." data-lang-en="&copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved.">&copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api-config.js"></script>
+    <script src="js/video-channels.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/games.js"></script>
+    <script src="js/effects.js"></script>
+
+    <!-- Status indicator for screen reader -->
+    <div aria-live="polite" aria-atomic="true" class="sr-only" id="status-indicator"></div>
+</body>
+</html>
