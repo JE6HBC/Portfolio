@@ -254,64 +254,7 @@ const translations = {
         '技術コンサルティング': 'Technical Consulting',
         '特許戦略・社会実装': 'Patent Strategy & Social Implementation',
         
-        // Pricing in Skills Section
-        'Creative & Direction 標準単価': 'Creative & Direction Rates',
-        '撮影（8時間/日）': 'Shooting (8hrs/day)',
-        '編集（時間単価）': 'Editing (hourly)',
-        'ライブスイッチング': 'Live Switching',
-        '※急ぎ案件・夜間休日：+20-50% / 長期プロジェクト：-15%': '※Rush jobs・nights/weekends: +20-50% / Long-term: -15%',
-        '※機材レンタル・交通費・宿泊費別途': '※Equipment rental, travel, accommodation extra',
-        
-        'Hardware Engineering 標準単価': 'Hardware Engineering Rates',
-        '回路・基板設計': 'Circuit & PCB Design',
-        '組込みシステム開発': 'Embedded Systems Dev',
-        'プロトタイピング': 'Prototyping',
-        '※部材費・治具費別途 / 量産対応：+30-50%': '※Component costs extra / Mass production: +30-50%',
-        '※新技術・R&D要素：+30-50%': '※New technology・R&D: +30-50%',
-        
-        'Software Development 標準単価': 'Software Development Rates',
-        '画像・音響センシング': 'Image & Audio Sensing',
-        'AIアプリケーション開発': 'AI Application Dev',
-        'システム統合・API開発': 'System Integration・API',
-        '※3ヶ月保守込み / クラウド・インフラ費別途': '※3 months maintenance included / Cloud & infrastructure extra',
-        '※学術・文化プロジェクト：-20%': '※Academic・cultural projects: -20%',
-        
-        'Business 標準単価': 'Business Rates',
-        '技術コンサル（時間）': 'Tech Consulting (hourly)',
-        '現場統括（10時間/日）': 'Field Management (10hrs/day)',
-        '事業開発・特許戦略': 'Business Dev・Patent Strategy',
-        '※国際放送規模：+50-100% / 長期パートナーシップ：-10%': '※International broadcast: +50-100% / Long-term partnership: -10%',
-        '※月末締翌月末払い / 大型案件：着手金50%': '※Monthly billing / Large projects: 50% upfront',
-        
-        // Contact Section
-        'GET IN TOUCH': 'GET IN TOUCH',
-        'contact-subtitle': 'New challenges, together.',
-        'contact-description': '\'I want to take on new challenges combining technology and creativity\'<br>\'I have ideas but don\'t know how to realize them\'<br><br>In such cases, please feel free to consult with us.<br>Let\'s explore the next possibilities of information media together.',
-        
-        // Visual Effects
-        'テストパターン (Intensity適用なし)': 'Test Patterns (No Intensity)',
-        'エフェクト (Intensity適用あり)': 'Effects (With Intensity)',
-        
-        // Footer
-        'copyright': '&copy; 2024 Yuki Koyama / Forethumb LLC. All Rights Reserved.'
     }
-};
-
-// Language switching function
-window.switchLanguage = function(lang) {
-    if (lang === currentLanguage) return;
-    
-    currentLanguage = lang;
-    document.documentElement.lang = lang;
-    
-    // Update button states
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-pressed', 'false');
-    });
-    const activeButton = document.getElementById(`lang${lang.charAt(0).toUpperCase() + lang.slice(1)}`);
-    activeButton.classList.add('active');
-    activeButton.setAttribute('aria-pressed', 'true');
     
     // Update all elements with language attributes
     document.querySelectorAll('[data-lang-ja], [data-lang-alt-ja]').forEach(element => {
