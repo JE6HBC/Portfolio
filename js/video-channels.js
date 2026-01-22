@@ -180,7 +180,7 @@ class VideoChannelManager {
                     <div class="flex flex-col items-center justify-center h-full">
                         <i class="fab fa-vimeo text-blue-400 text-4xl mb-4"></i>
                         <p class="text-white font-bold mb-2">Portfolio Showcase</p>
-                        <a href="https://vimeo.com/${this.vimeoUserId}" 
+                        <a href="https://vimeo.com/showcase/10965361?fl=so&fe=fs"
                            target="_blank" 
                            class="interactive-button text-sm">
                             <i class="fab fa-vimeo mr-2"></i>
@@ -241,7 +241,7 @@ class VideoChannelManager {
                             <div class="text-center">
                                 <i class="fab fa-vimeo text-blue-400 text-3xl mb-2"></i>
                                 <p class="text-gray-300 text-sm">Latest Portfolio Video</p>
-                                <a href="https://vimeo.com/${this.vimeoUserId}" 
+                                <a href="https://vimeo.com/showcase/10965361?fl=so&fe=fs"
                                    target="_blank" 
                                    class="text-sky-400 hover:text-sky-300 text-sm">
                                     View on Vimeo →
