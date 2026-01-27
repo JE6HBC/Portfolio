@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience Strategy & Technical Implementation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+        :root {
+            --primary: #0f172a;
+            --accent: #3b82f6;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #ffffff;
+            color: var(--primary);
+        }
+
+        h1, h2, .font-serif {
+            font-family: 'Cormorant Garamond', 'Noto Sans JP', serif;
+        }
+
+        /* Print Optimization */
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; }
+            .card { border: 1px solid #e2e8f0 !important; box-shadow: none !important; break-inside: avoid; }
+            .bg-dark { background: #f8fafc !important; color: black !important; border: 1px solid #eee; }
+            .text-accent { color: #2563eb !important; }
+            .badge { border: 1px solid #000 !important; color: #000 !important; background: transparent !important; }
+        }
+
+        .bg-dark { background-color: var(--primary); color: white; }
+        .text-accent { color: var(--accent); }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Actions -->
+    <div class="no-print fixed top-6 right-6 z-50">
+        <button onclick="window.print()" class="bg-white/90 backdrop-blur shadow-xl border border-slate-200 px-5 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-slate-50 transition-all">
+            <i data-lucide="printer" class="w-4 h-4"></i> チラシとして印刷・PDF保存
+        </button>
+    </div>
+
+    <main class="container mx-auto px-6 py-12 max-w-5xl">
+        <!-- Header -->
+        <header class="border-b-2 border-slate-900 pb-12 mb-16 fade-in">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-6">
+                <div>
+                    <p class="text-sm tracking-[0.3em] font-bold text-slate-400 mb-2 uppercase">Strategy & Technical Execution</p>
+                    <h1 class="text-5xl md:text-7xl font-bold leading-tight">
+                        ビジョンを、<br>
+                        「体験」へ実装する。
+                    </h1>
+                </div>
+                <div class="text-right">
+                    <p class="text-slate-500 font-medium">Creative Consultant / Technical Director</p>
+                    <p class="text-xl font-bold mt-1">je6hbc</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Strategy Consulting Infographic -->
+        <section class="mb-24 fade-in">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+                <div>
+                    <div class="text-accent font-serif text-4xl mb-4 italic border-b border-slate-100 pb-2">Strategy</div>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        技術選定・実現可能性の調査。AIから物理デバイスまで、企画を「本当に作れる形」へ。
+                    </p>
+                </div>
+                <div>
+                    <div class="text-accent font-serif text-4xl mb-4 italic border-b border-slate-100 pb-2">Prototype</div>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        迅速な試作。実際のサイズ感や反応、手触りを検証し、プロジェクトのリスクを早期に解消。
+                    </p>
+                </div>
+                <div>
+                    <div class="text-accent font-serif text-4xl mb-4 italic border-b border-slate-100 pb-2">Production</div>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        本番実装。現場での設営・調整・安定運用まで、最高品質の「体験」を物理空間に定着。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Plans -->
+        <section class="mb-24">
+            <h2 class="text-sm tracking-widest font-bold text-slate-400 mb-10 uppercase border-l-4 border-blue-600 pl-4">Service & Pricing</h2>
+            <div class="grid grid-cols-1 gap-12">
+
+                <!-- Plan A: Consulting -->
+                <div class="group bg-slate-50 p-8 md:p-12 rounded-3xl border border-transparent hover:border-blue-200 transition-all card">
+                    <div class="flex flex-col md:flex-row justify-between gap-10">
+                        <div class="flex-1">
+                            <span class="badge text-xs font-bold bg-blue-600 text-white px-3 py-1 rounded-full mb-4 inline-block uppercase tracking-wider">Light Strategy</span>
+                            <h3 class="text-2xl font-bold mb-4">テクニカル・ディレクション ＆ 戦略コンサル</h3>
+                            <p class="text-slate-600 mb-8 leading-relaxed text-sm">
+                                企画・開発の初期段階から参画し、技術的な不透明さを解消します。月2回の定例をベースにしたスモールスタートプランです。
+                            </p>
+
+                            <div class="bg-white/60 rounded-2xl p-6 border border-slate-200">
+                                <h4 class="text-sm font-bold mb-4 flex items-center gap-2"><i data-lucide="package" class="w-4 h-4"></i> サポート・更新ルール</h4>
+                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 text-sm text-slate-500">
+                                    <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-600 mt-0.5"></i> 月2回の定例MTG（オンライン/対面）</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="refresh-cw" class="w-4 h-4 text-blue-600 mt-0.5"></i> <strong>初回2ヶ月はお試し期間</strong></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="calendar-check" class="w-4 h-4 text-blue-600 mt-0.5"></i> 以降1年ごとの自動更新契約</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="message-square" class="w-4 h-4 text-blue-600 mt-0.5"></i> Slack等での随時テクニカル相談</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-right md:w-60">
+                            <p class="text-slate-400 text-xs mb-1 font-bold">FEES (MONTHLY)</p>
+                            <p class="text-3xl font-bold font-serif">¥110,000<span class="text-sm font-sans ml-1 text-slate-400">（税込）〜</span></p>
+                            <p class="text-xs text-slate-400 mt-4 leading-relaxed">※プロジェクト規模や稼働量に応じた調整も可能です。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plan B: Retainer Build (Daily Rate Based) -->
+                <div class="group bg-slate-50 p-8 md:p-12 rounded-3xl border border-transparent hover:border-blue-200 transition-all card">
+                    <div class="flex flex-col md:flex-row justify-between gap-10">
+                        <div class="flex-1">
+                            <span class="badge text-xs font-bold bg-slate-900 text-white px-3 py-1 rounded-full mb-4 inline-block uppercase tracking-wider">Retainer Build</span>
+                            <h3 class="text-2xl font-bold mb-4">日額制・リテイナー開発 ＆ プロトタイピング</h3>
+                            <p class="text-slate-600 mb-8 leading-relaxed text-sm">
+                                映像、ハードウェア、ソフトを統合した専門技術リソースを確保。雇用リスクなく月単位で高度な実装を提供します。
+                            </p>
+
+                            <div class="bg-white/60 rounded-2xl p-6 border border-slate-200">
+                                <h4 class="text-sm font-bold mb-4 flex items-center gap-2"><i data-lucide="info" class="w-4 h-4"></i> 企業メリットと運用ルール</h4>
+                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 text-sm text-slate-500">
+                                    <li class="flex items-start gap-2"><i data-lucide="play" class="w-4 h-4 text-blue-600 mt-0.5"></i> <strong>最低発注：月2日（16h分）〜</strong></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="zap" class="w-4 h-4 text-blue-600 mt-0.5"></i> 日額換算：¥88,000（税込）</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="refresh-cw" class="w-4 h-4 text-blue-600 mt-0.5"></i> <strong>初回2ヶ月はお試し期間（解約自由）</strong></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-blue-600 mt-0.5"></i> <strong>標準的な開発機材・ソフト代込</strong></li>
+                                    <li class="flex items-start gap-2"><i data-lucide="trending-down" class="w-4 h-4 text-blue-600 mt-0.5"></i> 長期・多稼働時はボリューム値引可</li>
+                                    <li class="flex items-start gap-2"><i data-lucide="calendar-check" class="w-4 h-4 text-blue-600 mt-0.5"></i> お試し終了後は1年ごとの自動更新</li>
+                                </ul>
+                                <p class="text-[10px] text-slate-400 mt-4 italic">※標準外の特殊デバイス、高額な商用ライセンス、造作材料等は別途実費精算となります。</p>
+                            </div>
+                        </div>
+                        <div class="text-right md:w-60">
+                            <p class="text-slate-400 text-xs mb-1 font-bold">MONTHLY MINIMUM</p>
+                            <p class="text-3xl font-bold font-serif">¥176,000<span class="text-sm font-sans ml-1 text-slate-400">（税込）〜</span></p>
+                            <p class="text-xs text-slate-400 mt-4 leading-relaxed">※2日分の稼働を含みます。<br>実働に応じた明快な精算体系です。</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Terms & Incentives -->
+        <section class="mb-24 border-t-2 border-slate-100 pt-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="card p-8 bg-blue-50/50 rounded-3xl border border-blue-100">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="trending-up" class="text-blue-600"></i>
+                        インセンティブ契約のご相談
+                    </h3>
+                    <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                        製品売上のレベニューシェア、あるいは特定のマイルストン（資金調達成功、特許取得、目標数値達成など）に基づいた報酬を設計する場合、<strong>月額費用や日額費用の柔軟な調整が可能</strong>です。
+                    </p>
+                    <p class="text-sm text-slate-600">
+                        初期費用を抑えつつ、パートナーとして共に成長するモデルも歓迎いたします。
+                    </p>
+                </div>
+                <div class="card p-8 bg-slate-50 rounded-3xl border border-slate-100">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-slate-400">
+                        <i data-lucide="file-text"></i>
+                        契約に関する重要事項
+                    </h3>
+                    <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                        プロジェクトの円滑な進行と責任範囲の明確化のため、<strong>全ての案件において業務委託契約書の締結を必須</strong>とさせていただいております。
+                    </p>
+                    <p class="text-xs text-slate-400">
+                        秘密保持（NDA）や知的財産権の帰属、瑕疵担保責任などを明確にした上で業務を開始いたします。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- On-site Section -->
+        <section class="bg-dark rounded-[2.5rem] p-10 md:p-20 mb-24 card">
+            <div class="max-w-2xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 italic font-serif">Physical Reliability.</h2>
+                <h3 class="text-xl font-bold mb-6 text-accent">オンサイト（現場）実装 ＆ 安定運用の保証</h3>
+                <p class="text-slate-400 leading-relaxed mb-10">
+                    AIは物理的なトラブル（予期せぬノイズ、設置強度の不足、現場での光干渉）を解決できません。私は現場に赴き、現地の空気に合わせた最適化を施します。
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-slate-800 pt-10">
+                    <div>
+                        <p class="text-xs font-bold text-slate-500 uppercase mb-2 tracking-widest">Field Engineering</p>
+                        <p class="text-2xl font-bold font-serif">¥110,000<span class="text-sm font-sans ml-2 text-slate-500">（税込）/ 日</span></p>
+                        <p class="text-[10px] text-slate-600 mt-2 tracking-tighter">※設営・調整・リハーサル等（8h目安）</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-slate-500 uppercase mb-2 tracking-widest">Operation / Maintenance</p>
+                        <p class="text-2xl font-bold font-serif">¥55,000<span class="text-sm font-sans ml-2 text-slate-500">（税込）/ 日</span></p>
+                        <p class="text-[10px] text-slate-600 mt-2 tracking-tighter">※本番期間中の常駐・監視・復旧対応</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center md:text-left border-t border-slate-200 pt-16 flex flex-col md:flex-row justify-between items-start gap-12">
+            <div>
+                <h4 class="font-bold text-lg mb-4">Contact & Inquiries</h4>
+                <p class="text-slate-500 text-sm mb-6 max-w-sm">
+                    技術的な壁、あるいは物理空間での実装に不安があるプロジェクトのご相談は、以下の窓口までご連絡ください。
+                </p>
+                <div class="space-y-4 font-medium">
+                    <a href="index.html" class="flex items-center gap-3 hover:text-blue-600 transition-colors">
+                        <i data-lucide="external-link" class="w-5 h-5 text-blue-500"></i>
+                        <span class="border-b border-blue-100">je6hbc.github.io/Portfolio/</span>
+                    </a>
+                    <div class="flex items-center gap-3 text-slate-400">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        <span>your.contact@email.com</span>
+                    </div>
+                </div>
+            </div>
+            <div class="md:text-right flex flex-col items-end">
+                <p class="text-5xl font-serif text-slate-100 font-bold select-none mb-4">je6hbc</p>
+                <p class="text-[10px] text-slate-400 tracking-widest uppercase">Tokyo Based / Available Worldwide</p>
+                <p class="text-[10px] text-slate-300 mt-1 italic">Designed for Strategic Creativity.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
