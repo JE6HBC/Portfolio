@@ -9,7 +9,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -183,6 +183,37 @@
                                 <div id="sine-desc" data-lang-ja="正弦波形を表示します" data-lang-en="Display sine waveform">正弦波形を表示します</div>
                                 <div id="square-desc" data-lang-ja="矩形波形を表示します" data-lang-en="Display square waveform">矩形波形を表示します</div>
                                 <div id="sawtooth-desc" data-lang-ja="のこぎり波形を表示します" data-lang-en="Display sawtooth waveform">のこぎり波形を表示します</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Studio Monitor Clock -->
+                    <div class="game-container fade-in" role="region" aria-labelledby="clock-heading">
+                        <div class="circuit-board" aria-hidden="true"></div>
+                        <div class="p-6 relative z-10">
+                            <h3 id="clock-heading" class="text-xl font-bold mb-4" data-lang-ja="Studio Master Clock" data-lang-en="Studio Master Clock">Studio Master Clock</h3>
+                            <p class="text-sm text-gray-300 mb-4" data-lang-ja="放送局風スタジオマスタークロック" data-lang-en="Broadcast Studio Style Master Clock">放送局風スタジオマスタークロック</p>
+
+                            <div id="studio-clock-container" class="w-full bg-black border-4 border-gray-800 rounded-lg relative overflow-hidden mb-4 aspect-video flex items-center justify-center">
+                                 <!-- Monitor Overlay Effects -->
+                                 <div class="scanlines"></div>
+
+                                 <!-- Tally Light -->
+                                 <div id="tally-light" class="absolute top-4 right-4 w-3 h-3 md:w-4 md:h-4 rounded-full bg-red-600 opacity-50 tally-light"></div>
+
+                                 <!-- Time Display -->
+                                 <div class="text-center relative z-10">
+                                     <div id="clock-time" class="text-4xl sm:text-5xl md:text-6xl font-digital font-bold text-green-500 tracking-wider">00:00:00</div>
+                                     <div id="clock-date" class="text-lg md:text-xl font-digital text-green-500 mt-1 opacity-80">YYYY-MM-DD</div>
+                                 </div>
+                            </div>
+
+                            <!-- Controls -->
+                            <div class="flex gap-2 justify-end">
+                                 <button onclick="toggleClockFullscreen()" class="interactive-button text-xs">
+                                     <i class="fas fa-expand mr-1"></i>
+                                     <span data-lang-ja="フルスクリーン" data-lang-en="Fullscreen">フルスクリーン</span>
+                                 </button>
                             </div>
                         </div>
                     </div>
@@ -754,6 +785,7 @@
     <script src="js/main.js"></script>
     <script src="js/games.js"></script>
     <script src="js/effects.js"></script>
+    <script src="js/studio-clock.js"></script>
 
     <!-- Status indicator for screen reader -->
     <div aria-live="polite" aria-atomic="true" class="sr-only" id="status-indicator"></div>
